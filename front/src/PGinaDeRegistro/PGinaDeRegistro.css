@@ -1,0 +1,228 @@
+.p-gina-de-registro,
+.p-gina-de-registro * {
+  box-sizing: border-box;
+}
+.p-gina-de-registro {
+  background: #ffffff;
+  height: 1080px;
+  position: relative;
+}
+.p-gina-de-registro .rectangle-31 {
+  background: #1a2118;
+  width: 1920px;
+  height: 1080px;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+}
+.p-gina-de-registro .rectangle-32 {
+  background: linear-gradient(
+    0.22deg,
+    rgba(40, 51, 36, 1) 0%,
+    rgba(92, 150, 71, 1) 100%
+  );
+  border-radius: 16px;
+  width: 660px;
+  height: 960px;
+  position: absolute;
+  left: 630px;
+  top: 60px;
+}
+.p-gina-de-registro .logo-art-room-definitivo-8 {
+  width: 301px;
+  height: 301px;
+  position: absolute;
+  left: 809px;
+  top: 22px;
+  aspect-ratio: 1;
+}
+.p-gina-de-registro .logo-art-room-definitivo-82 {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  right: 0%;
+  left: 0%;
+  bottom: 0%;
+  top: 0%;
+  object-fit: cover;
+}
+.p-gina-de-registro .rectangle-33 {
+  background: #97979b;
+  width: 580px;
+  height: 4px;
+  position: absolute;
+  left: 670px;
+  top: 361px;
+}
+.p-gina-de-registro .rectangle-34 {
+  background: #2a3725;
+  border-radius: 20px;
+  border-style: solid;
+  border-color: #97979b;
+  border-width: 2px;
+  width: 440px;
+  height: 57px;
+  position: absolute;
+  left: 740px;
+  top: 440px;
+}
+.p-gina-de-registro .rectangle-36 {
+  background: #2a3725;
+  border-radius: 20px;
+  border-style: solid;
+  border-color: #97979b;
+  border-width: 2px;
+  width: 440px;
+  height: 57px;
+  position: absolute;
+  left: 740px;
+  top: 666px;
+}
+.p-gina-de-registro .rectangle-35 {
+  background: #2a3725;
+  border-radius: 20px;
+  border-style: solid;
+  border-color: #97979b;
+  border-width: 2px;
+  width: 440px;
+  height: 57px;
+  position: absolute;
+  left: 740px;
+  top: 553px;
+}
+.p-gina-de-registro .rectangle-37 {
+  background: #2a3725;
+  border-radius: 20px;
+  border-style: solid;
+  border-color: #97979b;
+  border-width: 2px;
+  width: 440px;
+  height: 57px;
+  position: absolute;
+  left: 740px;
+  top: 779px;
+}
+.p-gina-de-registro .full-name {
+  color: #c2c2c2;
+  text-align: left;
+  font-family: "Inter-Bold", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  position: absolute;
+  left: 740px;
+  top: 405px;
+  width: 231px;
+  height: 23px;
+}
+.p-gina-de-registro .password {
+  color: #c2c2c2;
+  text-align: left;
+  font-family: "Inter-Bold", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  position: absolute;
+  left: 740px;
+  top: 631px;
+  width: 231px;
+  height: 23px;
+}
+.p-gina-de-registro .email {
+  color: #c2c2c2;
+  text-align: left;
+  font-family: "Inter-Bold", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  position: absolute;
+  left: 740px;
+  top: 518px;
+  width: 231px;
+  height: 23px;
+}
+.p-gina-de-registro .confirm-password {
+  color: #c2c2c2;
+  text-align: left;
+  font-family: "Inter-Bold", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  position: absolute;
+  left: 740px;
+  top: 747px;
+  width: 231px;
+  height: 23px;
+}
+.p-gina-de-registro .name-surname {
+  color: #97979b;
+  text-align: left;
+  font-family: "Inter-Bold", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  position: absolute;
+  left: 768px;
+  top: 457px;
+  width: 231px;
+  height: 23px;
+}
+.p-gina-de-registro .password-123 {
+  color: #97979b;
+  text-align: left;
+  font-family: "Inter-Bold", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  position: absolute;
+  left: 768px;
+  top: 683px;
+  width: 231px;
+  height: 23px;
+}
+.p-gina-de-registro .email-example-com {
+  color: #97979b;
+  text-align: left;
+  font-family: "Inter-Bold", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  position: absolute;
+  left: 768px;
+  top: 568px;
+  width: 231px;
+  height: 28px;
+}
+.p-gina-de-registro .password-1232 {
+  color: #97979b;
+  text-align: left;
+  font-family: "Inter-Bold", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  position: absolute;
+  left: 768px;
+  top: 794px;
+  width: 231px;
+  height: 28px;
+}
+.p-gina-de-registro .frame-1 {
+  width: 440px;
+  height: 55px;
+  position: absolute;
+  left: 740px;
+  top: 904px;
+}
+.p-gina-de-registro .rectangle-19 {
+  background: #62ffa1;
+  border-radius: 8px;
+  width: 440px;
+  height: 55px;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+}
+.p-gina-de-registro .create-account {
+  color: #1a2118;
+  text-align: center;
+  font-family: "Inter-Bold", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  position: absolute;
+  left: 140px;
+  top: 14px;
+  width: 160px;
+  height: 28px;
+}

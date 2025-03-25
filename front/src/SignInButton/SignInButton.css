@@ -1,0 +1,42 @@
+.sign-in-button,
+.sign-in-button * {
+  box-sizing: border-box;
+}
+.sign-in-button {
+  width: 174px;
+  height: 55px;
+  position: relative;
+}
+.sign-in-button .rectangle-9 {
+  background: #62ffa1;
+  border-radius: 8px;
+  border-style: solid;
+  border-color: #1a2118;
+  border-width: 3px;
+  width: 174px;
+  height: 55px;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+}
+.sign-in-button .sign-in {
+  color: #1a2118;
+  text-align: left;
+  font-family: "Inter-Bold", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  position: absolute;
+  left: 21px;
+  top: 15px;
+  width: 93px;
+  height: 39px;
+}
+.sign-in-button .image-3 {
+  width: 47px;
+  height: 47px;
+  position: absolute;
+  left: 114px;
+  top: 4px;
+  object-fit: cover;
+  aspect-ratio: 1;
+}
