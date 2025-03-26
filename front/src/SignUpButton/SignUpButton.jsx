@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Importamos useNavigate para la redirección
+import { useLocation } from "react-router-dom"; // Importamos useLocation para la detección de página
 import "./SignUpButton.css";
 
 export const SignUpButton = ({ className, usuario, onSignUpSuccess, ...props }) => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate(); // Inicializamos useNavigate
+  const location = useLocation(); // Inicializamos useNavigate
 
   const handleSignUp = async () => {
     if (!usuario?.nombre || !usuario?.email || !usuario?.contrasena) {
@@ -56,8 +58,12 @@ export const SignUpButton = ({ className, usuario, onSignUpSuccess, ...props }) 
       disabled={loading}
       {...props}
     >
-      <span className="sign-up-text">{loading ? "Registrando..." : "Sign Up"}</span>
-      <img className="sign-up-icon" src="sign-up-icon.png" alt="Sign Up Icon" />
+      <span>
+        {location.pathname === "/signUp" ? "Create account" : "Sign Up"}
+      </span>
+      {location.pathname === "/" && ( // Condición para mostrar el icono solo en la ruta "/"
+        <img className="sign-up-icon" src="sign-up-icon.png" alt="Sign Up Icon" />
+      )}
     </button>
   );
 };

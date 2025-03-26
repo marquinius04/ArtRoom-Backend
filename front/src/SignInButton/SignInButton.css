@@ -3,40 +3,40 @@
   box-sizing: border-box;
 }
 .sign-in-button {
-  width: 174px;
-  height: 55px;
-  position: relative;
+  display: flex; /* Activa Flexbox */
+  align-items: center; /* Alinea verticalmente el contenido */
+  justify-content: center; /* Centra el contenido horizontalmente */
+  gap: 10px; /* Espaciado entre el texto y el ícono */
+  background: #57c882; /* Fondo verde */
+  color: #1A2118; /* Texto blanco */
+  border: none;
+  border-radius: 6px; /* Bordes redondeados */
+  padding: 10px 20px; /* Espaciado interno */
+  font-size: 16px; /* Tamaño del texto */
+  font-weight: bold; /* Texto en negrita */
+  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+  width: 150px; /* Ancho fijo para ambos botones */
+  text-align: center; /* Centra el texto */
+  white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+  overflow: hidden; /* Oculta el texto que exceda el ancho del botón */
+  text-overflow: ellipsis; /* Agrega "..." si el texto es demasiado largo */
+  transition: background 0.3s ease, transform 0.2s ease; /* Animación para hover */
+  height: 50px;
 }
-.sign-in-button .rectangle-9 {
-  background: #62ffa1;
-  border-radius: 8px;
-  border-style: solid;
-  border-color: #1a2118;
-  border-width: 3px;
-  width: 174px;
-  height: 55px;
-  position: absolute;
-  left: 0px;
-  top: 0px;
+
+.sign-in-button:hover {
+  background: #a5e9bf; /* Fondo verde oscuro al pasar el cursor */
+  transform: scale(1.05); /* Aumenta ligeramente el tamaño al pasar el cursor */
 }
-.sign-in-button .sign-in {
-  color: #1a2118;
-  text-align: left;
-  font-family: "Inter-Bold", sans-serif;
-  font-size: 20px;
+
+.sign-in-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+.error-message {
   font-weight: 700;
-  position: absolute;
-  left: 21px;
-  top: 15px;
-  width: 93px;
-  height: 39px;
-}
-.sign-in-button .image-3 {
-  width: 47px;
-  height: 47px;
-  position: absolute;
-  left: 114px;
-  top: 4px;
-  object-fit: cover;
-  aspect-ratio: 1;
+  color: rgb(255, 53, 53); /* Aumenta ligeramente el tamaño al pasar el cursor */
 }

@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { useLocation } from "react-router-dom"; // Importamos useLocation para la detección de página
 import "./SignInButton.css";
 
 export const SignInButton = ({ className, email, contrasena, onLoginSuccess, ...props }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const location = useLocation(); // Inicializamos useNavigate
 
   const handleSignIn = async () => {
     if (!email || !contrasena) {
@@ -47,22 +49,28 @@ export const SignInButton = ({ className, email, contrasena, onLoginSuccess, ...
   };
 
   return (
-    <button
-      className={`sign-in-button ${className}`}
-      onClick={handleSignIn}
-      disabled={loading}
-      {...props}
-    >
-      {loading ? (
-        <span className="sign-in-text">Cargando...</span>
-      ) : (
-        <>
-          <span className="sign-in-text">Sign In</span>
-          <img className="sign-in-icon" src="sign-in-icon.png" alt="Sign In Icon" />
-        </>
-      )}
-      {error && <div className="error-message">{error}</div>} {/* Muestra el error si ocurre */}
-    </button>
+    <div className="sign-in-container">
+      <button
+        className={`sign-in-button ${className}`}
+        onClick={handleSignIn}
+        disabled={loading}
+        {...props}
+      >
+        {loading ? (
+          <span className="sign-in-text">Cargando...</span>
+        ) : (
+          <>
+            <span className="sign-in-text">
+              {location.pathname === "/login" ? "Login" : "Sign In"}
+            </span>
+            {location.pathname === "/" && ( // Condición para mostrar el icono solo en la ruta "/"
+              <img className="sign-in-icon" src="sign-in-icon.png" alt="Sign In Icon" />
+            )}
+          </>
+        )}
+      </button>
+      {error && <div className="error-message">{error}</div>} {/* Muestra el error debajo del botón */}
+    </div>
   );
 };
 

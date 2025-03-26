@@ -83,7 +83,6 @@ export const PGinaDeRegistro = ({ className, ...props }) => {
 
         {/* Botón de Crear cuenta con validación de contraseñas */}
         <SignUpButton
-          className="login-button-instance"
           usuario={formData}
           onSuccess={() => navigate("/logueado")} // Redirige tras registro exitoso
         />
