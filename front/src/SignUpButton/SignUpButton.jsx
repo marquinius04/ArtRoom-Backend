@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom"; // Importamos useNavigate para la redirección
 import "./SignUpButton.css";
 
-export const SignUpButton = ({ className, usuario, ...props }) => {
+export const SignUpButton = ({ className, usuario, onSignUpSuccess, ...props }) => {
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate(); // Inicializamos useNavigate
 
   const handleSignUp = async () => {
     if (!usuario?.nombre || !usuario?.email || !usuario?.contrasena) {
@@ -30,6 +32,15 @@ export const SignUpButton = ({ className, usuario, ...props }) => {
       const data = await response.json();
       console.log("Usuario registrado:", data);
       alert("Registro exitoso");
+
+      // Llamamos a la función onSignUpSuccess pasada por props
+      if (onSignUpSuccess) {
+        onSignUpSuccess(data); // Aquí puedes pasar los datos del usuario o redirigir
+      }
+
+      // Redirigimos a la página de inicio logueado
+      navigate("/logueado"); // Cambia "/inicio-logueado" a la ruta correspondiente
+
     } catch (error) {
       console.error(error);
       alert("Error en el registro");
@@ -50,3 +61,4 @@ export const SignUpButton = ({ className, usuario, ...props }) => {
     </button>
   );
 };
+
