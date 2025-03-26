@@ -49,6 +49,8 @@ const registerUsuario = asyncHandler(async (req, res) => {
 // @route  POST /api/usuarios/login
 // @access Public
 const loginUsuario = asyncHandler(async (req, res) => {
+    console.log("Datos recibidos en el backend:", req.body); // <-- Agregado para depurar
+
     const { email, contrasena } = req.body;
 
     const usuario = await Usuario.findOne({ email });

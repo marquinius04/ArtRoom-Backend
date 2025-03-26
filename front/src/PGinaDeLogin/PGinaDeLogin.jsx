@@ -1,22 +1,20 @@
+import { useState } from "react";
 import "./PGinaDeLogin.css";
 import { LogoArtRoomDefinitivo8 } from "../LogoArtRoomDefinitivo8/LogoArtRoomDefinitivo8.jsx";
 import { useNavigate } from "react-router-dom";
+import { SignInButton } from "../SignInButton/SignInButton"; // Importa el botón
 
 export const PGinaDeLogin = ({ className, ...props }) => {
   const navigate = useNavigate();
+  const [usuario, setUsuario] = useState({ email: "", contrasena: "" });
 
-  const handleLoginClick = () => {
-    navigate("/logueado"); // Redirige a la página de inicio no logueado
-  };
-
-  const handleSignUpRedirectClick = () => {
-    navigate("/signUp"); // Redirige a la página de inicio no logueado
+  const handleChange = (e) => {
+    setUsuario({ ...usuario, [e.target.name]: e.target.value });
   };
 
   return (
     <div className={`p-gina-de-login ${className}`}>
       <div className="login-container">
-        {/* Header: Logo y línea divisoria */}
         <header className="login-header">
           <LogoArtRoomDefinitivo8 className="logo-art-room-definitivo-2-instance" />
           <div className="divisory-line"></div>
@@ -27,8 +25,11 @@ export const PGinaDeLogin = ({ className, ...props }) => {
           <label className="login-label">Email</label>
           <input
             type="email"
+            name="email"
             className="login-input"
             placeholder="email@example.com"
+            value={usuario.email}
+            onChange={handleChange}
           />
         </div>
 
@@ -37,23 +38,26 @@ export const PGinaDeLogin = ({ className, ...props }) => {
           <label className="login-label">Password</label>
           <input
             type="password"
+            name="contrasena"
             className="login-input"
             placeholder="password123"
+            value={usuario.contrasena}
+            onChange={handleChange}
           />
         </div>
 
         {/* Botón de Login */}
-        <button className="login-button-instance" onClick={handleLoginClick}>Login</button>
-
-        {/* Texto de ayuda */}
-        <div className="forgot-your-password">Forgot your password?</div>
-
-        {/* Texto de registro */}
-        <div className="sign-up-redirect">
-          Don&#039;t have an account?{" "}
-          <span className="sign-up-text" onClick={handleSignUpRedirectClick}>Sign up here</span>
-        </div>
+        <SignInButton 
+          email={usuario.email} 
+          contrasena={usuario.contrasena} 
+          onLoginSuccess={(userData) => {
+            // Aquí puedes manejar lo que sucede después de un login exitoso.
+            console.log('Usuario logueado:', userData);
+            navigate("/logueado"); // Redirige a la página después de un login exitoso
+          }}
+        />
       </div>
     </div>
   );
 };
+
