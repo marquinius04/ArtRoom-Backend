@@ -15,9 +15,22 @@ export const PGinaDeRegistro = ({ className, ...props }) => {
     confirmarContrasena: "",
   });
 
+  // Estado para manejar errores
+  const [error, setError] = useState("");
+
   // Manejar cambios en los inputs
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  // Validar antes de enviar
+  const handleSignUp = () => {
+    if (formData.contrasena !== formData.confirmarContrasena) {
+      setError("Las contraseñas no coinciden");
+      return;
+    }
+    setError(""); // Limpiar el error si las contraseñas coinciden
+    navigate("/logueado"); // Redirigir si todo está correcto
   };
 
   return (
@@ -81,11 +94,11 @@ export const PGinaDeRegistro = ({ className, ...props }) => {
           />
         </div>
 
+        {/* Mostrar error si las contraseñas no coinciden */}
+        {error && <p className="error-message">{error}</p>}
+
         {/* Botón de Crear cuenta con validación de contraseñas */}
-        <SignUpButton
-          usuario={formData}
-          onSuccess={() => navigate("/logueado")} // Redirige tras registro exitoso
-        />
+        <SignUpButton usuario={formData} onSuccess={handleSignUp} />
       </div>
     </div>
   );

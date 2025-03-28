@@ -6,12 +6,22 @@ const Usuario = require('../models/usuarioModel');
 // @desc   Register usuario
 // @route  POST /api/usuarios/register
 // @access Public
+// @desc   Register usuario
+// @route  POST /api/usuarios/register
+// @access Public
 const registerUsuario = asyncHandler(async (req, res) => {
-    const { nombre, email, contrasena } = req.body;
+    const { nombre, email, contrasena, confirmarContrasena } = req.body;
 
-    if (!nombre || !email || !contrasena) {
+    // Validar que todos los campos estén completos
+    if (!nombre || !email || !contrasena || !confirmarContrasena) {
         res.status(400);
         throw new Error('Todos los campos son obligatorios');
+    }
+
+    // Verificar que las contraseñas coincidan
+    if (contrasena !== confirmarContrasena) {
+        res.status(400);
+        throw new Error('Las contraseñas no coinciden');
     }
 
     // Verificar si el usuario ya existe
@@ -44,6 +54,7 @@ const registerUsuario = asyncHandler(async (req, res) => {
         throw new Error('No se pudo registrar el usuario');
     }
 });
+
 
 // @desc   Login usuario
 // @route  POST /api/usuarios/login
