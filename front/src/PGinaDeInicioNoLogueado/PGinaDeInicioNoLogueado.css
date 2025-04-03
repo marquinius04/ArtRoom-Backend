@@ -23,10 +23,11 @@ body {
 /* Header */
 .p-gina-de-inicio-no-logueado .header {
   background: #0f130e;
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 20px 50px;
+  justify-content: space-evenly;
 }
 
 .p-gina-de-inicio-no-logueado .logo {
@@ -38,26 +39,27 @@ body {
 /* Search Container */
 .p-gina-de-inicio-no-logueado .search-container {
   display: flex;
-  width: 1000px;
+  width: 100%;
+  max-width: 60%;
   height: 50px;
   align-items: center;
   justify-content: left;
-  background: #4a6e58; /* Fondo verde oscuro */
-  color: #ffffff; /* Texto blanco */
-  border-radius: 25px; /* Hace que el rectángulo sea circular */
-  padding: 10px 20px; /* Espaciado interno */
-  cursor: text; /* Cambia el cursor a pointer para indicar que es interactivo */
-  transition: background 0.3s ease; /* Animación para el hover */
+  background: #4a6e58;
+  color: #ffffff;
+  border-radius: 25px;
+  padding: 10px 20px;
+  cursor: text;
+  transition: background 0.3s ease;
 }
 
 .p-gina-de-inicio-no-logueado .search-container:hover {
-  background: #57c882; /* Cambia el fondo a verde claro al pasar el cursor */
+  background: #57c882;
 }
 
 .p-gina-de-inicio-no-logueado .search-icon {
-  width: 20px; /* Tamaño del ícono */
+  width: 20px;
   height: 20px;
-  margin-right: 10px; /* Espaciado entre el ícono y el texto */
+  margin-right: 10px;
 }
 
 .p-gina-de-inicio-no-logueado .search-icon:hover {
@@ -73,31 +75,31 @@ body {
 /* Contenedor de los botones de autenticación */
 .p-gina-de-inicio-no-logueado .auth-buttons {
   display: flex;
-  gap: 80px; /* Espaciado uniforme entre los botones */
   align-items: center;
-  justify-content: space-between;
+  gap: 40px;
+  justify-content: space-evenly;
 }
 
 .p-gina-de-inicio-no-logueado .sign-up-button-instance,
 .p-gina-de-inicio-no-logueado .sign-in-button-instance {
-  display: flex; /* Activa Flexbox */
-  align-items: center; /* Alinea verticalmente el contenido */
-  justify-content: center; /* Centra el contenido horizontalmente */
-  gap: 10px; /* Espaciado entre el texto y el ícono */
-  background: #57c882; /* Fondo verde */
-  color: #1A2118; /* Texto blanco */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: #57c882;
+  color: #1A2118;
   border: none;
-  border-radius: 6px; /* Bordes redondeados */
-  padding: 10px 20px; /* Espaciado interno */
-  font-size: 16px; /* Tamaño del texto */
-  font-weight: bold; /* Texto en negrita */
-  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
-  width: 150px; /* Ancho fijo para ambos botones */
-  text-align: center; /* Centra el texto */
-  white-space: nowrap; /* Evita que el texto se divida en varias líneas */
-  overflow: hidden; /* Oculta el texto que exceda el ancho del botón */
-  text-overflow: ellipsis; /* Agrega "..." si el texto es demasiado largo */
-  transition: background 0.3s ease, transform 0.2s ease; /* Animación para hover */
+  border-radius: 6px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  width: 150px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: background 0.3s ease, transform 0.2s ease;
   height: 50px;
 }
 
@@ -109,8 +111,87 @@ body {
 /* Hover para los botones */
 .p-gina-de-inicio-no-logueado .sign-up-button-instance:hover,
 .p-gina-de-inicio-no-logueado .sign-in-button-instance:hover {
-  background: #4a6e58; /* Fondo verde oscuro al pasar el cursor */
-  transform: scale(1.05); /* Aumenta ligeramente el tamaño al pasar el cursor */
+  background: #4a6e58;
+  transform: scale(1.05);
+}
+
+/* Media Queries para responsividad */
+
+/* Pantallas medianas (tablets) */
+@media (max-width: 1300px) {
+  .p-gina-de-inicio-no-logueado .search-container {
+    width: 25%;
+    max-width: 400px;
+  }
+}
+
+/* Pantallas medianas (tablets) */
+@media (max-width: 800px) {
+  .p-gina-de-inicio-no-logueado .header {
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+
+  .p-gina-de-inicio-no-logueado .logo {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+
+  .p-gina-de-inicio-no-logueado .auth-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin-bottom: 15px; /* Añade un margen inferior para separar los botones de la barra de búsqueda */
+    order: -1; /* Mueve los botones encima de la barra de búsqueda */
+  }
+
+  .p-gina-de-inicio-no-logueado .search-container {
+    width: 90%;
+    max-width: 600px;
+    order: 0; /* Asegura que la barra de búsqueda quede debajo de los botones */
+  }
+
+  .p-gina-de-inicio-no-logueado .sign-up-button-instance,
+  .p-gina-de-inicio-no-logueado .sign-in-button-instance {
+    width: 120px;
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+  
+  .p-gina-de-inicio-no-logueado .stat-icon {
+    width: 100%;
+    height: auto;
+    margin-right: 5px; /* Espaciado entre el ícono y el número */
+  }
+}
+
+/* Pantallas pequeñas (móviles) */
+@media (max-width: 500px) {
+  .p-gina-de-inicio-no-logueado .header {
+    padding: 10px;
+  }
+
+  .p-gina-de-inicio-no-logueado .logo {
+    font-size: 20px;
+  }
+
+  .p-gina-de-inicio-no-logueado .search-container {
+    width: 100%;
+    padding: 8px 12px;
+  }
+
+  .p-gina-de-inicio-no-logueado .auth-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .p-gina-de-inicio-no-logueado .sign-up-button-instance,
+  .p-gina-de-inicio-no-logueado .sign-in-button-instance {
+    width: 100%;
+    font-size: 12px;
+    padding: 6px 12px;
+  }
 }
 
 /* Social Media */
@@ -150,12 +231,18 @@ body {
   gap: 20px; /* Espaciado entre elementos */
 }
 
+.assets-grid > * {
+  width: 100%; /* Asegura que los elementos internos se ajusten */
+  height: auto;
+}
+
 .p-gina-de-inicio-no-logueado .asset-item {
   background: #414c3e;
   border-radius: 10px;
   padding: 10px;
   text-align: center;
   color: #ffffff;
+  min-width: 150px;
 }
 
 .p-gina-de-inicio-no-logueado .asset-item img {
@@ -172,7 +259,7 @@ body {
 
 .p-gina-de-inicio-no-logueado .asset-stats {
   display: flex;
-  justify-content: space-between; /* Alinea los likes y views a los extremos */
+  justify-content: space-evenly; /* Alinea los likes y views a los extremos */
   align-items: center;
   margin-top: 20px;
 }
@@ -180,23 +267,13 @@ body {
 .p-gina-de-inicio-no-logueado .asset-likes,
 .p-gina-de-inicio-no-logueado .asset-views {
   display: flex;
-  font-size: 14px;
+  align-content: center;
+  font-size: clamp(0.75em, 2vw, 1.5em); /* Tamaño mínimo de 1em, adaptable con 2vw y máximo de 1.5em */
 }
 
 .p-gina-de-inicio-no-logueado .stat-icon {
-  width: 16px;
-  height: 16px;
-  margin-right: 5px; /* Espaciado entre el ícono y el número */
-}
-
-.p-gina-de-inicio-no-logueado .asset-likes,
-.p-gina-de-inicio-no-logueado .asset-views {
-  display: flex;
-  font-size: 24px;
-}
-
-.p-gina-de-inicio-no-logueado .stat-icon {
-  height: 32px;
+  width: 100%;
+  height: auto;
   margin-right: 5px; /* Espaciado entre el ícono y el número */
 }
 
@@ -217,22 +294,30 @@ body {
 .p-gina-de-inicio-no-logueado .filters-grid {
   margin: 30px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Ajusta las columnas */
   padding: 15px;
   gap: 15px; /* Espaciado entre los filtros */
   background-color: #57c882;
   border-radius: 15px;
+  overflow: hidden; /* Evita que los elementos se salgan del contenedor */
 }
 
 .p-gina-de-inicio-no-logueado .filter-item {
   border-radius: 5px;
   padding: 10px;
   text-align: center;
-  color: #000000; /* Texto blanco */
-  font-size: 32px;
+  color: #000000;
+  font-size: 24px;
   font-weight: bold;
   cursor: pointer;
   transition: background 0.3s ease;
+
+  /* Evitar que el texto se desborde */
+  word-wrap: break-word; /* Fuerza el salto de línea si es necesario */
+  overflow-wrap: normal; /* Compatibilidad adicional */
+  white-space: wrap; /* Evita que el texto se divida en varias líneas */
+  overflow: hidden; /* Evita que el texto se salga del contenedor */
+  text-overflow: ellipsis; /* Opcional: agrega puntos suspensivos si el texto es demasiado largo */
 }
 
 .p-gina-de-inicio-no-logueado .filter-item:hover {

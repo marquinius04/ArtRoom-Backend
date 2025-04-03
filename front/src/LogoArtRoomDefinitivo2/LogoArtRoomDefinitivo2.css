@@ -2,17 +2,19 @@
 .logo-art-room-definitivo-2 * {
   box-sizing: border-box;
 }
+
 .logo-art-room-definitivo-2 {
   width: 180px;
   height: auto;
   aspect-ratio: 1;
+  display: flex; /* Habilita flexbox */
+  align-items: center; /* Centra verticalmente */
+  justify-content: center; /* Centra horizontalmente */
+  order: -2;
 }
+
 .logo-art-room-definitivo-2 .logo-art-room-definitivo-22 {
   width: 100%;
   height: auto;
-  right: 0%;
-  left: 0%;
-  bottom: 0%;
-  top: 0%;
   object-fit: cover;
 }
