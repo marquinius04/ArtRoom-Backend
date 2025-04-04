@@ -71,6 +71,7 @@
   background: #2a3725;
   width: 400px;
   height: 60px;
+  color: #ffffff;
   border-radius: 20px;
   border-style: solid;
   border-color: #97979b;
@@ -149,4 +150,58 @@
 .p-gina-de-login .login-button-instance:hover {
   background: #4a6e58; /* Fondo verde oscuro al pasar el cursor */
   transform: scale(1.05); /* Aumenta ligeramente el tamaño al pasar el cursor */
+}
+
+/* Media Queries para responsividad */
+
+/* Pantallas medianas (hasta 800px) */
+@media (max-width: 800px) {
+  .p-gina-de-login .login-container {
+    width: 90%; /* Ajusta el ancho del contenedor */
+    height: auto; /* Ajusta la altura del contenedor */
+    padding: 10px; /* Añade un padding para mejor visualización */
+  }
+
+  .p-gina-de-login .login-header {
+    gap: 50%; /* Ajusta el espaciado entre el logo y la línea divisoria */
+  }
+
+  .p-gina-de-login .logo-art-room-definitivo-9-instance {
+    position: static !important; /* Elimina la posición absoluta */
+    margin-bottom: 20px; /* Añade un margen inferior */
+  }
+
+  .p-gina-de-login .input-field .login-input {
+    width: 100%; /* Ajusta el ancho del campo de entrada */
+  }
+
+  .p-gina-de-login .sign-in-container {
+    margin-top: 20px;
+  }
+}
+
+/* Pantallas pequeñas (hasta 500px) */
+@media (max-width: 500px) {
+  .p-gina-de-login .login-container {
+    width: 90%; /* Ajusta el ancho del contenedor */
+    height: auto; /* Ajusta la altura del contenedor */
+    padding: 10px; /* Añade un padding para mejor visualización */
+  }
+
+  .p-gina-de-login .login-header {
+    gap: 30%; /* Ajusta el espaciado entre el logo y la línea divisoria */
+  }
+
+  .p-gina-de-login .logo-art-room-definitivo-9-instance {
+    position: static !important; /* Elimina la posición absoluta */
+    margin-bottom: 10px; /* Añade un margen inferior */
+  }
+
+  .p-gina-de-login .input-field .login-input {
+    width: 100%; /* Ajusta el ancho del campo de entrada */
+  }
+
+  .p-gina-de-login .sign-in-container {
+    margin-top: 20px;
+  }
 }

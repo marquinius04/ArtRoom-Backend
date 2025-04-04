@@ -115,84 +115,7 @@ body {
   transform: scale(1.05);
 }
 
-/* Media Queries para responsividad */
 
-/* Pantallas medianas (tablets) */
-@media (max-width: 1300px) {
-  .p-gina-de-inicio-no-logueado .search-container {
-    width: 25%;
-    max-width: 400px;
-  }
-}
-
-/* Pantallas medianas (tablets) */
-@media (max-width: 800px) {
-  .p-gina-de-inicio-no-logueado .header {
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-  }
-
-  .p-gina-de-inicio-no-logueado .logo {
-    font-size: 24px;
-    margin-bottom: 10px;
-  }
-
-  .p-gina-de-inicio-no-logueado .auth-buttons {
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-    margin-bottom: 15px; /* Añade un margen inferior para separar los botones de la barra de búsqueda */
-    order: -1; /* Mueve los botones encima de la barra de búsqueda */
-  }
-
-  .p-gina-de-inicio-no-logueado .search-container {
-    width: 90%;
-    max-width: 600px;
-    order: 0; /* Asegura que la barra de búsqueda quede debajo de los botones */
-  }
-
-  .p-gina-de-inicio-no-logueado .sign-up-button-instance,
-  .p-gina-de-inicio-no-logueado .sign-in-button-instance {
-    width: 120px;
-    font-size: 14px;
-    padding: 8px 16px;
-  }
-  
-  .p-gina-de-inicio-no-logueado .stat-icon {
-    width: 100%;
-    height: auto;
-    margin-right: 5px; /* Espaciado entre el ícono y el número */
-  }
-}
-
-/* Pantallas pequeñas (móviles) */
-@media (max-width: 500px) {
-  .p-gina-de-inicio-no-logueado .header {
-    padding: 10px;
-  }
-
-  .p-gina-de-inicio-no-logueado .logo {
-    font-size: 20px;
-  }
-
-  .p-gina-de-inicio-no-logueado .search-container {
-    width: 100%;
-    padding: 8px 12px;
-  }
-
-  .p-gina-de-inicio-no-logueado .auth-buttons {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .p-gina-de-inicio-no-logueado .sign-up-button-instance,
-  .p-gina-de-inicio-no-logueado .sign-in-button-instance {
-    width: 100%;
-    font-size: 12px;
-    padding: 6px 12px;
-  }
-}
 
 /* Social Media */
 .p-gina-de-inicio-no-logueado .social-media {
@@ -237,6 +160,8 @@ body {
 }
 
 .p-gina-de-inicio-no-logueado .asset-item {
+  display: grid;
+  grid-template-rows: auto auto 1fr; /* Tres filas: las dos primeras con altura automática y la tercera ocupando el resto del espacio */
   background: #414c3e;
   border-radius: 10px;
   padding: 10px;
@@ -261,19 +186,19 @@ body {
   display: flex;
   justify-content: space-evenly; /* Alinea los likes y views a los extremos */
   align-items: center;
-  margin-top: 20px;
+  margin-top: 2em;
+  align-self: flex-end;
 }
 
 .p-gina-de-inicio-no-logueado .asset-likes,
 .p-gina-de-inicio-no-logueado .asset-views {
   display: flex;
   align-content: center;
-  font-size: clamp(0.75em, 2vw, 1.5em); /* Tamaño mínimo de 1em, adaptable con 2vw y máximo de 1.5em */
 }
 
 .p-gina-de-inicio-no-logueado .stat-icon {
   width: 100%;
-  height: auto;
+  height: 20px;
   margin-right: 5px; /* Espaciado entre el ícono y el número */
 }
 
@@ -395,4 +320,100 @@ body {
   padding: 10px 0;
   color: #ffffff;
   font-size: 14px;
+}
+
+/* Media Queries para responsividad */
+
+/* Pantallas medianas (desktops) */
+@media (max-width: 1300px) {
+  .p-gina-de-inicio-no-logueado .search-container {
+    width: 25%;
+    max-width: 400px;
+  }
+}
+
+/* Pantallas medianas (tablets) */
+@media (max-width: 900px) {
+  .p-gina-de-inicio-no-logueado .assets-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Pantallas medianas (tablets) */
+@media (max-width: 800px) {
+  .p-gina-de-inicio-no-logueado .header {
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+
+  .p-gina-de-inicio-no-logueado .logo {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+
+  .p-gina-de-inicio-no-logueado .auth-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin-bottom: 15px; /* Añade un margen inferior para separar los botones de la barra de búsqueda */
+    order: -1; /* Mueve los botones encima de la barra de búsqueda */
+  }
+
+  .p-gina-de-inicio-no-logueado .search-container {
+    width: 90%;
+    max-width: 600px;
+    order: 0; /* Asegura que la barra de búsqueda quede debajo de los botones */
+  }
+
+  .p-gina-de-inicio-no-logueado .sign-up-button-instance,
+  .p-gina-de-inicio-no-logueado .sign-in-button-instance {
+    width: 120px;
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+}
+
+/* Pantallas pequeñas (móviles) */
+@media (max-width: 500px) {
+  .p-gina-de-inicio-no-logueado .assets-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .p-gina-de-inicio-no-logueado .header {
+    padding: 10px;
+  }
+
+  .p-gina-de-inicio-no-logueado .logo {
+    font-size: 20px;
+  }
+
+  .p-gina-de-inicio-no-logueado .search-container {
+    width: 100%;
+    padding: 8px 12px;
+  }
+
+  .p-gina-de-inicio-no-logueado .auth-buttons {
+    flex-direction: row;
+    gap: 10px;
+  }
+
+  .p-gina-de-inicio-no-logueado .sign-up-button-instance,
+  .p-gina-de-inicio-no-logueado .sign-in-button-instance {
+    width: 100%;
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+
+  .p-gina-de-inicio-no-logueado .filters-grid {
+    display: none;
+  }
+
+  .p-gina-de-inicio-no-logueado .trending-assets .assets-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 columnas */
+  }
+
+  .p-gina-de-inicio-no-logueado .trending-assets .asset-title {
+    font-size: 16px;
+  }
 }
