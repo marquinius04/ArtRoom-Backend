@@ -158,7 +158,6 @@
 @media (max-width: 800px) {
   .p-gina-de-login .login-container {
     width: 90%; /* Ajusta el ancho del contenedor */
-    height: auto; /* Ajusta la altura del contenedor */
     padding: 10px; /* Añade un padding para mejor visualización */
   }
 
@@ -169,10 +168,6 @@
   .p-gina-de-login .logo-art-room-definitivo-9-instance {
     position: static !important; /* Elimina la posición absoluta */
     margin-bottom: 20px; /* Añade un margen inferior */
-  }
-
-  .p-gina-de-login .input-field .login-input {
-    width: 100%; /* Ajusta el ancho del campo de entrada */
   }
 
   .p-gina-de-login .sign-in-container {
@@ -197,11 +192,11 @@
     margin-bottom: 10px; /* Añade un margen inferior */
   }
 
-  .p-gina-de-login .input-field .login-input {
-    width: 100%; /* Ajusta el ancho del campo de entrada */
-  }
-
   .p-gina-de-login .sign-in-container {
     margin-top: 20px;
+  }
+
+  .p-gina-de-login .divisory-line {
+    margin-bottom: 30px;
   }
 }

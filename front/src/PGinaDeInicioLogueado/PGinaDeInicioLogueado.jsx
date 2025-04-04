@@ -40,8 +40,8 @@ export const PGinaDeInicioLogueado = ({ className, ...props }) => {
           <span className="search-text">Search</span>
         </div>
         <div className="auth-buttons">
-          <img src="upload-icon.png" alt="" />
-          <img src="user-icon.png" alt="" />
+          <img className="new-icons" src="upload-icon.png" alt="Upload icon" />
+          <img className="new-icons" src="user-icon.png" alt="Profile icon" />
         </div>
       </div>
 

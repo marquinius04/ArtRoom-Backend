@@ -226,3 +226,10 @@
   width: 160px;
   height: 28px;
 }
+
+
+@media (max-width: 500px) {
+  .sign-up-button {
+    margin-top: 20px;
+  }
+}
