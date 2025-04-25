@@ -1,9 +1,30 @@
 const mongoose = require('mongoose')
 
 const usuarioSchema = mongoose.Schema({
-    text: {
+    username: {
         type: String,
-        required: [true, 'Please add a text value']
+        required: true,
+        unique: true
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    password: {
+        type: String,
+        required: true
+    },
+    avatarUrl: {
+        type: String
+    },
+    bio: {
+        type: String
+    },
+    role: {
+        type: String,
+        enum: ['user', 'admin'],
+        default: 'user'
     }
 }, {
     timestamps: true
