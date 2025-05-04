@@ -21,7 +21,7 @@ body {
 }
 
 /* Header */
-.p-gina-de-inicio-no-logueado .header {
+.header {
   background: #0f130e;
   width: 100%;
   height: 100%;
@@ -37,7 +37,7 @@ body {
 }
 
 /* Search Container */
-.p-gina-de-inicio-no-logueado .search-container {
+.search-container {
   display: flex;
   width: 100%;
   max-width: 60%;
@@ -52,7 +52,7 @@ body {
   transition: background 0.3s ease;
 }
 
-.p-gina-de-inicio-no-logueado .search-container:hover {
+.search-container:hover {
   background: #57c882;
 }
 
@@ -66,7 +66,7 @@ body {
   cursor: pointer;
 }
 
-.p-gina-de-inicio-no-logueado .search-text {
+.search-text {
   font-size: 16px;
   font-weight: bold;
   color: #97979B;
@@ -159,7 +159,7 @@ body {
   height: auto;
 }
 
-.p-gina-de-inicio-no-logueado .asset-item {
+.asset-item {
   display: grid;
   grid-template-rows: auto auto 1fr; /* Tres filas: las dos primeras con altura automática y la tercera ocupando el resto del espacio */
   background: #414c3e;
@@ -167,10 +167,11 @@ body {
   padding: 10px;
   text-align: center;
   color: #ffffff;
+  transition: background 0.3s ease, transform 0.2s ease; /* Animación para hover */
   min-width: 150px;
 }
 
-.p-gina-de-inicio-no-logueado .asset-item img {
+.asset-item img {
   width: 100%;
   border-radius: 5px;
   margin-bottom: 10px;
@@ -313,20 +314,11 @@ body {
   margin-top: 10px;
 }
 
-/* Footer */
-.p-gina-de-inicio-no-logueado footer {
-  background: #0f130e;
-  text-align: center;
-  padding: 10px 0;
-  color: #ffffff;
-  font-size: 14px;
-}
-
 /* Media Queries para responsividad */
 
 /* Pantallas medianas (desktops) */
 @media (max-width: 1300px) {
-  .p-gina-de-inicio-no-logueado .search-container {
+  .search-container {
     width: 25%;
     max-width: 400px;
   }
@@ -341,7 +333,7 @@ body {
 
 /* Pantallas medianas (tablets) */
 @media (max-width: 800px) {
-  .p-gina-de-inicio-no-logueado .header {
+  .header {
     flex-direction: column;
     align-items: center;
     padding: 20px;
@@ -360,7 +352,7 @@ body {
     order: -1; /* Mueve los botones encima de la barra de búsqueda */
   }
 
-  .p-gina-de-inicio-no-logueado .search-container {
+  .search-container {
     width: 90%;
     max-width: 600px;
     order: 0; /* Asegura que la barra de búsqueda quede debajo de los botones */
@@ -380,7 +372,7 @@ body {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .p-gina-de-inicio-no-logueado .header {
+  .header {
     padding: 10px;
   }
 
@@ -388,7 +380,7 @@ body {
     font-size: 20px;
   }
 
-  .p-gina-de-inicio-no-logueado .search-container {
+  .search-container {
     width: 100%;
     padding: 8px 12px;
   }

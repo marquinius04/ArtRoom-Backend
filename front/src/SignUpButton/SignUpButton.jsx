@@ -53,7 +53,7 @@ export const SignUpButton = ({ className, usuario, onSignUpSuccess, ...props }) 
 
   return (
     <button
-      className={`sign-up-button ${className}`}
+      className={`${className}`}
       onClick={handleSignUp}
       disabled={loading}
       {...props}
@@ -61,7 +61,7 @@ export const SignUpButton = ({ className, usuario, onSignUpSuccess, ...props }) 
       <span>
         {location.pathname === "/signUp" ? "Create account" : "Sign Up"}
       </span>
-      {location.pathname === "/" && ( // Condición para mostrar el icono solo en la ruta "/"
+      {(location.pathname === "/" || location.pathname === "/categories") && ( // Condición para mostrar el icono solo en la ruta "/"
         <img className="sign-up-icon" src="sign-up-icon.png" alt="Sign Up Icon" />
       )}
     </button>

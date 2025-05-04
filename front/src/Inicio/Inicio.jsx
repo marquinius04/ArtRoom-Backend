@@ -9,13 +9,17 @@ import { useNavigate } from "react-router-dom";
 
 export const Inicio = ({ className, ...props }) => {
   const navigate = useNavigate();
-  
+
   const handleSignInClick = () => {
     navigate("/login"); // Redirige a la página de Login
   };
 
   const handleSignUpClick = () => {
-    navigate("/signUp"); // Redirige a la página de Login
+    navigate("/signUp"); // Redirige a la página de Registro
+  };
+
+  const handleCategoriesClick = () => {
+    navigate("/categorias"); // Redirige a la página de Categorías
   };
 
   // Datos para los elementos repetitivos
@@ -92,7 +96,7 @@ export const Inicio = ({ className, ...props }) => {
         </div>
       </div>
 
-      <div className="categories-link" onClick={() => (window.location.href = "/categories")}>
+      <div className="categories-link" onClick={handleCategoriesClick}>
         Search by categories
       </div>
 

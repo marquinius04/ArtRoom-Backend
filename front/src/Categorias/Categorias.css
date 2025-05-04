@@ -1,0 +1,19 @@
+@import "../shared.css";
+
+.categories-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #ffffff;
+  margin: 20px 0;
+}
+
+.asset-item:hover {
+  transform: scale(1.05);
+}
+
+.asset-image {
+  width: 100%; /* Asegura que la imagen ocupe el ancho del contenedor */
+  height: 223px; /* Mantiene la proporción de la imagen */
+  border-radius: 5px;
+  object-fit: cover; /* Asegura que la imagen se recorte si es necesario */
+}
