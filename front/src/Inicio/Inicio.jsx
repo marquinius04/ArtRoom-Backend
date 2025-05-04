@@ -19,7 +19,7 @@ export const Inicio = ({ className, ...props }) => {
   };
 
   const handleCategoriesClick = () => {
-    navigate("/categorias"); // Redirige a la página de Categorías
+    navigate("/categories"); // Redirige a la página de Categorías
   };
 
   // Datos para los elementos repetitivos
