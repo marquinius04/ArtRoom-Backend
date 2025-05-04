@@ -1,10 +1,10 @@
 import { useState } from "react";
-import "./PGinaDeLogin.css";
+import "./Login.css";
 import { LogoArtRoomDefinitivo8 } from "../LogoArtRoomDefinitivo8/LogoArtRoomDefinitivo8.jsx";
 import { useNavigate } from "react-router-dom";
-import { SignInButton } from "../SignInButton/SignInButton"; // Importa el botón
+import { SignInButton } from "../SignInButton/SignInButton.jsx"; // Importa el botón
 
-export const PGinaDeLogin = ({ className, ...props }) => {
+export const Login = ({ className, ...props }) => {
   const navigate = useNavigate();
   const [usuario, setUsuario] = useState({ email: "", contrasena: "" });
 
@@ -53,7 +53,7 @@ export const PGinaDeLogin = ({ className, ...props }) => {
           onLoginSuccess={(userData) => {
             // Aquí puedes manejar lo que sucede después de un login exitoso.
             console.log('Usuario logueado:', userData);
-            navigate("/logueado"); // Redirige a la página después de un login exitoso
+            navigate("/"); // Redirige a la página después de un login exitoso
           }}
         />
       </div>

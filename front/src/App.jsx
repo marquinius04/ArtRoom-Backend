@@ -1,18 +1,16 @@
 import "./styles.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { PGinaDeInicioNoLogueado } from "./PGinaDeInicioNoLogueado/PGinaDeInicioNoLogueado";
-import { PGinaDeLogin } from "./PGinaDeLogin/PGinaDeLogin"; // Importa tu componente de Login
-import { PGinaDeRegistro } from "./PGinaDeRegistro/PGinaDeRegistro"; // Importa tu componente de Login
-import { PGinaDeInicioLogueado } from "./PGinaDeInicioLogueado/PGinaDeInicioLogueado";
+import { Inicio } from "./Inicio/Inicio";
+import { Login } from "./Login/Login"; // Importa tu componente de Login
+import { Registro } from "./Registro/Registro"; // Importa tu componente de Login
 
 export default function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<PGinaDeInicioNoLogueado />} />
-        <Route path="/login" element={<PGinaDeLogin />} />
-        <Route path="/signUp" element={<PGinaDeRegistro />} />
-        <Route path="/logueado" element={<PGinaDeInicioLogueado />} />
+        <Route path="/" element={<Inicio />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signUp" element={<Registro />} />
       </Routes>
     </Router>
   );

@@ -1,10 +1,10 @@
 import { useState } from "react";
-import "./PGinaDeRegistro.css";
+import "./Registro.css";
 import { LogoArtRoomDefinitivo8 } from "../LogoArtRoomDefinitivo8/LogoArtRoomDefinitivo8.jsx";
 import { useNavigate } from "react-router-dom";
 import { SignUpButton } from "../SignUpButton/SignUpButton.jsx";
 
-export const PGinaDeRegistro = ({ className, ...props }) => {
+export const Registro = ({ className, ...props }) => {
   const navigate = useNavigate();
 
   // Estado para almacenar los datos del formulario
@@ -30,7 +30,7 @@ export const PGinaDeRegistro = ({ className, ...props }) => {
       return;
     }
     setError(""); // Limpiar el error si las contraseñas coinciden
-    navigate("/logueado"); // Redirigir si todo está correcto
+    navigate("/"); // Redirigir si todo está correcto
   };
 
   return (

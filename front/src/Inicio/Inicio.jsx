@@ -1,4 +1,4 @@
-import "./PGinaDeInicioNoLogueado.css";
+import "./Inicio.css";
 import { LogoArtRoomDefinitivo2 } from "../LogoArtRoomDefinitivo2/LogoArtRoomDefinitivo2.jsx";
 import { SignUpButton } from "../SignUpButton/SignUpButton.jsx";
 import { SignInButton } from "../SignInButton/SignInButton.jsx";
@@ -7,7 +7,7 @@ import { LogosYoutubeIcon } from "../LogosYoutubeIcon/LogosYoutubeIcon.jsx";
 import { DeviconTwitter } from "../DeviconTwitter/DeviconTwitter.jsx";
 import { useNavigate } from "react-router-dom";
 
-export const PGinaDeInicioNoLogueado = ({ className, ...props }) => {
+export const Inicio = ({ className, ...props }) => {
   const navigate = useNavigate();
   
   const handleSignInClick = () => {

@@ -3,7 +3,68 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const Usuario = require('../models/usuarioModel');
 
-const Usuario = require('../models/usuarioModel')
+// @desc   Register usuario
+// @route  POST /api/usuarios/register
+// @access Public
+const registerUsuario = asyncHandler(async (req, res) => {
+    const { nombre, email, contrasena } = req.body;
+
+    if (!nombre || !email || !contrasena) {
+        res.status(400);
+        throw new Error('Todos los campos son obligatorios');
+    }
+
+    // Verificar si el usuario ya existe
+    const usuarioExiste = await Usuario.findOne({ email });
+    if (usuarioExiste) {
+        res.status(400);
+        throw new Error('El usuario ya existe');
+    }
+
+    // Hashear la contraseña
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(contrasena, salt);
+
+    // Crear usuario
+    const usuario = await Usuario.create({
+        nombre,
+        email,
+        contrasena: hashedPassword
+    });
+
+    if (usuario) {
+        res.status(201).json({
+            _id: usuario.id,
+            nombre: usuario.nombre,
+            email: usuario.email,
+            token: generarToken(usuario.id)
+        });
+    } else {
+        res.status(400);
+        throw new Error('No se pudo registrar el usuario');
+    }
+});
+
+// @desc   Login usuario
+// @route  POST /api/usuarios/login
+// @access Public
+const loginUsuario = asyncHandler(async (req, res) => {
+    const { email, contrasena } = req.body;
+
+    const usuario = await Usuario.findOne({ email });
+
+    if (usuario && (await bcrypt.compare(contrasena, usuario.contrasena))) {
+        res.json({
+            _id: usuario.id,
+            nombre: usuario.nombre,
+            email: usuario.email,
+            token: generarToken(usuario.id)
+        });
+    } else {
+        res.status(401);
+        throw new Error('Credenciales inválidas');
+    }
+});
 
 // @desc   Get usuarios
 // @route GET /api/usuarios
@@ -72,5 +133,7 @@ module.exports = {
     setUsuario,
     updateUsuario,
     deleteUsuario,
-    getUsuario
+    getUsuario,
+    registerUsuario,
+    loginUsuario
 }
