@@ -56,6 +56,11 @@ export const Login = ({ className, ...props }) => {
             navigate("/"); // Redirige a la página después de un login exitoso
           }}
         />
+
+        <a href="/forgotPass" className="forgot-your-password">Forgot your password?</a>
+
+        <p>Don't have an account?</p>
+        <a href="/signUp" className="sign-up-text">Sign up here</a>
       </div>
     </div>
   );

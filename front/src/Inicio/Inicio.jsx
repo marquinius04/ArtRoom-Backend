@@ -53,7 +53,7 @@ export const Inicio = ({ className, ...props }) => {
         <LogoArtRoomDefinitivo2 className="logo-art-room-definitivo-2-instance" />
         <div className="search-container">
           <img src="vector0.svg" alt="Search Icon" className="search-icon" />
-          <span className="search-text">Search</span>
+          <input className="search-text"></input>
         </div>
         <div className="auth-buttons">
           <SignUpButton

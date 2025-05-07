@@ -51,7 +51,7 @@ export const SignInButton = ({ className, email, contrasena, onLoginSuccess, ...
   return (
     <div className="sign-in-container">
       <button
-        className={`${className}`}
+        className={`sign-in-button`}
         onClick={handleSignIn}
         disabled={loading}
         {...props}

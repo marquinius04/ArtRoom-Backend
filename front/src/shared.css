@@ -55,12 +55,6 @@ footer {
     box-sizing: border-box;
 }
 
-.search-icon {
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
-}
-
 .button {
     display: flex; /* Activa Flexbox */
     align-items: center; /* Alinea verticalmente el contenido */
@@ -106,6 +100,20 @@ footer {
 
 .sign-in-button:hover {
     background: #6e6e73; /* Fondo gris más claro al pasar el cursor */
+}
+
+.search-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.search-text {
+    font-size: 16px;
+    font-weight: bold;
+    color: #97979B;
+    overflow: hidden;
+    width: 100%;
 }
 
 /* Contenedor de los botones */
@@ -190,4 +198,76 @@ footer {
 
 .copyright {
     color: #ffffff;
+}
+
+/* Pantallas medianas (desktops) */
+@media (max-width: 1300px) {
+    .search-container {
+        width: 25%;
+        max-width: 400px;
+    }
+}
+
+/* Pantallas medianas (tablets) */
+@media (max-width: 800px) {
+    .header {
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .logo-art-room-definitivo-2-instance {
+        order: -2; /* Mueve el logo al principio */
+    }
+
+    .logo {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    .auth-buttons {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+        margin-bottom: 15px; /* Añade un margen inferior para separar los botones de la barra de búsqueda */
+        order: -1; /* Mueve los botones encima de la barra de búsqueda */
+    }
+
+    .search-container {
+        width: 90%;
+        max-width: 600px;
+        order: 0; /* Asegura que la barra de búsqueda quede debajo de los botones */
+    }
+
+    .button {
+        width: 120px;
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+}
+
+@media (max-width: 500px) {
+    .header {
+        padding: 10px;
+    }
+
+    .logo {
+        font-size: 20px;
+    }
+
+    .search-container {
+        width: 100%;
+        padding: 8px 12px;
+    }
+
+    .auth-buttons {
+        flex-direction: row;
+        gap: 10px;
+    }
+
+    .button {
+        width: 100%;
+        font-size: 12px;
+        padding: 6px 12px;
+    }
 }

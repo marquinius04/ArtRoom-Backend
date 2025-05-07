@@ -53,7 +53,7 @@ export const SignUpButton = ({ className, usuario, onSignUpSuccess, ...props }) 
 
   return (
     <button
-      className={`${className}`}
+      className={`sign-up-button`}
       onClick={handleSignUp}
       disabled={loading}
       {...props}

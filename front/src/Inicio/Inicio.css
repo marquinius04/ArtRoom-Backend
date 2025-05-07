@@ -66,12 +66,6 @@ body {
   cursor: pointer;
 }
 
-.search-text {
-  font-size: 16px;
-  font-weight: bold;
-  color: #97979B;
-}
-
 /* Contenedor de los botones de autenticación */
 .p-gina-de-inicio-no-logueado .auth-buttons {
   display: flex;
@@ -314,15 +308,7 @@ body {
   margin-top: 10px;
 }
 
-/* Media Queries para responsividad */
-
-/* Pantallas medianas (desktops) */
-@media (max-width: 1300px) {
-  .search-container {
-    width: 25%;
-    max-width: 400px;
-  }
-}
+/* Media Queries para responsividad de Inicio */
 
 /* Pantallas medianas (tablets) */
 @media (max-width: 900px) {
@@ -331,70 +317,10 @@ body {
   }
 }
 
-/* Pantallas medianas (tablets) */
-@media (max-width: 800px) {
-  .header {
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-  }
-
-  .p-gina-de-inicio-no-logueado .logo {
-    font-size: 24px;
-    margin-bottom: 10px;
-  }
-
-  .p-gina-de-inicio-no-logueado .auth-buttons {
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-    margin-bottom: 15px; /* Añade un margen inferior para separar los botones de la barra de búsqueda */
-    order: -1; /* Mueve los botones encima de la barra de búsqueda */
-  }
-
-  .search-container {
-    width: 90%;
-    max-width: 600px;
-    order: 0; /* Asegura que la barra de búsqueda quede debajo de los botones */
-  }
-
-  .p-gina-de-inicio-no-logueado .sign-up-button-instance,
-  .p-gina-de-inicio-no-logueado .sign-in-button-instance {
-    width: 120px;
-    font-size: 14px;
-    padding: 8px 16px;
-  }
-}
-
 /* Pantallas pequeñas (móviles) */
 @media (max-width: 500px) {
   .p-gina-de-inicio-no-logueado .assets-grid {
     grid-template-columns: repeat(2, 1fr);
-  }
-
-  .header {
-    padding: 10px;
-  }
-
-  .p-gina-de-inicio-no-logueado .logo {
-    font-size: 20px;
-  }
-
-  .search-container {
-    width: 100%;
-    padding: 8px 12px;
-  }
-
-  .p-gina-de-inicio-no-logueado .auth-buttons {
-    flex-direction: row;
-    gap: 10px;
-  }
-
-  .p-gina-de-inicio-no-logueado .sign-up-button-instance,
-  .p-gina-de-inicio-no-logueado .sign-in-button-instance {
-    width: 100%;
-    font-size: 12px;
-    padding: 6px 12px;
   }
 
   .p-gina-de-inicio-no-logueado .filters-grid {

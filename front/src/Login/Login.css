@@ -94,8 +94,8 @@
   color: #228fc3;
   text-align: center;
   font-family: "Inter-Bold", sans-serif;
-  font-size: 20px;
-  font-weight: 700;
+  font-size: 18px;
+  font-weight: 600;
   text-decoration: underline;
   margin-top: 20px;
 }
@@ -105,8 +105,8 @@
   color: #228fc3;
   text-align: center;
   font-family: "Inter-Bold", sans-serif;
-  font-size: 20px;
-  font-weight: 700;
+  font-size: 18px;
+  font-weight: 600;
   text-decoration: underline;
   margin-top: 10px;
 }
@@ -152,13 +152,21 @@
   transform: scale(1.05); /* Aumenta ligeramente el tamaño al pasar el cursor */
 }
 
+.advice-text {
+  color: lightgray;
+  width: 80%;
+  background-color: #2a3725;
+  text-align: left;
+  border-radius: 5px;
+  padding: 10px;
+}
+
 /* Media Queries para responsividad */
 
 /* Pantallas medianas (hasta 800px) */
 @media (max-width: 800px) {
   .p-gina-de-login .login-container {
     width: 90%; /* Ajusta el ancho del contenedor */
-    padding: 10px; /* Añade un padding para mejor visualización */
   }
 
   .p-gina-de-login .login-header {
