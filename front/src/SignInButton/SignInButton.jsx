@@ -33,11 +33,14 @@ export const SignInButton = ({ className, email, contrasena, onLoginSuccess, ...
       const data = await response.json();
       console.log("Usuario logueado:", data);
       
-      // Ejecuta la función de éxito que puede redirigir al usuario o hacer otras acciones
+      // Guarda el usuario en localStorage
+      localStorage.setItem("user", JSON.stringify(data.usuario || data));
+
+      // Ejecuta función de éxito si está definida
       if (onLoginSuccess) {
-        onLoginSuccess(data); // Pasa los datos del usuario autenticado al componente superior
+        onLoginSuccess(data);
       }
-      
+
       alert("Login exitoso");
     } catch (error) {
       console.error("Error en el login:", error);
