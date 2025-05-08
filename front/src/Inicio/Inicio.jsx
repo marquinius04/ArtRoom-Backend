@@ -24,16 +24,16 @@ export const Inicio = ({ className, ...props }) => {
 
   // Datos para los elementos repetitivos
   const trendingAssets = [
-    { title: "Medieval Kingdom", image: "medieval.png", likes: 120, views: 450 },
-    { title: "Time Ghost: Character", image: "time-character.png", likes: 98, views: 320 },
-    { title: "Time Ghost: Environment", image: "time-env.png", likes: 150, views: 500 },
-    { title: "Fantasy Kingdom", image: "fantasy.png", likes: 200, views: 600 },
-    { title: "Lumina GI 2024", image: "lumina.png", likes: 180, views: 550 },
-    { title: "Toon Enchanted Meadow", image: "toon-meadow.png", likes: 75, views: 250 },
-    { title: "Abandoned Cars", image: "abandoned-cars.png", likes: 90, views: 300 },
-    { title: "Desert Kingdom", image: "desert.png", likes: 110, views: 400 },
-    { title: "Temple Asset Pack", image: "temple.png", likes: 130, views: 420 },
-    { title: "Plankton 3D Model", image: "plankton.png", likes: 50, views: 150 },
+    { title: "Medieval Kingdom", image: "https://www.dropbox.com/scl/fi/m0voxyg52vh3trimmeit9/medieval.png?rlkey=1g36ma5gepk0e6jt0kwrrfsrz&st=2j7cqm18&dl&raw=1", likes: 120, views: 450 },
+    { title: "Time Ghost: Character", image: "https://www.dropbox.com/scl/fi/nicjjn2or114xfc8wc8tk/time-character.png?rlkey=i5ms5f8yemin4yidanwqyo890&st=knbujtvz&raw=1", likes: 98, views: 320 },
+    { title: "Time Ghost: Environment", image: "https://www.dropbox.com/scl/fi/f93eic51n1gu8v1hrc6w6/time-env.png?rlkey=nhp7ciowh11ztad74amhlzxgn&st=ud7v91m2&dl&raw=1", likes: 150, views: 500 },
+    { title: "Fantasy Kingdom", image: "https://www.dropbox.com/scl/fi/h426ejua4jker77mt078t/fantasy.png?rlkey=cma3zzqhl8j99elx0uulp8j22&st=k65fqwcz&dl&raw=1", likes: 200, views: 600 },
+    { title: "Lumina GI 2024", image: "https://www.dropbox.com/scl/fi/2s91d7c5ph88nnn1ogq74/lumina.png?rlkey=3rve8t7z5a2pm4to7io41qvxz&st=ky7c1glt&dl&raw=1", likes: 180, views: 550 },
+    { title: "Toon Enchanted Meadow", image: "https://www.dropbox.com/scl/fi/oe9dcp250wrv65ooty3gx/toon-meadow.png?rlkey=bnu0zhr7zozvugybzu5koy7z8&st=d809crvg&dl&raw=1", likes: 75, views: 250 },
+    { title: "Abandoned Cars", image: "https://www.dropbox.com/scl/fi/vjx476errlhj0ew8uj4su/abandoned-cars.png?rlkey=qayrjvpnn28v97dj5v9a6itni&st=qf3uea9i&dl&raw=1", likes: 90, views: 300 },
+    { title: "Desert Kingdom", image: "https://www.dropbox.com/scl/fi/svvcr8htvsoiitkxe8qdb/desert.png?rlkey=agxxzyaimyznwyu8yg9716boe&st=rl9ppnh5&dl&raw=1", likes: 110, views: 400 },
+    { title: "Temple Asset Pack", image: "https://www.dropbox.com/scl/fi/tem2btbz610sese58bv4l/temple.png?rlkey=6fh0au08fc9sf02utbr07fh8y&st=yrbtqo17&dl&raw=1", likes: 130, views: 420 },
+    { title: "Plankton 3D Model", image: "https://www.dropbox.com/scl/fi/c0ttuw8c6b8qox9q9lpvk/plankton.png?rlkey=7ekpp1tw8l760nir3cxulgswh&st=0ovzsrpb&dl&raw=1", likes: 50, views: 150 },
   ];
 
   const categories = [

@@ -20,14 +20,14 @@ export const Categorias = ({ className, ...props }) => {
   };
 
   const categories = [
-    { name: "Animals and Plants", image: "plankton.png" },
-    { name: "Realistic Furnitures", image: "chair.png" },
-    { name: "Weapons and Ammunition", image: "ak-recargando.png" },
-    { name: "Sculpture and Art", image: "lumina.png" },
-    { name: "Fantastic Landscapes", image: "fantasy.png" },
-    { name: "Realistic Landscapes", image: "realistic-env.png" },
-    { name: "Cars and Vehicles", image: "abandoned-cars.png" },
-    { name: "Buildings and Structures", image: "desert.png" },
+    { name: "Animals and Plants", image: "https://www.dropbox.com/scl/fi/c0ttuw8c6b8qox9q9lpvk/plankton.png?rlkey=7ekpp1tw8l760nir3cxulgswh&st=0ovzsrpb&dl&raw=1" },
+    { name: "Realistic Furnitures", image: "https://www.dropbox.com/scl/fi/2tn002ayj9ckzz7zlgigz/chair.png?rlkey=e80zne7r4rx3hlb68pj2x0z5s&st=cmppepsv&dl&raw=1" },
+    { name: "Weapons and Ammunition", image: "https://www.dropbox.com/scl/fi/fdwgn5z8ffge70nsagzcj/ak-recargando.png?rlkey=5hau068s1ien9k0fif8g04z6t&st=d67b5gth&dl&raw=1" },
+    { name: "Sculpture and Art", image: "https://www.dropbox.com/scl/fi/2s91d7c5ph88nnn1ogq74/lumina.png?rlkey=3rve8t7z5a2pm4to7io41qvxz&st=niphu1ke&dl&raw=1" },
+    { name: "Fantastic Landscapes", image: "https://www.dropbox.com/scl/fi/h426ejua4jker77mt078t/fantasy.png?rlkey=cma3zzqhl8j99elx0uulp8j22&st=b459byqb&dl&raw=1" },
+    { name: "Realistic Landscapes", image: "https://www.dropbox.com/scl/fi/wdzbyq1b2wxuly1krfss0/realistic-env.png?rlkey=wsavwzdzl4ndii6ej213cqnzx&st=63ag2kpa&dl&raw=1" },
+    { name: "Cars and Vehicles", image: "https://www.dropbox.com/scl/fi/vjx476errlhj0ew8uj4su/abandoned-cars.png?rlkey=qayrjvpnn28v97dj5v9a6itni&st=1j3yyi8m&dl&raw=1" },
+    { name: "Buildings and Structures", image: "https://www.dropbox.com/scl/fi/svvcr8htvsoiitkxe8qdb/desert.png?rlkey=agxxzyaimyznwyu8yg9716boe&st=oj6i9ypz&dl&raw=1" },
   ];
 
   return (
