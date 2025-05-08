@@ -1,0 +1,68 @@
+@import "../shared.css";
+
+.dashboard-usuario,
+.dashboard-usuario * {
+  box-sizing: border-box;
+}
+.dashboard-usuario {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
+  justify-content: space-evenly;
+}
+.dashboard-usuario .dashboard-izq {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #414c3e;
+  width: 60%;
+}
+.dashboard-usuario .dashboard-izq .dashboard-perfil {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #414c3e;
+  width: 100%;
+}
+.dashboard-usuario .dashboard-dcha {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #414c3e;
+  width: 20%;
+}
+.dashboard-usuario .change-password {
+  color: #ffffff;
+  text-align: left;
+  font-family: "Inter-Bold", sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+}
+.dashboard-usuario .add-your-social-networks {
+  color: #ffffff;
+  text-align: left;
+  font-family: "Inter-Bold", sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+}
+.dashboard-usuario .delete-account {
+  color: #ffffff;
+  text-align: left;
+  font-family: "Inter-Bold", sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+}
+.dashboard-usuario .divisory-line {
+  background: #97979b;
+  width: 50%;
+  height: 3px;
+  border-radius: 10px;
+  margin-top: 1lh;
+  margin-bottom: 1lh;
+}
+.dashboard-usuario a {
+  font-size: 24px;
+  color: #0f130e;
+  font-weight: 700;
+}
