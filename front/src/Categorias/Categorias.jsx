@@ -36,7 +36,7 @@ export const Categorias = ({ className, ...props }) => {
         <LogoArtRoomDefinitivo2/>
         <div className="search-container">
           <img src="vector0.svg" alt="Search Icon" className="search-icon" />
-          <span className="search-text">Search</span>
+          <input type="text" placeholder="Search..." className="search-text" />
         </div>
         <div className="auth-buttons">
           <SignUpButton
