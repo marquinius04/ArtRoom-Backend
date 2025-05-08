@@ -64,7 +64,7 @@ export const SignInButton = ({ className, email, contrasena, onLoginSuccess, ...
               {location.pathname === "/login" ? "Login" : "Sign In"}
             </span>
             {(location.pathname === "/" || location.pathname === "/categories") && ( // Condición para mostrar el icono solo en la ruta "/"
-              <img className="sign-in-icon" src="sign-in-icon.png" alt="Sign In Icon" />
+              <img className="sign-in-icon" src="https://www.dropbox.com/scl/fi/1jgcd32zei2fbennqp6xe/sign-in-icon.png?rlkey=d45utdlso2zyi9qeszor7gyp9&st=oel8eys0&raw=1" alt="Sign In Icon" />
             )}
           </>
         )}

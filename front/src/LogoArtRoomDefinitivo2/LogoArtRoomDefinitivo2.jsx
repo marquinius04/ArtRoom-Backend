@@ -5,7 +5,7 @@ export const LogoArtRoomDefinitivo2 = ({ className, ...props }) => {
     <div className={className}>
       <img
         className="logo-art-room-definitivo-22"
-        src="logo-art-room-definitivo-20.png"
+        src="https://www.dropbox.com/scl/fi/ozelixlqcccumqbnrtidn/logo-art-room-definitivo-20.png?rlkey=pzrnj74jwyp5zfl3nboai8yl0&st=n01n65aw&raw=1"
       />
     </div>
   );

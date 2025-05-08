@@ -33,7 +33,7 @@ export const Inicio = ({ className, ...props }) => {
     { title: "Abandoned Cars", image: "https://www.dropbox.com/scl/fi/vjx476errlhj0ew8uj4su/abandoned-cars.png?rlkey=qayrjvpnn28v97dj5v9a6itni&st=qf3uea9i&dl&raw=1", likes: 90, views: 300 },
     { title: "Desert Kingdom", image: "https://www.dropbox.com/scl/fi/svvcr8htvsoiitkxe8qdb/desert.png?rlkey=agxxzyaimyznwyu8yg9716boe&st=rl9ppnh5&dl&raw=1", likes: 110, views: 400 },
     { title: "Temple Asset Pack", image: "https://www.dropbox.com/scl/fi/tem2btbz610sese58bv4l/temple.png?rlkey=6fh0au08fc9sf02utbr07fh8y&st=yrbtqo17&dl&raw=1", likes: 130, views: 420 },
-    { title: "Plankton 3D Model", image: "https://www.dropbox.com/scl/fi/c0ttuw8c6b8qox9q9lpvk/plankton.png?rlkey=7ekpp1tw8l760nir3cxulgswh&st=0ovzsrpb&dl&raw=1", likes: 50, views: 150 },
+    { title: "Plankton 3D Model", image: "https://www.dropbox.com/scl/fi/c0ttuw8c6b8qox9q9lpvk/plankton.png?rlkey=7ekpp1tw8l760nir3cxulgswh&st=269pngna&raw=1", likes: 50, views: 150 },
   ];
 
   const categories = [
@@ -52,7 +52,7 @@ export const Inicio = ({ className, ...props }) => {
       <div className="header">
         <LogoArtRoomDefinitivo2 className="logo-art-room-definitivo-2-instance" />
         <div className="search-container">
-          <img src="vector0.svg" alt="Search Icon" className="search-icon" />
+          <img src="https://www.dropbox.com/scl/fi/ieaswykdv57270lwyk217/vector0.svg?rlkey=infc1esp7w5jleq4zlb80nr5p&st=f84l3uv2&raw=1" alt="Search Icon" className="search-icon" />
           <input className="search-text"></input>
         </div>
         <div className="auth-buttons">
@@ -83,11 +83,11 @@ export const Inicio = ({ className, ...props }) => {
               <div className="asset-title">{asset.title}</div>
               <div className="asset-stats">
                 <div className="asset-likes">
-                  <img src="like-icon.png" alt="Likes" className="stat-icon" />
+                  <img src="https://www.dropbox.com/scl/fi/q33jkrd672q4d25su0x05/like-icon.png?rlkey=sp7h5t1wobga7jb2ctkk0tbcf&st=fnredprb&raw=1" alt="Likes" className="stat-icon" />
                   {asset.likes}
                 </div>
                 <div className="asset-views">
-                  <img src="view-icon.png" alt="Views" className="stat-icon" />
+                  <img src="https://www.dropbox.com/scl/fi/voana9ty7p7zl13it9os8/view-icon.png?rlkey=ma0u1ziyxl1zb0fgilffd3jjx&st=mt18cmdg&raw=1" alt="Views" className="stat-icon" />
                   {asset.views}
                 </div>
               </div>
@@ -109,11 +109,11 @@ export const Inicio = ({ className, ...props }) => {
               <div className="asset-title">{asset.title}</div>
               <div className="asset-stats">
                 <div className="asset-likes">
-                  <img src="like-icon.png" alt="Likes" className="stat-icon" />
+                  <img src="https://www.dropbox.com/scl/fi/q33jkrd672q4d25su0x05/like-icon.png?rlkey=sp7h5t1wobga7jb2ctkk0tbcf&st=fnredprb&raw=1" alt="Likes" className="stat-icon" />
                   {asset.likes}
                 </div>
                 <div className="asset-views">
-                  <img src="view-icon.png" alt="Views" className="stat-icon" />
+                  <img src="https://www.dropbox.com/scl/fi/voana9ty7p7zl13it9os8/view-icon.png?rlkey=ma0u1ziyxl1zb0fgilffd3jjx&st=mt18cmdg&raw=1" alt="Views" className="stat-icon" />
                   {asset.views}
                 </div>
               </div>

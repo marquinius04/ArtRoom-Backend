@@ -62,7 +62,7 @@ export const SignUpButton = ({ className, usuario, onSignUpSuccess, ...props }) 
         {location.pathname === "/signUp" ? "Create account" : "Sign Up"}
       </span>
       {(location.pathname === "/" || location.pathname === "/categories") && ( // Condición para mostrar el icono solo en la ruta "/"
-        <img className="sign-up-icon" src="sign-up-icon.png" alt="Sign Up Icon" />
+        <img className="sign-up-icon" src="https://www.dropbox.com/scl/fi/cu54l5unhbsxmn7pztd3a/sign-up-icon.png?rlkey=30jxora6cu09z3wufmfq8ni6q&st=dmjflu71&raw=1" alt="Sign Up Icon" />
       )}
     </button>
   );

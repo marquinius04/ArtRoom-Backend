@@ -35,7 +35,7 @@ export const Categorias = ({ className, ...props }) => {
       <div className="header">
         <LogoArtRoomDefinitivo2/>
         <div className="search-container">
-          <img src="vector0.svg" alt="Search Icon" className="search-icon" />
+          <img src="https://www.dropbox.com/scl/fi/ieaswykdv57270lwyk217/vector0.svg?rlkey=infc1esp7w5jleq4zlb80nr5p&st=f84l3uv2&raw=1" alt="Search Icon" className="search-icon" />
           <input type="text" placeholder="Search..." className="search-text" />
         </div>
         <div className="auth-buttons">
