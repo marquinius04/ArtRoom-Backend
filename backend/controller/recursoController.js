@@ -18,12 +18,56 @@ const getRecursos = asyncHandler(async (req, res) => {
 // @route POST /api/recursos
 // @access Private
 const setRecurso = asyncHandler(async (req, res) => {
+    const { Dropbox } = require('dropbox');
+    const fetch = require('isomorphic-fetch'); // requerido por el SDK de Dropbox
+    
+    const dbx = new Dropbox({ accessToken: process.env.DROPBOX_ACCESS_TOKEN, fetch });
+    
     try {
-        const nuevoRecurso = new Recurso(req.body)
-        const recursoGuardado = await nuevoRecurso.save()
-        res.status(201).json(recursoGuardado)
+        const { archivo, preview, ...resto } = req.body;
+    
+        // Simulamos que los archivos vienen como base64 o buffer
+        const archivoBuffer = Buffer.from(archivo.data, 'base64');
+        const previewBuffer = preview ? Buffer.from(preview.data, 'base64') : null;
+    
+        const dropboxArchivo = await dbx.filesUpload({
+            path: `/archivos/${archivo.nombre}`,
+            contents: archivoBuffer,
+            mode: 'add',
+            autorename: true
+        });
+    
+        let dropboxPreview;
+        if (previewBuffer) {
+            dropboxPreview = await dbx.filesUpload({
+                path: `/previews/${preview.nombre}`,
+                contents: previewBuffer,
+                mode: 'add',
+                autorename: true
+            });
+        }
+    
+        // Obtener URLs públicas
+        const sharedArchivo = await dbx.sharingCreateSharedLinkWithSettings({ path: dropboxArchivo.result.path_lower });
+        const archivoUrl = sharedArchivo.result.url.replace('?dl=0', '?raw=1');
+    
+        let previewUrl;
+        if (dropboxPreview) {
+            const sharedPreview = await dbx.sharingCreateSharedLinkWithSettings({ path: dropboxPreview.result.path_lower });
+            previewUrl = sharedPreview.result.url.replace('?dl=0', '?raw=1');
+        }
+    
+        const nuevoRecurso = new Recurso({
+            ...resto,
+            archivoUrl,
+            previewUrl
+        });
+    
+        const recursoGuardado = await nuevoRecurso.save();
+        res.status(201).json(recursoGuardado);
     } catch (err) {
-        res.status(400).json({ message: err.message })
+        console.error(err);
+        res.status(400).json({ message: err.message });
     }
 })
 
