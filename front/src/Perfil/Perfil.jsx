@@ -14,8 +14,8 @@ export const Perfil = ({ className, ...props }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    const user = localStorage.getItem("user");
-    setIsLoggedIn(!!user);
+   const user = localStorage.getItem("user");
+     setIsLoggedIn(!!user);
   }, []);
 
   const handleLogoutClick = () => {

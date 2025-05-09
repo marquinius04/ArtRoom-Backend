@@ -7,9 +7,25 @@ import { SkillIconsInstagram } from "../SkillIconsInstagram/SkillIconsInstagram.
 import { LogosYoutubeIcon } from "../LogosYoutubeIcon/LogosYoutubeIcon.jsx";
 import { DeviconTwitter } from "../DeviconTwitter/DeviconTwitter.jsx";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 export const Categorias = ({ className, ...props }) => {
   const navigate = useNavigate();
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+   const user = localStorage.getItem("user");
+     setIsLoggedIn(!!user);
+  }, []);
+
+  const handleLogoutClick = () => {
+    localStorage.removeItem("user");
+    setIsLoggedIn(false);
+    navigate("/"); // o "/login"
+  };
+  
+  const handleProfileClick = () => navigate("/profile");
 
   const handleSignInClick = () => {
     navigate("/login"); // Redirige a la página de Login
@@ -39,6 +55,13 @@ export const Categorias = ({ className, ...props }) => {
           <input type="text" placeholder="Search..." className="search-text" />
         </div>
         <div className="auth-buttons">
+        {isLoggedIn ? (
+            <>
+              <button onClick={handleLogoutClick}><img src="https://www.dropbox.com/scl/fi/o4cednhkybd1ty8xsp5x7/upload-icon.png?rlkey=0ymn2yz9rqdpuyf2hd50hoa7o&st=0t6y1zo8&dl&raw=1"></img></button>
+              <button onClick={handleProfileClick}><img src="https://www.dropbox.com/scl/fi/hfz5wn581d6rot1ccxuyh/user-icon.png?rlkey=hm75yyttqaw7hb8n5tk3ja3xq&st=rknzoa1v&dl&raw=1"></img></button>
+            </>
+          ) : (
+            <>
           <SignUpButton
             className="sign-up-button" 
             onClick={handleSignUpClick}
@@ -47,6 +70,8 @@ export const Categorias = ({ className, ...props }) => {
             className="sign-in-button"
             onClick={handleSignInClick}
           />
+          </>
+          )};
         </div>
       </div>
 
