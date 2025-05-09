@@ -6,7 +6,7 @@ import { SignInButton } from "../SignInButton/SignInButton.jsx"; // Importa el b
 
 export const Login = ({ className, ...props }) => {
   const navigate = useNavigate();
-  const [usuario, setUsuario] = useState({ email: "", contrasena: "" });
+  const [usuario, setUsuario] = useState({ email: "", password: "" });
 
   const handleChange = (e) => {
     setUsuario({ ...usuario, [e.target.name]: e.target.value });
@@ -38,10 +38,10 @@ export const Login = ({ className, ...props }) => {
           <label className="login-label">Password</label>
           <input
             type="password"
-            name="contrasena"
+            name="password"
             className="login-input"
             placeholder="password123"
-            value={usuario.contrasena}
+            value={usuario.password}
             onChange={handleChange}
           />
         </div>
@@ -49,7 +49,7 @@ export const Login = ({ className, ...props }) => {
         {/* Botón de Login */}
         <SignInButton 
           email={usuario.email} 
-          contrasena={usuario.contrasena} 
+          password={usuario.password} 
           onLoginSuccess={(userData) => {
             // Aquí puedes manejar lo que sucede después de un login exitoso.
             console.log('Usuario logueado:', userData);

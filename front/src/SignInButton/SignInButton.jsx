@@ -2,13 +2,13 @@ import { useState } from "react";
 import { useLocation } from "react-router-dom"; // Importamos useLocation para la detección de página
 import "./SignInButton.css";
 
-export const SignInButton = ({ className, email, contrasena, onLoginSuccess, ...props }) => {
+export const SignInButton = ({ className, email, password, onLoginSuccess, ...props }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const location = useLocation(); // Inicializamos useNavigate
 
   const handleSignIn = async () => {
-    if (!email || !contrasena) {
+    if (!email || !password) {
       alert("Por favor, ingresa tus credenciales.");
       return;
     }
@@ -23,7 +23,7 @@ export const SignInButton = ({ className, email, contrasena, onLoginSuccess, ...
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, contrasena }),
+        body: JSON.stringify({ email, password }),
       });
 
       if (!response.ok) {
@@ -34,7 +34,7 @@ export const SignInButton = ({ className, email, contrasena, onLoginSuccess, ...
       console.log("Usuario logueado:", data);
       
       // Guarda el usuario en localStorage
-      localStorage.setItem("user", JSON.stringify(data.usuario || data));
+      localStorage.setItem("user", JSON.stringify(data.username || data));
 
       // Ejecuta función de éxito si está definida
       if (onLoginSuccess) {

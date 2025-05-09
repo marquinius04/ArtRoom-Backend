@@ -9,10 +9,9 @@ export const Registro = ({ className, ...props }) => {
 
   // Estado para almacenar los datos del formulario
   const [formData, setFormData] = useState({
-    nombre: "",
+    username: "",
     email: "",
-    contrasena: "",
-    confirmarContrasena: "",
+    password: "",
   });
 
   // Estado para manejar errores
@@ -25,7 +24,7 @@ export const Registro = ({ className, ...props }) => {
 
   // Validar antes de enviar
   const handleSignUp = () => {
-    if (formData.contrasena !== formData.confirmarContrasena) {
+    if (formData.password !== formData.confirmarContrasena) {
       setError("Las contraseñas no coinciden");
       return;
     }
@@ -42,15 +41,15 @@ export const Registro = ({ className, ...props }) => {
           <div className="divisory-line"></div>
         </header>
 
-        {/* Campo de Nombre */}
+        {/* Campo de username */}
         <div className="input-field">
           <label className="login-label">Full name</label>
           <input
             type="text"
-            name="nombre"
+            name="username"
             className="login-input"
             placeholder="Name, surname..."
-            value={formData.nombre}
+            value={formData.username}
             onChange={handleChange}
           />
         </div>
@@ -73,10 +72,10 @@ export const Registro = ({ className, ...props }) => {
           <label className="login-label">Password</label>
           <input
             type="password"
-            name="contrasena"
+            name="password"
             className="login-input"
             placeholder="password123"
-            value={formData.contrasena}
+            value={formData.password}
             onChange={handleChange}
           />
         </div>

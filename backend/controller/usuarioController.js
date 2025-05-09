@@ -7,9 +7,9 @@ const Usuario = require('../models/usuarioModel');
 // @route  POST /api/usuarios/register
 // @access Public
 const registerUsuario = asyncHandler(async (req, res) => {
-    const { nombre, email, contrasena } = req.body;
+    const { username, email, password } = req.body;
 
-    if (!nombre || !email || !contrasena) {
+    if (!username || !email || !password) {
         res.status(400);
         throw new Error('Todos los campos son obligatorios');
     }
@@ -23,19 +23,19 @@ const registerUsuario = asyncHandler(async (req, res) => {
 
     // Hashear la contraseña
     const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(contrasena, salt);
+    const hashedPassword = await bcrypt.hash(password, salt);
 
     // Crear usuario
     const usuario = await Usuario.create({
-        nombre,
+        username,
         email,
-        contrasena: hashedPassword
+        password: hashedPassword
     });
 
     if (usuario) {
         res.status(201).json({
             _id: usuario.id,
-            nombre: usuario.nombre,
+            username: usuario.username,
             email: usuario.email,
             token: generarToken(usuario.id)
         });
@@ -49,14 +49,14 @@ const registerUsuario = asyncHandler(async (req, res) => {
 // @route  POST /api/usuarios/login
 // @access Public
 const loginUsuario = asyncHandler(async (req, res) => {
-    const { email, contrasena } = req.body;
+    const { email, password } = req.body;
 
     const usuario = await Usuario.findOne({ email });
 
-    if (usuario && (await bcrypt.compare(contrasena, usuario.contrasena))) {
+    if (usuario && (await bcrypt.compare(password, usuario.password))) {
         res.json({
             _id: usuario.id,
-            nombre: usuario.nombre,
+            username: usuario.username,
             email: usuario.email,
             token: generarToken(usuario.id)
         });

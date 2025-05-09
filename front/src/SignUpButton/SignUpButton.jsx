@@ -9,7 +9,7 @@ export const SignUpButton = ({ className, usuario, onSignUpSuccess, ...props }) 
   const location = useLocation(); // Inicializamos useNavigate
 
   const handleSignUp = async () => {
-    if (!usuario?.nombre || !usuario?.email || !usuario?.contrasena) {
+    if (!usuario?.username || !usuario?.email || !usuario?.password) {
       alert("Por favor, completa todos los campos.");
       return;
     }
@@ -41,7 +41,7 @@ export const SignUpButton = ({ className, usuario, onSignUpSuccess, ...props }) 
       }
 
       // Redirigimos a la página de inicio logueado
-      navigate("/logueado"); // Cambia "/inicio-logueado" a la ruta correspondiente
+      navigate("/"); // Cambia "/inicio-logueado" a la ruta correspondiente
 
     } catch (error) {
       console.error(error);
