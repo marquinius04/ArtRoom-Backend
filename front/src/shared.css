@@ -111,9 +111,13 @@ footer {
 .search-text {
     font-size: 16px;
     font-weight: bold;
-    color: #97979B;
+    color: white;
     overflow: hidden;
     width: 100%;
+}
+
+.search-text::placeholder{
+    color: white;
 }
 
 /* Contenedor de los botones */
@@ -123,6 +127,10 @@ footer {
     gap: 20px; /* Espaciado entre los botones */
     align-items: center;
     justify-content: center;
+}
+
+.upload-icon img, .user-icon img {
+    max-width: 100%;
 }
 
 /* Contenedor general para Sign Up */
@@ -244,6 +252,11 @@ footer {
         font-size: 14px;
         padding: 8px 16px;
     }
+
+    .upload-icon, .user-icon {
+        width: 96px;
+        height: 96px;
+    }
 }
 
 @media (max-width: 500px) {
@@ -269,5 +282,10 @@ footer {
         width: 100%;
         font-size: 12px;
         padding: 6px 12px;
+    }
+
+    .upload-icon, .user-icon {
+        width: 64px;
+        height: 64px;
     }
 }
