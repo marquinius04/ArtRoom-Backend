@@ -42,7 +42,7 @@ export const Perfil = ({ className, ...props }) => {
       <div className="header">
         <LogoArtRoomDefinitivo2/>
         <div className="search-container">
-          <img src="vector0.svg" alt="Search Icon" className="search-icon" />
+          <img src="https://www.dropbox.com/scl/fi/ieaswykdv57270lwyk217/vector0.svg?rlkey=infc1esp7w5jleq4zlb80nr5p&st=f84l3uv2&raw=1" alt="Search Icon" className="search-icon" />
           <span className="search-text">Search</span>
         </div>
         <div className="auth-buttons">
@@ -70,10 +70,12 @@ export const Perfil = ({ className, ...props }) => {
         
         <div className="dashboard-izq">
           <div className="dashboard-perfil">
-            <img src="user-icon.png"></img>
+            <img src="https://www.dropbox.com/scl/fi/hfz5wn581d6rot1ccxuyh/user-icon.png?rlkey=hm75yyttqaw7hb8n5tk3ja3xq&st=rknzoa1v&dl&raw=1"></img>
             <div className="divisory-line"></div>
             <a href="/my-assets">My Assets</a>
-              // Grid de 3 assets
+            <div className="grid-auto-fit">
+              Assets subidos por el usuario
+            </div>
           </div>
           <div className="dashboard-historial">
             // Recently downloaded (se debe de poder entrar a la sección de todos los descargados en un futuro)

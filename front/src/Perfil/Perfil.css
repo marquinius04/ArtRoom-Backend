@@ -11,6 +11,9 @@
   width: 100%;
   justify-content: space-evenly;
 }
+.logo-art-room-definitivo-22 {
+  order: -2;
+}
 .dashboard-usuario .dashboard-izq {
   display: flex;
   flex-direction: column;
