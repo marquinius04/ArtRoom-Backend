@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 export const Perfil = ({ className, ...props }) => {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 800);
 
   useEffect(() => {
    const user = localStorage.getItem("user");
@@ -23,6 +24,19 @@ export const Perfil = ({ className, ...props }) => {
     setIsLoggedIn(false);
     navigate("/"); // o "/login"
   };
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 800);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    // Limpieza del evento al desmontar el componente
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
   
   const handleProfileClick = () => navigate("/profile");
   
@@ -94,8 +108,10 @@ export const Perfil = ({ className, ...props }) => {
       <div className="dashboard-usuario">
         <div className="dashboard-izq">
           <div className="dashboard-perfil">
-            <img className="profile-photo" src="https://www.dropbox.com/scl/fi/hfz5wn581d6rot1ccxuyh/user-icon.png?rlkey=hm75yyttqaw7hb8n5tk3ja3xq&st=rknzoa1v&dl&raw=1"></img>
-            <div className="divisory-line"></div>
+            <div className="arriba-perfil">
+              <img className="profile-photo" src="https://www.dropbox.com/scl/fi/hfz5wn581d6rot1ccxuyh/user-icon.png?rlkey=hm75yyttqaw7hb8n5tk3ja3xq&st=rknzoa1v&dl&raw=1"></img>
+              <div className="divisory-line"></div>
+            </div>
             <a href="/my-assets">My Assets</a>
               <div className="assets-grid">
                 {userAssets.map((asset, index) => (
@@ -125,7 +141,36 @@ export const Perfil = ({ className, ...props }) => {
               </div>
           </div>
           <div className="dashboard-historial">
-            <button className="button">Download history</button>
+            {isMobile ? (
+              <button href="/downloadHistory" className="button">Download history</button>
+            ) : (
+              <div className="assets-grid">
+                {userAssets.map((asset, index) => (
+                  <div key={index} className="asset-item">
+                    <img src={asset.image} alt={asset.title} className="asset-image" />
+                    <div className="asset-title">{asset.title}</div>
+                    <div className="asset-stats">
+                      <div className="asset-likes">
+                        <img
+                          src="https://www.dropbox.com/scl/fi/q33jkrd672q4d25su0x05/like-icon.png?rlkey=sp7h5t1wobga7jb2ctkk0tbcf&st=fnredprb&raw=1"
+                          alt="Likes"
+                          className="stat-icon"
+                        />
+                        {asset.likes}
+                      </div>
+                      <div className="asset-views">
+                        <img
+                          src="https://www.dropbox.com/scl/fi/voana9ty7p7zl13it9os8/view-icon.png?rlkey=ma0u1ziyxl1zb0fgilffd3jjx&st=mt18cmdg&raw=1"
+                          alt="Views"
+                          className="stat-icon"
+                        />
+                        {asset.views}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
 

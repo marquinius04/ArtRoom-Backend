@@ -10,6 +10,9 @@
   height: 100%;
   width: 100%;
   justify-content: space-evenly;
+  font-family: "Inter-Bold", sans-serif;
+  font-size: clamp(16px, 2vw, 24px);
+  font-weight: 700;
 }
 .logo-art-room-definitivo-22 {
   order: -2;
@@ -20,12 +23,13 @@
   align-items: center;
   background: #414c3e;
   width: 60%;
-  height: 532px;
 }
 .dashboard-usuario .dashboard-izq .dashboard-historial {
   display: flex;
+  flex-direction: column;
+  background: #414c3e;
   width: 100%;
-  justify-content: center;
+  padding: 10px;
 }
 .dashboard-usuario .dashboard-izq .dashboard-historial .button {
   width: 75%;
@@ -33,21 +37,22 @@
 .dashboard-usuario .dashboard-izq .dashboard-perfil {
   display: flex;
   flex-direction: column;
-  align-items: center;
   background: #414c3e;
   width: 100%;
   padding: 10px;
 }
-.dashboard-usuario .dashboard-izq .dashboard-perfil {
+.dashboard-usuario .dashboard-izq .dashboard-perfil .arriba-perfil {
   display: flex;
   flex-direction: column;
   align-items: center;
   background: #414c3e;
   width: 100%;
+  padding: 10px;
 }
 .dashboard-usuario .dashboard-izq .dashboard-perfil .profile-photo {
-  width: 128px;
-  height: 128px;
+  width: 25%;
+  max-width: 128px;
+  height: auto;
 }
 .dashboard-usuario .dashboard-dcha {
   display: flex;
@@ -60,6 +65,8 @@
 }
 .dashboard-usuario .dashboard-dcha .button {
   width: 75%;
+  white-space: normal; /* Permite que el texto se ajuste a varias líneas */
+  word-wrap: break-word; /* Fuerza el salto de línea si es necesario */
 }
 .dashboard-usuario .dashboard-dcha .delete-account {
   color: #1A2118;
@@ -68,16 +75,10 @@
 .dashboard-usuario .change-password {
   color: #ffffff;
   text-align: left;
-  font-family: "Inter-Bold", sans-serif;
-  font-size: 24px;
-  font-weight: 700;
 }
 .dashboard-usuario .add-your-social-networks {
   color: #ffffff;
   text-align: left;
-  font-family: "Inter-Bold", sans-serif;
-  font-size: 24px;
-  font-weight: 700;
 }
 .dashboard-usuario .divisory-line {
   background: #97979b;
@@ -88,14 +89,14 @@
   margin-bottom: 1lh;
 }
 .dashboard-usuario a {
-  font-size: 24px;
   color: #0f130e;
   font-weight: 700;
 }
 .dashboard-usuario .assets-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Tres columnas */
-  gap: 20px; /* Espaciado entre los elementos */
+  grid-auto-rows: 15rem;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); /* Tres columnas */
+  gap: 1rem; /* Espaciado entre los elementos */
 }
 .dashboard-usuario .asset-item {
   display: flex;
@@ -120,7 +121,6 @@
   margin-bottom: 10px;
 }
 .dashboard-usuario .asset-title {
-  font-size: 16px;
   font-weight: bold;
   margin-top: 5px;
 }
@@ -141,24 +141,15 @@
   height: 20px;
 }
 @media (max-width: 800px) {
-  .dashboard-usuario .assets-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 2 columnas */
-    gap: 20px; /* Espaciado entre los elementos */
-    width: 80%;
+  .dashboard-usuario .dashboard-izq .dashboard-historial {
+    align-items: center;
   }
-
-  /* Oculta la tercera imagen */
-  .dashboard-usuario .assets-grid .asset-item:nth-child(3) {
-    display: none;
+  .search-container {
+    width: 70%;
   }
-
-  .dashboard-usuario .button {
-    font-size: 12px;
-    white-space: normal; /* Permite que el texto se ajuste a varias líneas */
-    word-wrap: break-word; /* Fuerza el salto de línea si es necesario */
-    text-align: center; /* Centra el texto dentro del botón */
-    padding: 10px; /* Asegura espacio interno suficiente */
-    line-height: 1.5; /* Mejora la legibilidad del texto en varias líneas */
+}
+@media (max-width: 500px) {
+  .search-container {
+    width: 50%;
   }
 }
