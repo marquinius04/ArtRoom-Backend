@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 export const Perfil = ({ className, ...props }) => {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 800);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 875);
 
   useEffect(() => {
    const user = localStorage.getItem("user");
@@ -27,7 +27,7 @@ export const Perfil = ({ className, ...props }) => {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 800);
+      setIsMobile(window.innerWidth < 875);
     };
 
     window.addEventListener("resize", handleResize);
@@ -88,7 +88,7 @@ export const Perfil = ({ className, ...props }) => {
         {isLoggedIn ? (
             <>
               <button className="upload-icon" onClick={handleLogoutClick}><img src="https://www.dropbox.com/scl/fi/o4cednhkybd1ty8xsp5x7/upload-icon.png?rlkey=0ymn2yz9rqdpuyf2hd50hoa7o&st=0t6y1zo8&dl&raw=1"></img></button>
-              <button className="user-icon" onClick={handleProfileClick}><img src="https://www.dropbox.com/scl/fi/hfz5wn581d6rot1ccxuyh/user-icon.png?rlkey=hm75yyttqaw7hb8n5tk3ja3xq&st=rknzoa1v&dl&raw=1"></img></button>
+              <a href="/profile" className="user-icon"> <img src="https://www.dropbox.com/scl/fi/hfz5wn581d6rot1ccxuyh/user-icon.png?rlkey=hm75yyttqaw7hb8n5tk3ja3xq&st=rknzoa1v&dl&raw=1"></img></a>
             </>
           ) : (
             <>
@@ -101,7 +101,7 @@ export const Perfil = ({ className, ...props }) => {
             onClick={handleSignInClick}
           />
           </>
-          )};
+          )}
         </div>
       </div>
 
@@ -144,32 +144,35 @@ export const Perfil = ({ className, ...props }) => {
             {isMobile ? (
               <button href="/downloadHistory" className="button">Download history</button>
             ) : (
-              <div className="assets-grid">
-                {userAssets.map((asset, index) => (
-                  <div key={index} className="asset-item">
-                    <img src={asset.image} alt={asset.title} className="asset-image" />
-                    <div className="asset-title">{asset.title}</div>
-                    <div className="asset-stats">
-                      <div className="asset-likes">
-                        <img
-                          src="https://www.dropbox.com/scl/fi/q33jkrd672q4d25su0x05/like-icon.png?rlkey=sp7h5t1wobga7jb2ctkk0tbcf&st=fnredprb&raw=1"
-                          alt="Likes"
-                          className="stat-icon"
-                        />
-                        {asset.likes}
-                      </div>
-                      <div className="asset-views">
-                        <img
-                          src="https://www.dropbox.com/scl/fi/voana9ty7p7zl13it9os8/view-icon.png?rlkey=ma0u1ziyxl1zb0fgilffd3jjx&st=mt18cmdg&raw=1"
-                          alt="Views"
-                          className="stat-icon"
-                        />
-                        {asset.views}
+              <>
+                <a href="/downloadHistory">Download history</a>
+                <div className="assets-grid">
+                  {userAssets.map((asset, index) => (
+                    <div key={index} className="asset-item">
+                      <img src={asset.image} alt={asset.title} className="asset-image" />
+                      <div className="asset-title">{asset.title}</div>
+                      <div className="asset-stats">
+                        <div className="asset-likes">
+                          <img
+                            src="https://www.dropbox.com/scl/fi/q33jkrd672q4d25su0x05/like-icon.png?rlkey=sp7h5t1wobga7jb2ctkk0tbcf&st=fnredprb&raw=1"
+                            alt="Likes"
+                            className="stat-icon"
+                          />
+                          {asset.likes}
+                        </div>
+                        <div className="asset-views">
+                          <img
+                            src="https://www.dropbox.com/scl/fi/voana9ty7p7zl13it9os8/view-icon.png?rlkey=ma0u1ziyxl1zb0fgilffd3jjx&st=mt18cmdg&raw=1"
+                            alt="Views"
+                            className="stat-icon"
+                          />
+                          {asset.views}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              </>
             )}
           </div>
         </div>

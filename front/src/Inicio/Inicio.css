@@ -70,7 +70,7 @@ body {
 .p-gina-de-inicio-no-logueado .auth-buttons {
   display: flex;
   align-items: center;
-  gap: 40px;
+  gap: 20px;
   justify-content: space-evenly;
 }
 
@@ -253,7 +253,7 @@ body {
   width: auto;
   margin: 20px 50px;
   color: #000000; /* Texto blanco */
-  font-size: 32px;
+  font-size: clamp(16px, 5vw, 32px); /* Tamaño de fuente adaptable */
   font-weight: bold;
   cursor: pointer;
   background-color: #57c882;
@@ -317,6 +317,20 @@ body {
   }
 }
 
+/* Pantallas medianas (tablets) */
+@media (max-width: 800px) {
+  .p-gina-de-inicio-no-logueado .assets-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Pantallas medianas (tablets) */
+@media (max-width: 600px) {
+  .p-gina-de-inicio-no-logueado .assets-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 /* Pantallas pequeñas (móviles) */
 @media (max-width: 500px) {
   .p-gina-de-inicio-no-logueado .assets-grid {
@@ -333,5 +347,31 @@ body {
 
   .p-gina-de-inicio-no-logueado .trending-assets .asset-title {
     font-size: 16px;
+  }
+
+  .p-gina-de-inicio-no-logueado .sign-up-button {
+    width: 50px;
+  }
+
+  .p-gina-de-inicio-no-logueado .sign-in-button {
+    width: 50px;
+  }
+
+  .p-gina-de-inicio-no-logueado .sign-up-text {
+    display: none;
+  }
+  
+  .p-gina-de-inicio-no-logueado .sign-in-text {
+    display: none;
+  }
+}
+
+/* Pantallas medianas (tablets) */
+@media (max-width: 400px) {
+  .p-gina-de-inicio-no-logueado .assets-grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .p-gina-de-inicio-no-logueado .trending-assets .assets-grid {
+    grid-template-columns: repeat(1, 1fr);
   }
 }
