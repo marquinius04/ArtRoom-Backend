@@ -11,21 +11,27 @@
   background: #1A2118;
 }
 
-/* Contenedor principal del login */
-.p-gina-de-login .login-container {
-  background: linear-gradient(
-    0.22deg,
-    rgba(40, 51, 36, 1) 0%,
-    rgba(92, 150, 71, 1) 100%
-  );
-  border-radius: 16px;
-  width: 600px;
-  height: 95vh;
-
+.login-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-evenly;
+  background: linear-gradient(0.22deg, rgba(40, 51, 36, 1) 0%, rgba(92, 150, 71, 1) 100%);
+  border-radius: 16px;
+  padding: 40px;
+  width: 100%;
+  max-width: 500px; /* Tamaño máximo para pantallas grandes */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin: 0 auto; /* Centra el contenedor horizontalmente */
+}
+
+/* Media query para pantallas medianas (tablets) */
+@media (max-width: 768px) {
+  
+}
+
+/* Media query para pantallas pequeñas (móviles) */
+@media (max-width: 480px) {
+  
 }
 
 /* Header */
@@ -37,19 +43,14 @@
   width: inherit;
 }
 
-/* Logo */
-.p-gina-de-login .logo-art-room-definitivo-9-instance {
-  position: absolute !important;
-  left: 809px !important;
-  top: 22px !important;
-}
-
 /* Línea divisoria */
 .p-gina-de-login .divisory-line {
   background: #97979b;
   width: 85%;
   height: 3px;
   border-radius: 10px;
+  margin-top: 1lh;
+  margin-bottom: 1lh;
 }
 
 /* Campos de entrada */
@@ -77,6 +78,7 @@
   border-color: #97979b;
   border-width: 2px;
   padding: 20px;
+  width: 100%;
 }
 
 /* Texto de ejemplo */
@@ -98,6 +100,12 @@
   font-weight: 600;
   text-decoration: underline;
   margin-top: 20px;
+}
+
+.p-gina-de-login .logo-art-room-definitivo-22 img {
+  width: 100%;
+  height: auto; /* Mantiene la proporción de la imagen */
+  object-fit: contain; /* Escala la imagen para que quepa dentro del contenedor sin recortarla */
 }
 
 /* Texto de "Sign up here" */
@@ -161,50 +169,41 @@
   padding: 10px;
 }
 
+.p-gina-de-login .sign-in-container {
+  padding: 1lh;
+  width: 100%;
+}
+
+.p-gina-de-login .sign-in-button {
+  width: 80%;
+  max-width: 128px;
+}
+
+.p-gina-de-login .sign-in-text {
+  font-size: clamp(12px, 2.5vw, 16px); /* Ajusta el tamaño de fuente entre 12px y 16px dependiendo del ancho de la pantalla */
+}
+
+.login-container p {
+  text-align: center;
+}
+
 /* Media Queries para responsividad */
 
 /* Pantallas medianas (hasta 800px) */
 @media (max-width: 800px) {
-  .p-gina-de-login .login-container {
-    width: 90%; /* Ajusta el ancho del contenedor */
-  }
-
   .p-gina-de-login .login-header {
     gap: 50%; /* Ajusta el espaciado entre el logo y la línea divisoria */
-  }
-
-  .p-gina-de-login .logo-art-room-definitivo-9-instance {
-    position: static !important; /* Elimina la posición absoluta */
-    margin-bottom: 20px; /* Añade un margen inferior */
-  }
-
-  .p-gina-de-login .sign-in-container {
-    margin-top: 20px;
   }
 }
 
 /* Pantallas pequeñas (hasta 500px) */
 @media (max-width: 500px) {
-  .p-gina-de-login .login-container {
-    width: 90%; /* Ajusta el ancho del contenedor */
-    height: auto; /* Ajusta la altura del contenedor */
-    padding: 10px; /* Añade un padding para mejor visualización */
+  .login-container {
+    padding: 20px; /* Reduce aún más el padding */
+    max-width: 90%; /* Usa un ancho relativo para adaptarse mejor */
   }
 
   .p-gina-de-login .login-header {
     gap: 30%; /* Ajusta el espaciado entre el logo y la línea divisoria */
-  }
-
-  .p-gina-de-login .logo-art-room-definitivo-9-instance {
-    position: static !important; /* Elimina la posición absoluta */
-    margin-bottom: 10px; /* Añade un margen inferior */
-  }
-
-  .p-gina-de-login .sign-in-container {
-    margin-top: 20px;
-  }
-
-  .p-gina-de-login .divisory-line {
-    margin-bottom: 30px;
   }
 }

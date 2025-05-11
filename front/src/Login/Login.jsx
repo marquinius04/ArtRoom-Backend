@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./Login.css";
-import { LogoArtRoomDefinitivo8 } from "../LogoArtRoomDefinitivo8/LogoArtRoomDefinitivo8.jsx";
+import { LogoArtRoomDefinitivo2 } from "../LogoArtRoomDefinitivo2/LogoArtRoomDefinitivo2.jsx";
 import { useNavigate } from "react-router-dom";
 import { SignInButton } from "../SignInButton/SignInButton.jsx"; // Importa el botón
 
@@ -16,7 +16,7 @@ export const Login = ({ className, ...props }) => {
     <div className={`p-gina-de-login ${className}`}>
       <div className="login-container">
         <header className="login-header">
-          <LogoArtRoomDefinitivo8 className="logo-art-room-definitivo-2-instance" />
+          <LogoArtRoomDefinitivo2 className="logo-art-room-definitivo-2-instance" />
           <div className="divisory-line"></div>
         </header>
 
