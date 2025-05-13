@@ -1,6 +1,9 @@
 import { useState } from "react";
 import "./Login.css";
 import { LogoArtRoomDefinitivo2 } from "../LogoArtRoomDefinitivo2/LogoArtRoomDefinitivo2.jsx";
+import { SkillIconsInstagram } from "../SkillIconsInstagram/SkillIconsInstagram.jsx";
+import { LogosYoutubeIcon } from "../LogosYoutubeIcon/LogosYoutubeIcon.jsx";
+import { DeviconTwitter } from "../DeviconTwitter/DeviconTwitter.jsx";
 import { useNavigate } from "react-router-dom";
 import { SignInButton } from "../SignInButton/SignInButton.jsx"; // Importa el botón
 
@@ -60,7 +63,7 @@ export const Login = ({ className, ...props }) => {
         <a href="/forgotPass" className="forgot-your-password">Forgot your password?</a>
 
         <p>Don't have an account?</p>
-        <a href="/signUp" className="sign-up-text">Sign up here</a>
+        <a href="/signUp">Sign up here</a>
       </div>
     </div>
   );

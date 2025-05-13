@@ -109,14 +109,11 @@
 }
 
 /* Texto de "Sign up here" */
-.p-gina-de-login .sign-up-text {
-  color: #228fc3;
+.p-gina-de-login a {
   text-align: center;
   font-family: "Inter-Bold", sans-serif;
   font-size: 18px;
   font-weight: 600;
-  text-decoration: underline;
-  margin-top: 10px;
 }
 
 .p-gina-de-login .sign-up-text:hover {

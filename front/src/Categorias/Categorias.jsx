@@ -10,6 +10,8 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 export const Categorias = ({ className, ...props }) => {
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 500);
+
   const navigate = useNavigate();
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -17,6 +19,19 @@ export const Categorias = ({ className, ...props }) => {
   useEffect(() => {
    const user = localStorage.getItem("user");
      setIsLoggedIn(!!user);
+  }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 500);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    // Limpieza del evento al desmontar el componente
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   const handleLogoutClick = () => {
@@ -71,19 +86,31 @@ export const Categorias = ({ className, ...props }) => {
             onClick={handleSignInClick}
           />
           </>
-          )};
+          )}
         </div>
       </div>
 
       <h1 className="categories-title">Categories</h1>
-      <div className="grid-4-columns"> {/* Reutilizamos la clase assets-grid */}
-        {categories.map((category, index) => (
-          <div key={index} className="card"> {/* Reutilizamos la clase asset-item */}
-            <img src={category.image} alt={category.name} />
-            <div className="card-title">{category.name}</div>
-          </div>
-        ))}
-      </div>
+      {isMobile ? (
+        <div className="login-container">
+          {categories.map((category, index) => (
+            <div key={index} className="card">
+              <button className="button">
+                {category.name}
+              </button>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className="grid-4-columns">
+          {categories.map((category, index) => (
+            <div key={index} className="card">
+              <img src={category.image} alt={category.name} />
+              <div className="card-title">{category.name}</div>
+            </div>
+          ))}
+        </div>
+      )}
 
       <footer>
         <div className="social-media">

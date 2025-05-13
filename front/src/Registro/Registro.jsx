@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./Registro.css";
-import { LogoArtRoomDefinitivo8 } from "../LogoArtRoomDefinitivo8/LogoArtRoomDefinitivo8.jsx";
+import { LogoArtRoomDefinitivo2 } from "../LogoArtRoomDefinitivo2/LogoArtRoomDefinitivo2.jsx";
 import { useNavigate } from "react-router-dom";
 import { SignUpButton } from "../SignUpButton/SignUpButton.jsx";
 
@@ -37,7 +37,7 @@ export const Registro = ({ className, ...props }) => {
       <div className="login-container">
         {/* Header: Logo y línea divisoria */}
         <header className="login-header">
-          <LogoArtRoomDefinitivo8 className="logo-art-room-definitivo-2-instance" />
+          <LogoArtRoomDefinitivo2 className="logo-art-room-definitivo-2-instance" />
           <div className="divisory-line"></div>
         </header>
 
@@ -96,8 +96,10 @@ export const Registro = ({ className, ...props }) => {
         {/* Mostrar error si las contraseñas no coinciden */}
         {error && <p className="error-message">{error}</p>}
 
-        {/* Botón de Crear cuenta con validación de contraseñas */}
-        <SignUpButton usuario={formData} onSuccess={handleSignUp} />
+        <div className="sign-up-container">
+          {/* Botón de Crear cuenta con validación de contraseñas */}
+          <SignUpButton usuario={formData} onSuccess={handleSignUp} />
+        </div>
       </div>
     </div>
   );

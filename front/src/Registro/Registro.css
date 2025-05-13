@@ -22,6 +22,22 @@
   height: 28px;
 }
 
+.p-gina-de-login .sign-up-container {
+  padding: 1lh;
+  width: 100%;
+}
+
+.p-gina-de-login .sign-up-button {
+  width: 80%;
+  max-width: 128px;
+}
+
+.p-gina-de-login .sign-up-text {
+  font-size: clamp(12px, 2.5vw, 16px);
+  white-space: normal;
+  word-wrap: break-word;
+}
+
 @media (max-width: 500px) {
   .p-gina-de-login .sign-up-button {
     margin-top: 20px;

@@ -109,16 +109,6 @@ body {
   transform: scale(1.05);
 }
 
-
-
-/* Social Media */
-.p-gina-de-inicio-no-logueado .social-media {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  margin: 20px 0;
-}
-
 .p-gina-de-inicio-no-logueado .icon {
   width: 40px;
   height: 40px;
@@ -162,7 +152,6 @@ body {
   text-align: center;
   color: #ffffff;
   transition: background 0.3s ease, transform 0.2s ease; /* Animación para hover */
-  min-width: 150px;
 }
 
 .asset-item img {
@@ -373,5 +362,19 @@ body {
   }
   .p-gina-de-inicio-no-logueado .trending-assets .assets-grid {
     grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+@media (max-width: 220px) {
+  .p-gina-de-inicio-no-logueado .recommended-assets {
+    padding: 0px;
+  }
+
+  .p-gina-de-inicio-no-logueado .categories-link {
+    margin: 0px;
+  }
+
+  .p-gina-de-inicio-no-logueado .trending-assets {
+    padding: 0px;
   }
 }
