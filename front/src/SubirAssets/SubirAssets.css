@@ -1,0 +1,44 @@
+.p-gina-de-subir-assets {
+  background-color: #1a2118;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: "Inter-Regular", sans-serif;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.p-gina-de-subir-assets .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: cyan;
+}
+
+.p-gina-de-subir-assets .subir-assets-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.p-gina-de-subir-assets .div-izquierda {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+}
+
+.p-gina-de-subir-assets .main-info {
+  background: #414c3e;
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+  color: #ffffff;
+  transition: background 0.3s ease, transform 0.2s ease;
+  min-width: 150px;
+}

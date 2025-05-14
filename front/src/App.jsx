@@ -6,6 +6,7 @@ import { Registro } from "./Registro/Registro"; // Importa tu componente de Regi
 import { Categorias } from "./Categorias/Categorias"; // Importa correctamente el componente Categorias
 import { RecuperarContraseña } from "./RecuperarContraseña/RecuperarContraseña";
 import { Perfil } from "./Perfil/Perfil";
+import { SubirAssets } from "./SubirAssets/SubirAssets"; // Importa correctamente el componente SubirAssets
 
 export default function App() {
   return (
@@ -17,6 +18,7 @@ export default function App() {
         <Route path="/categories" element={<Categorias />} />
         <Route path="/forgotPass" element={<RecuperarContraseña />} />
         <Route path="/profile" element={<Perfil />} />
+        <Route path="/uploadAssets" element={<SubirAssets />}></Route>
       </Routes>
     </Router>
   );

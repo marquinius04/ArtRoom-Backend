@@ -15,6 +15,7 @@ export const Inicio = ({ className, ...props }) => {
   // Detectar login al montar el componente
   useEffect(() => {
     const user = localStorage.getItem("user"); // O usa auth context, JWT, etc.
+    console.log("Usuario en Inicio:", user);
     setIsLoggedIn(!!user);
   }, []);
 
@@ -28,6 +29,7 @@ export const Inicio = ({ className, ...props }) => {
   const handleSignUpClick = () => navigate("/signUp");
   const handleCategoriesClick = () => navigate("/categories");
   const handleProfileClick = () => navigate("/profile");
+  const handleUploadClick = () => navigate("/uploadAssets");
   const handleLogoutClick = () => {
     localStorage.removeItem("user"); // o remove token/cookie
     setIsLoggedIn(false);
@@ -79,7 +81,7 @@ export const Inicio = ({ className, ...props }) => {
         <div className="auth-buttons">
           {isLoggedIn ? (
             <>
-              <button className="upload-icon" onClick={handleLogoutClick}><img src="https://www.dropbox.com/scl/fi/o4cednhkybd1ty8xsp5x7/upload-icon.png?rlkey=0ymn2yz9rqdpuyf2hd50hoa7o&st=0t6y1zo8&dl&raw=1"></img></button>
+              <button className="upload-icon" onClick={handleUploadClick}><img src="https://www.dropbox.com/scl/fi/o4cednhkybd1ty8xsp5x7/upload-icon.png?rlkey=0ymn2yz9rqdpuyf2hd50hoa7o&st=0t6y1zo8&dl&raw=1"></img></button>
               <button className="user-icon" onClick={handleProfileClick}><img src="https://www.dropbox.com/scl/fi/hfz5wn581d6rot1ccxuyh/user-icon.png?rlkey=hm75yyttqaw7hb8n5tk3ja3xq&st=rknzoa1v&dl&raw=1"></img></button>
             </>
           ) : (

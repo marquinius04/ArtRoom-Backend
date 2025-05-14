@@ -3,6 +3,13 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const Usuario = require('../models/usuarioModel');
 
+// Función para generar el token JWT
+const generarToken = (id) => {
+    return jwt.sign({ id }, process.env.JWT_SECRET, {
+        expiresIn: '30d'
+    });
+};
+
 // @desc   Register usuario
 // @route  POST /api/usuarios/register
 // @access Public
