@@ -1,7 +1,5 @@
 import "./Perfil.css";
-import { LogoArtRoomDefinitivo2 } from "../LogoArtRoomDefinitivo2/LogoArtRoomDefinitivo2.jsx";
-import { SignUpButton } from "../SignUpButton/SignUpButton.jsx";
-import { SignInButton } from "../SignInButton/SignInButton.jsx";
+import { Cabecera } from "../Componentes/Cabecera.jsx";
 import { SkillIconsInstagram } from "../SkillIconsInstagram/SkillIconsInstagram.jsx";
 import { LogosYoutubeIcon } from "../LogosYoutubeIcon/LogosYoutubeIcon.jsx";
 import { DeviconTwitter } from "../DeviconTwitter/DeviconTwitter.jsx";
@@ -51,6 +49,8 @@ export const Perfil = ({ className, ...props }) => {
     navigate("/signUp"); // Redirige a la página de Registro
   };
 
+  const handleUploadClick = () => navigate("/uploadAssets");
+
   const userAssets = [
     {
       title: "Medieval Kingdom",
@@ -74,36 +74,13 @@ export const Perfil = ({ className, ...props }) => {
 
   return (
     <div className={`background`}>
-      <div className="header">
-        <LogoArtRoomDefinitivo2/>
-        <div className="search-container">
-          <img src="https://www.dropbox.com/scl/fi/ieaswykdv57270lwyk217/vector0.svg?rlkey=infc1esp7w5jleq4zlb80nr5p&st=f84l3uv2&raw=1" alt="Search Icon" className="search-icon" />
-          <input
-            type="text"
-            className="search-text"
-            placeholder="Search..."
-          />
-        </div>
-        <div className="auth-buttons">
-        {isLoggedIn ? (
-            <>
-              <button className="upload-icon" onClick={handleLogoutClick}><img src="https://www.dropbox.com/scl/fi/o4cednhkybd1ty8xsp5x7/upload-icon.png?rlkey=0ymn2yz9rqdpuyf2hd50hoa7o&st=0t6y1zo8&dl&raw=1"></img></button>
-              <a href="/profile" className="user-icon"> <img src="https://www.dropbox.com/scl/fi/hfz5wn581d6rot1ccxuyh/user-icon.png?rlkey=hm75yyttqaw7hb8n5tk3ja3xq&st=rknzoa1v&dl&raw=1"></img></a>
-            </>
-          ) : (
-            <>
-          <SignUpButton
-            className="sign-up-button" 
-            onClick={handleSignUpClick}
-          />
-          <SignInButton
-            className="sign-in-button"
-            onClick={handleSignInClick}
-          />
-          </>
-          )}
-        </div>
-      </div>
+      <Cabecera
+        isLoggedIn={isLoggedIn}
+        handleUploadClick={handleUploadClick}
+        handleProfileClick={handleProfileClick}
+        handleSignUpClick={handleSignUpClick}
+        handleSignInClick={handleSignInClick}
+      />
 
       <div className="dashboard-usuario">
         <div className="dashboard-izq">

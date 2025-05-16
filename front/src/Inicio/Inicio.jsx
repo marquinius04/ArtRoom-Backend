@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
 import "./Inicio.css";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { LogoArtRoomDefinitivo2 } from "../LogoArtRoomDefinitivo2/LogoArtRoomDefinitivo2.jsx";
-import { SignUpButton } from "../SignUpButton/SignUpButton.jsx";
-import { SignInButton } from "../SignInButton/SignInButton.jsx";
 import { SkillIconsInstagram } from "../SkillIconsInstagram/SkillIconsInstagram.jsx";
 import { LogosYoutubeIcon } from "../LogosYoutubeIcon/LogosYoutubeIcon.jsx";
 import { DeviconTwitter } from "../DeviconTwitter/DeviconTwitter.jsx";
+import { Cabecera } from "../Componentes/Cabecera.jsx";
 
 export const Inicio = ({ className, ...props }) => {
   const navigate = useNavigate();
@@ -19,8 +17,14 @@ export const Inicio = ({ className, ...props }) => {
     console.log("Usuario en Inicio:", user);
     setIsLoggedIn(!!user);
 
-    axios.get("http://localhost:5000/api/recursos")
-      .then((res) => setRecursos(res.data))
+    fetch("http://localhost:5000/api/recursos")
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Error al cargar recursos");
+        }
+        return res.json();
+      })
+      .then((data) => setRecursos(data))
       .catch((err) => console.error("Error al cargar recursos:", err));
   }, []);
 
@@ -43,34 +47,13 @@ export const Inicio = ({ className, ...props }) => {
 
   return (
     <div className={`p-gina-de-inicio-no-logueado ${className}`}>
-      <div className="header">
-        <LogoArtRoomDefinitivo2 className="logo-art-room-definitivo-2-instance" />
-        <div className="search-container">
-          <img
-            src="https://www.dropbox.com/scl/fi/ieaswykdv57270lwyk217/vector0.svg?rlkey=infc1esp7w5jleq4zlb80nr5p&st=f84l3uv2&raw=1"
-            alt="Search Icon"
-            className="search-icon"
-          />
-          <input type="text" className="search-text" placeholder="Search..." />
-        </div>
-        <div className="auth-buttons">
-          {isLoggedIn ? (
-            <>
-              <button className="upload-icon" onClick={handleUploadClick}>
-                <img src="https://www.dropbox.com/scl/fi/o4cednhkybd1ty8xsp5x7/upload-icon.png?rlkey=0ymn2yz9rqdpuyf2hd50hoa7o&st=0t6y1zo8&dl&raw=1" />
-              </button>
-              <button className="user-icon" onClick={handleProfileClick}>
-                <img src="https://www.dropbox.com/scl/fi/hfz5wn581d6rot1ccxuyh/user-icon.png?rlkey=hm75yyttqaw7hb8n5tk3ja3xq&st=rknzoa1v&dl&raw=1" />
-              </button>
-            </>
-          ) : (
-            <>
-              <SignUpButton className="sign-up-button-instance" onClick={handleSignUpClick} />
-              <SignInButton className="sign-in-button-instance" onClick={handleSignInClick} />
-            </>
-          )}
-        </div>
-      </div>
+      <Cabecera
+        isLoggedIn={isLoggedIn}
+        handleUploadClick={handleUploadClick}
+        handleProfileClick={handleProfileClick}
+        handleSignUpClick={handleSignUpClick}
+        handleSignInClick={handleSignInClick}
+      />
 
       <div className="filters-grid">
         {categories.map((category, index) => (
@@ -79,7 +62,7 @@ export const Inicio = ({ className, ...props }) => {
       </div>
 
       <div className="recommended-assets">
-        <h2>Recursos disponibles</h2>
+        <h2>Proyectos destacados</h2>
         <div className="assets-grid">
           {recursos.map((asset) => (
             <div

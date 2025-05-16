@@ -7,69 +7,45 @@ const Recurso = require('../models/recursoModel')
 // @access Private
 const getRecursos = asyncHandler(async (req, res) => {
     try {
-        const recursos = await Recurso.find().populate('usuarioId').populate('categoriaId')
+        const recursos = await Recurso.find().populate('usuarioId')
         res.json(recursos)
     } catch (err) {
         res.status(500).json({ message: err.message })
     }
 })
 
+// @desc   Get recursos aleatorios
+// @route GET /api/recursos/random
+// @access Public
+const getRecursosRandom = asyncHandler(async (req, res) => {
+    try {
+        const recursosAleatorios = await Recurso.aggregate([{ $sample: { size: 3 } }]); // Selecciona 3 recursos aleatorios
+        res.json(recursosAleatorios);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
 // @desc   set recursos
 // @route POST /api/recursos
 // @access Private
 const setRecurso = asyncHandler(async (req, res) => {
-    const { Dropbox } = require('dropbox');
-    const fetch = require('isomorphic-fetch'); // requerido por el SDK de Dropbox
-    
-    const dbx = new Dropbox({ accessToken: process.env.DROPBOX_ACCESS_TOKEN, fetch });
-    
     try {
-        const { archivo, preview, ...resto } = req.body;
-    
-        // Simulamos que los archivos vienen como base64 o buffer
-        const archivoBuffer = Buffer.from(archivo.data, 'base64');
-        const previewBuffer = preview ? Buffer.from(preview.data, 'base64') : null;
-    
-        const dropboxArchivo = await dbx.filesUpload({
-            path: `/archivos/${archivo.nombre}`,
-            contents: archivoBuffer,
-            mode: 'add',
-            autorename: true
-        });
-    
-        let dropboxPreview;
-        if (previewBuffer) {
-            dropboxPreview = await dbx.filesUpload({
-                path: `/previews/${preview.nombre}`,
-                contents: previewBuffer,
-                mode: 'add',
-                autorename: true
-            });
-        }
-    
-        // Obtener URLs públicas
-        const sharedArchivo = await dbx.sharingCreateSharedLinkWithSettings({ path: dropboxArchivo.result.path_lower });
-        const archivoUrl = sharedArchivo.result.url.replace('?dl=0', '?raw=1');
-    
-        let previewUrl;
-        if (dropboxPreview) {
-            const sharedPreview = await dbx.sharingCreateSharedLinkWithSettings({ path: dropboxPreview.result.path_lower });
-            previewUrl = sharedPreview.result.url.replace('?dl=0', '?raw=1');
-        }
-    
+        const { archivoUrl, previewUrl, ...resto } = req.body;
+
         const nuevoRecurso = new Recurso({
             ...resto,
             archivoUrl,
             previewUrl
         });
-    
+
         const recursoGuardado = await nuevoRecurso.save();
         res.status(201).json(recursoGuardado);
     } catch (err) {
         console.error(err);
         res.status(400).json({ message: err.message });
     }
-})
+});
 
 // @desc   update recursos
 // @route PUT /api/recursos/:id
@@ -100,7 +76,7 @@ const deleteRecurso = asyncHandler(async (req, res) => {
 // @access Private
 const getRecurso = asyncHandler(async (req, res) => {
     try {
-        const recurso = await Recurso.findById(req.params.id).populate('usuarioId').populate('categoriaId')
+        const recurso = await Recurso.findById(req.params.id).populate('usuarioId')
         if (!recurso) return res.status(404).json({ message: 'Recurso no encontrado' })
         res.json(recurso)
     } catch (err) {
@@ -110,6 +86,7 @@ const getRecurso = asyncHandler(async (req, res) => {
 
 module.exports = {
     getRecursos,
+    getRecursosRandom,
     setRecurso,
     updateRecurso,
     deleteRecurso,
