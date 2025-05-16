@@ -56,7 +56,7 @@ export const Inicio = ({ className, ...props }) => {
         <div className="auth-buttons">
           {isLoggedIn ? (
             <>
-              <button className="upload-icon" onClick={handleLogoutClick}>
+              <button className="upload-icon" onClick={handleUploadClick}>
                 <img src="https://www.dropbox.com/scl/fi/o4cednhkybd1ty8xsp5x7/upload-icon.png?rlkey=0ymn2yz9rqdpuyf2hd50hoa7o&st=0t6y1zo8&dl&raw=1" />
               </button>
               <button className="user-icon" onClick={handleProfileClick}>

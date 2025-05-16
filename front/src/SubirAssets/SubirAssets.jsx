@@ -13,6 +13,7 @@ export const SubirAssets = ({ className, ...props }) => {
   const [uploadedFileName, setUploadedFileName] = useState(""); // Estado para almacenar el nombre del archivo subido
   const [thumbnailFile, setThumbnailFile] = useState(null); // Estado para almacenar la URL del thumbnail
   const [thumbnailFileName, setThumbnailFileName] = useState(""); // Estado para almacenar el nombre del thumbnail
+  const [categories, setCategories] = useState([]); // Nuevo estado para categorías desde el backend
 
   const handleThumbnailUpload = (e) => {
     const file = e.target.files[0];
@@ -23,17 +24,6 @@ export const SubirAssets = ({ className, ...props }) => {
       console.log("Thumbnail subido:", file.name);
     }
   };
-
-  const categories = [
-    "Animals and Plants",
-    "Realistic Furnitures",
-    "Weapons and Ammunition",
-    "Sculpture and Art",
-    "Fantastic Landscapes",
-    "Realistic Landscapes",
-    "Cars and Vehicles",
-    "Buildings and Structures",
-  ];
 
   const availableCategories = categories.filter(
     (category) => !tags.includes(category)
@@ -72,6 +62,21 @@ export const SubirAssets = ({ className, ...props }) => {
     if (!user) {
       navigate("/"); // Redirige al inicio si no está logueado
     }
+
+    fetch("http://localhost:5000/api/categorias")
+      .then((res) => {
+        console.log("Status:", res.status);
+        return res.text(); // primero como texto
+      })
+      .then((text) => {
+        console.log("Texto recibido:", text); // Verás si es HTML
+        const json = JSON.parse(text); // intentar parsear si es JSON válido
+        const nombres = json.map((cat) => cat.nombre_categoria);
+        setCategories(nombres);
+      })
+      .catch((error) => {
+        console.error("Error al cargar las categorías:", error);
+      });
   }, [navigate]); // Solo depende de navigate
 
   return (
@@ -84,11 +89,7 @@ export const SubirAssets = ({ className, ...props }) => {
             alt="Search Icon"
             className="search-icon"
           />
-          <input
-            type="text"
-            className="search-text"
-            placeholder="Search..."
-          />
+          <input type="text" className="search-text" placeholder="Search..." />
         </div>
         <div className="auth-buttons">
           <button className="upload-icon">
@@ -161,9 +162,9 @@ export const SubirAssets = ({ className, ...props }) => {
         <div className="div-derecha">
           <h1>Thumbnail</h1>
           <div className="media-rectangle">
-            {thumbnailFile ? ( // Cambiado de uploadedFileName a thumbnailFile
+            {thumbnailFile ? (
               <img
-                src={thumbnailFile} // Cambiado de uploadedFile a thumbnailFile
+                src={thumbnailFile}
                 alt="Uploaded thumbnail preview"
                 className="uploaded-file-preview"
               />
@@ -174,9 +175,12 @@ export const SubirAssets = ({ className, ...props }) => {
                   id="thumbnail-upload"
                   className="file-input"
                   accept=".png, .jpg, .jpeg"
-                  onChange={(e) => handleThumbnailUpload(e)}
+                  onChange={handleThumbnailUpload}
                 />
-                <label htmlFor="thumbnail-upload" className="media-upload-label">
+                <label
+                  htmlFor="thumbnail-upload"
+                  className="media-upload-label"
+                >
                   <img
                     src="https://www.dropbox.com/scl/fi/18y0fpk4tvf1rhxzt93gq/media-icon.svg?rlkey=wph40wpuhvkgxajjbd0441mxm&st=c2cuud3q&raw=1"
                     alt="media file icon"
@@ -185,9 +189,13 @@ export const SubirAssets = ({ className, ...props }) => {
               </>
             )}
           </div>
-          <button className="button" onClick={() => document.getElementById("thumbnail-upload").click()}>
+          <button
+            className="button"
+            onClick={() => document.getElementById("thumbnail-upload").click()}
+          >
             Upload photo
           </button>
+
           <h1>Tags</h1>
           <div className="tags-container">
             {tags.map((tag, index) => (
@@ -202,6 +210,7 @@ export const SubirAssets = ({ className, ...props }) => {
               </div>
             ))}
           </div>
+
           <div className="add-tag-container">
             <select
               className="add-tag-select"
