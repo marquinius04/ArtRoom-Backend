@@ -7,7 +7,7 @@ import { Categorias } from "./Categorias/Categorias"; // Importa correctamente e
 import { RecuperarContraseña } from "./RecuperarContraseña/RecuperarContraseña";
 import { Perfil } from "./Perfil/Perfil";
 import { SubirAssets } from "./SubirAssets/SubirAssets"; // Importa correctamente el componente SubirAssets
-import { ModeloIndividualSuperior } from "./Recurso/ModeloIndividualSuperior"; // Página que usará ModeloIndividualSuperior
+import { AssetIndividual } from "./AssetIndividual/AssetIndividual"; // Página que usará AssetIndividual
 
 
 export default function App() {
@@ -21,7 +21,7 @@ export default function App() {
         <Route path="/forgotPass" element={<RecuperarContraseña />} />
         <Route path="/profile" element={<Perfil />} />
         <Route path="/uploadAssets" element={<SubirAssets />}></Route>
-        <Route path="/asset/:id" element={<ModeloIndividualSuperior />} />
+        <Route path="/asset/:id" element={<AssetIndividual />} />
       </Routes>
     </Router>
   );

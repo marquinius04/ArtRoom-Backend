@@ -176,13 +176,13 @@ body {
 .p-gina-de-inicio-no-logueado .asset-likes,
 .p-gina-de-inicio-no-logueado .asset-views {
   display: flex;
-  align-content: center;
+  align-items: center;
 }
 
 .p-gina-de-inicio-no-logueado .stat-icon {
   width: 100%;
   height: 20px;
-  margin-right: 5px; /* Espaciado entre el ícono y el número */
+  margin-bottom: 0px;
 }
 
 /* Categories */
