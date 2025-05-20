@@ -17,6 +17,12 @@
 .logo-art-room-definitivo-22 {
   order: -2;
 }
+.dashboard-usuario .button {
+  width: 75%;
+  white-space: normal;
+  word-wrap: break-word;
+  margin: 10px;
+}
 .dashboard-usuario .dashboard-izq {
   display: flex;
   flex-direction: column;
@@ -30,11 +36,6 @@
   background: #414c3e;
   width: 100%;
   padding: 10px;
-}
-.dashboard-usuario .dashboard-izq .dashboard-historial .button {
-  width: 75%;
-  white-space: normal;
-  word-wrap: break-word;
 }
 .dashboard-usuario .dashboard-izq .dashboard-perfil {
   display: flex;
@@ -63,13 +64,8 @@
   align-items: center;
   background: #414c3e;
   width: 20%;
-  height: 266px;
+  height: 100%;
   justify-content: space-evenly;
-}
-.dashboard-usuario .dashboard-dcha .button {
-  width: 75%;
-  white-space: normal; /* Permite que el texto se ajuste a varias líneas */
-  word-wrap: break-word; /* Fuerza el salto de línea si es necesario */
 }
 .dashboard-usuario .dashboard-dcha .delete-account {
   color: #1A2118;
@@ -148,10 +144,13 @@
 }
 
 .password-form {
-  margin-top: 1rem;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  padding: 15px;
+  max-width: 90%; /* Ocupa el 90% del ancho de la pantalla */
+  justify-content: center;
+  gap: 15px; /* Espaciado entre los elementos */
+  margin: 0 auto; /* Centra el formulario horizontalmente */
 }
 
 .password-form input {
@@ -163,16 +162,17 @@
 
 .form-buttons {
   display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-  width: 340px;
+  flex-direction: row; /* Ensure buttons are in a row */
+  gap: 1rem;
+  justify-content: center; /* Center align the buttons */
 }
 
+.form-buttons .button {
+  margin: 0px;
+}
 
 .password-form button {
-  background-color: #61cc5d;
   color: black;
-  padding: 0.5rem;
   border: none;
   border-radius: 6px;
   cursor: pointer;
@@ -183,11 +183,19 @@
   background-color: #b80f0f;
   color: black;
   border: none;
-  margin-top: 10px;
+}
+
+.social-form {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  max-width: 90%; /* Ocupa el 90% del ancho de la pantalla */
+  justify-content: center;
 }
 
 .social-input-group {
   display: flex;
+  justify-content: center;
   align-items: center;
   margin-bottom: 1rem;
 }
@@ -199,15 +207,15 @@
   border: 2px solid #ccc;
   border-radius: 6px;
   color: white;
+  width: 100%;
 }
 
 .social-add-button {
+  padding: 0.5rem;
   margin-left: 0.5rem;
-  padding: 0.4rem 0.8rem;
   font-size: 1rem;
   border: none;
-  background-color: #28a745;
-  color: white;
+  background-color: #61cc5d;
   border-radius: 6px;
   cursor: pointer;
 }
@@ -218,12 +226,13 @@
 
 .social-button-row {
   display: flex;
+  flex-direction: row; /* Ensure buttons are in a row */
   gap: 1rem;
+  justify-content: center; /* Center align the buttons */
 }
 
 .social-save-button,
 .social-cancel-button {
-  padding: 0.6rem 1.2rem;
   font-size: 1rem;
   font-weight: bold;
   border: none;
@@ -232,8 +241,7 @@
 }
 
 .social-save-button {
-  background-color: #28a745;
-  color: white;
+  background-color: #61cc5d;
 }
 
 .social-save-button:hover {
@@ -242,7 +250,6 @@
 
 .social-cancel-button {
   background-color: #6c757d;
-  color: white;
 }
 
 .social-cancel-button:hover {
@@ -280,6 +287,11 @@
     width: 70%;
   }
 }
+@media (max-width: 600px) {
+  .social-button-row {
+    gap: 0px;
+  }
+}
 @media (max-width: 500px) {
   .search-container {
     width: 50%;
@@ -307,5 +319,49 @@
   }
   .dashboard-usuario .dashboard-dcha {
     width: 60%;
+    height: 100%;
+  }
+
+  .password-form {
+    padding: 15px;
+    max-width: 90%; /* Ocupa el 90% del ancho de la pantalla */
+  }
+
+  .form-buttons {
+    flex-direction: column; /* Cambia a diseño en columna */
+    gap: 10px;
+    align-items: center;
+  }
+
+  .password-form button {
+    width: 100%; /* Botones ocupan todo el ancho */
+  }
+
+  .social-input-group {
+    flex-direction: column; /* Cambia a diseño en columna */
+    gap: 10px;
+  }
+  
+  .social-input {
+    width: 100%; /* Ocupa todo el ancho disponible */
+  }
+  
+  .social-add-button {
+    width: 32px;
+    height: 32px;
+    text-align: center;
+    margin-left: 0px;
+  }
+  
+  .social-button-row {
+    flex-direction: column; /* Cambia a diseño en columna */
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .social-save-button,
+  .social-cancel-button {
+    font-size: 12px;
+    width: 100%; /* Botones ocupan todo el ancho */
   }
 }

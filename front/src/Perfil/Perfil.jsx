@@ -362,7 +362,7 @@ export const Perfil = ({ className, ...props }) => {
               
               <div className="form-buttons">
                 <button onClick={handleChangePassword} disabled={loading} className="button">
-                  {loading ? "Actualizando..." : "Confirm Change"}
+                  {loading ? "Actualizando..." : "✔"}
                 </button>
                 <button
                   className="button cancel-button"
@@ -372,7 +372,7 @@ export const Perfil = ({ className, ...props }) => {
                     setRepeatPassword("");
                   }}
                 >
-                  Cancel
+                  X
                 </button>
               </div>
             </div>
@@ -395,15 +395,15 @@ export const Perfil = ({ className, ...props }) => {
             </div>
 
             <div className="social-button-row">
-              <button className="social-save-button" onClick={handleSaveSocialLinks}>Save Links</button>
+              <button className="button" onClick={handleSaveSocialLinks}>✔</button>
               <button
-                className="social-cancel-button"
+                className="button cancel-button"
                 onClick={() => {
                   setShowSocialInput(false);
                   setNewSocialLink("");
                 }}
               >
-                Cancel
+                X
               </button>
             </div>
           </div>
