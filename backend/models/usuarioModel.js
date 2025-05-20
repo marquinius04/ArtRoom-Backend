@@ -25,7 +25,17 @@ const usuarioSchema = mongoose.Schema({
         type: String,
         enum: ['user', 'admin'],
         default: 'user'
+    },
+    socialLinks: {
+        type: [
+            {
+                type: { type: String, required: true }, // ej: "instagram", "twitter"
+                url: { type: String, required: true }   // ej: "https://instagram.com/..."
+            }
+        ],
+        default: []
     }
+         
 }, {
     timestamps: true
 })

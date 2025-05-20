@@ -186,6 +186,80 @@
   margin-top: 10px;
 }
 
+.social-input-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.social-input {
+  flex: 1;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: 2px solid #ccc;
+  border-radius: 6px;
+  color: white;
+}
+
+.social-add-button {
+  margin-left: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  font-size: 1rem;
+  border: none;
+  background-color: #28a745;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.social-add-button:hover {
+  background-color: #218838;
+}
+
+.social-button-row {
+  display: flex;
+  gap: 1rem;
+}
+
+.social-save-button,
+.social-cancel-button {
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.social-save-button {
+  background-color: #28a745;
+  color: white;
+}
+
+.social-save-button:hover {
+  background-color: #218838;
+}
+
+.social-cancel-button {
+  background-color: #6c757d;
+  color: white;
+}
+
+.social-cancel-button:hover {
+  background-color: #5a6268;
+}
+
+.social-icons-under-profile {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.social-link-icon {
+  font-size: 1.5rem; /* Tamaño de icono, opcional */
+  margin-top: 15px;
+}
 
 
 @media (max-width: 1302px) {

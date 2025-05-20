@@ -9,6 +9,99 @@ import { useEffect, useState } from "react";
 
 export const Perfil = ({ className, ...props }) => {
 
+  const [showSocialInput, setShowSocialInput] = useState(false);
+  const [socialLinks, setSocialLinks] = useState([]);
+  const [newSocialLink, setNewSocialLink] = useState("");
+  const [pendingLinks, setPendingLinks] = useState([]);
+
+
+  const detectSocialType = (url) => {
+    if (url.includes("instagram.com")) return "instagram";
+    if (url.includes("twitter.com") || url.includes("x.com")) return "twitter";
+    if (url.includes("youtube.com")) return "youtube";
+    return "other";
+  };
+  
+  const handleAddLink = () => {
+    const trimmedLink = newSocialLink.trim();
+    if (!trimmedLink) return;
+  
+    // Verifica duplicados en socialLinks o pendingLinks
+    const alreadyExists =
+      socialLinks.some(link => link.url === trimmedLink) ||
+      pendingLinks.some(link => link.url === trimmedLink);
+  
+    if (alreadyExists) {
+      alert("Este enlace ya ha sido añadido.");
+      return;
+    }
+  
+    // Detectar tipo automáticamente
+    let type = "other";
+    if (trimmedLink.includes("instagram.com")) type = "instagram";
+    else if (trimmedLink.includes("twitter.com")) type = "twitter";
+    else if (trimmedLink.includes("youtube.com")) type = "youtube";
+  
+    setPendingLinks([...pendingLinks, { url: trimmedLink, type }]);
+    setNewSocialLink("");
+  };
+  
+
+  useEffect(() => {
+    const fetchUserSocialLinks = async () => {
+      const user = JSON.parse(localStorage.getItem("user"));
+      if (!user) return;
+  
+      try {
+        const response = await fetch(`http://localhost:5000/api/usuarios/${user._id}`, {
+          headers: {
+            "Authorization": `Bearer ${user.token}`,
+          },
+        });
+  
+        if (!response.ok) throw new Error("Error al obtener usuario");
+  
+        const data = await response.json();
+        setSocialLinks(data.socialLinks || []);
+      } catch (err) {
+        console.error("Error cargando redes sociales:", err);
+      }
+    };
+  
+    fetchUserSocialLinks();
+  }, []);
+  
+  const handleSaveSocialLinks = async () => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (!user) return alert("Usuario no autenticado");
+  
+    const updatedLinks = [...socialLinks, ...pendingLinks];
+  
+    try {
+      const response = await fetch(`http://localhost:5000/api/usuarios/${user._id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
+        body: JSON.stringify({ socialLinks: updatedLinks }),
+      });
+  
+      if (!response.ok) throw new Error("Error al guardar redes sociales");
+  
+      alert("Redes sociales actualizadas");
+  
+      setSocialLinks(updatedLinks); // mostrar los íconos
+      setPendingLinks([]);          // limpiar los pendientes
+      setShowSocialInput(false);    // cerrar input
+      console.log("Redes sociales guardadas:", updatedLinks);
+    } catch (error) {
+      console.error(error);
+      alert("Error al actualizar redes sociales");
+    }
+  };
+  
+
   const handleDeleteAccount = async () => {
     const confirmed = window.confirm(
       "Are you sure you want to delete your account? This action cannot be undone."
@@ -96,7 +189,7 @@ export const Perfil = ({ className, ...props }) => {
   const handleLogoutClick = () => {
     localStorage.removeItem("user");
     setIsLoggedIn(false);
-    navigate("/"); // o "/login"
+    navigate("/");
   };
 
   useEffect(() => {
@@ -163,7 +256,19 @@ export const Perfil = ({ className, ...props }) => {
           <div className="dashboard-perfil">
             <div className="arriba-perfil">
               <img className="profile-photo" src="https://www.dropbox.com/scl/fi/hfz5wn581d6rot1ccxuyh/user-icon.png?rlkey=hm75yyttqaw7hb8n5tk3ja3xq&st=rknzoa1v&dl&raw=1"></img>
+              <div className="social-icons-under-profile">
+                {socialLinks.map((link, idx) => (
+                  <a key={idx} href={link.url} target="_blank" rel="noopener noreferrer" className="social-link-icon">
+                    {link.type === "instagram" && <SkillIconsInstagram />}
+                    {link.type === "twitter" && <DeviconTwitter />}
+                    {link.type === "youtube" && <LogosYoutubeIcon />}
+                    {link.type === "other" && <span>{link.url}</span>}
+                  </a>
+                ))}
+              </div>
+
               <div className="divisory-line"></div>
+
             </div>
             <a href="/my-assets">My Assets</a>
               <div className="assets-grid">
@@ -272,7 +377,37 @@ export const Perfil = ({ className, ...props }) => {
               </div>
             </div>
           )}
-          <button className="button">Add social networks</button>
+          {!showSocialInput ? (
+            <button className="button" onClick={() => setShowSocialInput(true)}>
+              Add social networks
+            </button>
+          ) : (
+          <div className="social-form">
+            <div className="social-input-group">
+              <input
+                type="text"
+                className="social-input"
+                placeholder="Add social link"
+                value={newSocialLink}
+                onChange={(e) => setNewSocialLink(e.target.value)}
+              />
+              <button className="social-add-button" onClick={handleAddLink}>+</button>
+            </div>
+
+            <div className="social-button-row">
+              <button className="social-save-button" onClick={handleSaveSocialLinks}>Save Links</button>
+              <button
+                className="social-cancel-button"
+                onClick={() => {
+                  setShowSocialInput(false);
+                  setNewSocialLink("");
+                }}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+          )}
           <button
             className="button delete-account"
             onClick={handleDeleteAccount}
