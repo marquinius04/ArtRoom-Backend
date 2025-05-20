@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import "./Inicio.css";
 import { useNavigate } from "react-router-dom";
-import { LogoArtRoomDefinitivo2 } from "../LogoArtRoomDefinitivo2/LogoArtRoomDefinitivo2.jsx";
 import { SkillIconsInstagram } from "../SkillIconsInstagram/SkillIconsInstagram.jsx";
 import { LogosYoutubeIcon } from "../LogosYoutubeIcon/LogosYoutubeIcon.jsx";
 import { DeviconTwitter } from "../DeviconTwitter/DeviconTwitter.jsx";
@@ -35,6 +34,7 @@ export const Inicio = ({ className, ...props }) => {
   const handleUploadClick = () => navigate("/uploadAssets");
   const handleLogoutClick = () => {
     localStorage.removeItem("user");
+    console.log("Usuario eliminado del localStorage");
     setIsLoggedIn(false);
     navigate("/");
   };
@@ -53,6 +53,7 @@ export const Inicio = ({ className, ...props }) => {
         handleProfileClick={handleProfileClick}
         handleSignUpClick={handleSignUpClick}
         handleSignInClick={handleSignInClick}
+        handleLogoutClick={handleLogoutClick}
       />
 
       <div className="filters-grid">

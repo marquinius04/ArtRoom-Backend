@@ -274,6 +274,7 @@ footer {
     .auth-buttons {
         flex-direction: row;
         gap: 10px;
+        flex-wrap: wrap-reverse;
     }
 
     .button {
