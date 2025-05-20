@@ -61,6 +61,12 @@ export const AssetIndividual = ({ className = "", ...props }) => {
   const handleSignUpClick = () => navigate("/signUp");
   const handleProfileClick = () => navigate("/profile");
   const handleUploadClick = () => navigate("/uploadAssets");
+  const handleLogoutClick = () => {
+    localStorage.removeItem("user");
+    console.log("Usuario eliminado del localStorage");
+    setIsLoggedIn(false);
+    navigate("/");
+  };
 
   return (
     <div className={`asset-individual ${className}`} {...props}>
@@ -70,6 +76,7 @@ export const AssetIndividual = ({ className = "", ...props }) => {
         handleProfileClick={handleProfileClick}
         handleSignUpClick={handleSignUpClick}
         handleSignInClick={handleSignInClick}
+        handleLogoutClick={handleLogoutClick}
       />
       <div className="asset-content">
         {/* Primera fila: Información del asset y proyectos relacionados */}
@@ -170,27 +177,35 @@ export const AssetIndividual = ({ className = "", ...props }) => {
         {/* Segunda fila: Caja de comentarios */}
         <div className="comments-section">
           <h2>Comentarios</h2>
-          <form
-            className="comment-form"
-            onSubmit={(e) => {
-              e.preventDefault();
-              const newComment = e.target.comment.value;
-              if (newComment.trim()) {
-                setComments([...comments, { text: newComment, user: "Usuario Anónimo" }]);
-                e.target.reset();
-              }
-            }}
-          >
-            <textarea
-              name="comment"
-              className="comment-input"
-              placeholder="Escribe un comentario..."
-              rows="4"
-            ></textarea>
-            <button type="submit" className="comment-submit-button">
-              Enviar
-            </button>
-          </form>
+          {isLoggedIn ? (
+            <form
+              className="comment-form"
+              onSubmit={(e) => {
+                e.preventDefault();
+                const newComment = e.target.comment.value;
+                if (newComment.trim()) {
+                  const user = JSON.parse(localStorage.getItem("user"));
+                  const username = user?.username || "Usuario Anónimo"; // Extrae solo el username
+                  setComments([...comments, { text: newComment, user: username }]); // Guarda solo el username
+                  e.target.reset();
+                }
+              }}
+            >
+              <textarea
+                name="comment"
+                className="comment-input"
+                placeholder="Escribe un comentario..."
+                rows="4"
+              ></textarea>
+              <button type="submit" className="comment-submit-button">
+                Enviar
+              </button>
+            </form>
+          ) : (
+            <p className="login-message">
+              Debes <span onClick={() => navigate("/login")} className="login-link">iniciar sesión</span> para comentar.
+            </p>
+          )}
           <div className="comments-list">
             {comments.map((comment, index) => (
               <div key={index} className="comment-item">

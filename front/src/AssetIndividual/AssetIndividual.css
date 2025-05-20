@@ -37,7 +37,11 @@ html, body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px; /* Espaciado entre los elementos */
+  gap: 20px;
+  width: 100%; /* Asegura que no exceda el contenedor */
+  max-width: 100%; /* Limita el ancho máximo */
+  box-sizing: border-box; /* Incluye padding y bordes en el ancho total */
+  overflow-wrap: break-word; /* Ajusta palabras largas */
 }
 
 .asset-info .asset-image {
@@ -52,15 +56,19 @@ html, body {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
-  width: 100%;
-  max-width: 800px;
-  height: auto;
-  object-fit: cover;
+  align-items: center; /* Asegura que los elementos estén alineados verticalmente */
+  width: 100%; /* Ocupa todo el ancho disponible */
+  max-width: 100%; /* Limita el ancho máximo al contenedor */
+  box-sizing: border-box; /* Incluye padding y bordes en el ancho total */
+  gap: 10px; /* Añade espacio entre los elementos */
+  overflow-wrap: break-word; /* Ajusta palabras largas */
+  flex-wrap: wrap; /* Permite que los elementos se ajusten en varias filas si es necesario */
 }
 
-.asset-stats .stat-icon {
+.asset-info .asset-stats .stat-icon {
   width: 24px;
   height: 24px;
+  object-fit: contain; /* Asegura que los íconos se ajusten correctamente */
 }
 
 .asset-info .asset-stats h1 {
@@ -70,6 +78,9 @@ html, body {
   font-size: 18px;
   color: #ffffff; /* Texto blanco */
   margin: 0;
+  text-align: center; /* Centra el texto */
+  word-wrap: break-word; /* Ajusta palabras largas */
+  max-width: 100%; /* Limita el ancho máximo */
 }
 
 .asset-info p {
@@ -189,17 +200,24 @@ html, body {
 }
 
 .comments-section {
-  background-color: #2a3725; /* Fondo oscuro */
+  background-color: #2a3725;
   border-radius: 10px;
   padding: 20px;
   box-shadow: 0 4px 18px rgba(0, 0, 0, 0.5);
+  width: 100%; /* Asegura que no exceda el contenedor */
+  max-width: 100%; /* Limita el ancho máximo */
+  box-sizing: border-box; /* Incluye padding y bordes en el ancho total */
+  overflow-wrap: break-word; /* Ajusta palabras largas */
 }
 
 .comments-section h2 {
   font-size: 1.5rem;
   color: #ffffff;
-  margin-bottom: 16px;
+  margin: 0 0 16px 0; /* Elimina márgenes laterales */
   text-align: center;
+  word-wrap: break-word; /* Asegura que el texto largo se ajuste */
+  max-width: 100%; /* Limita el ancho al contenedor */
+  overflow-wrap: break-word; /* Ajusta palabras largas */
 }
 
 .comment-form {
@@ -224,7 +242,7 @@ html, body {
 }
 
 .comment-submit-button {
-  align-self: flex-end;
+  align-self: flex-end; /* Mantiene el botón alineado a la derecha */
   background-color: #57c882;
   color: #1a2118;
   font-size: 1rem;
@@ -234,6 +252,8 @@ html, body {
   border: none;
   cursor: pointer;
   transition: background 0.3s ease, transform 0.2s ease;
+  max-width: 100%; /* Asegura que no exceda el contenedor */
+  box-sizing: border-box; /* Incluye padding y bordes en el ancho total */
 }
 
 .comment-submit-button:hover {
@@ -299,4 +319,10 @@ html, body {
 .tag-item:hover {
   background-color: #45a96a; /* Color más oscuro al pasar el cursor */
   transform: scale(1.05); /* Efecto de zoom */
+}
+
+@media (max-width: 468px) {
+  .asset-related {
+    display: none;
+  }
 }
