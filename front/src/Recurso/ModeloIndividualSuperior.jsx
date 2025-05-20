@@ -10,7 +10,7 @@ export const ModeloIndividualSuperior = ({ className = "", ...props }) => {
   useEffect(() => {
     const fetchAsset = async () => {
       try {
-        const response = await fetch(`/api/assets/${encodeURIComponent(titulo)}`);
+        const response = await fetch(`http://localhost:5000/api/recursos/${encodeURIComponent(titulo)}`);
         const data = await response.json();
         setAsset(data);
       } catch (error) {

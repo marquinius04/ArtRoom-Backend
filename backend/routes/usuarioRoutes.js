@@ -16,7 +16,7 @@ router.post('/login', loginUsuario);
 router.get('/', getUsuarios);
 router.post('/', setUsuario);
 router.put('/:id', updateUsuario);
-router.delete('/:id', deleteUsuario);
+router.delete("/delete-account/:id", deleteUsuario);
 router.get('/:id', getUsuario);
 
 module.exports = router;

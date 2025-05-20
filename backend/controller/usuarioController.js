@@ -101,26 +101,63 @@ const setUsuario = asyncHandler(async (req, res) => {
 // @desc   update usuarios
 // @route PUT /api/usuarios/:id
 // @access Private
-const updateUsuario = asyncHandler( async (req, res) => {
+const updateUsuario = asyncHandler(async (req, res) => {
     try {
-        const usuarioActualizado = await Usuario.findByIdAndUpdate(req.params.id, req.body, { new: true })
-        res.json(usuarioActualizado)
+      const authHeader = req.headers.authorization;
+  
+      if (!authHeader || !authHeader.startsWith('Bearer ')) {
+        return res.status(401).json({ message: 'No autorizado: token no proporcionado' });
+      }
+  
+      const token = authHeader.split(' ')[1];
+  
+      let decoded;
+      try {
+        decoded = jwt.verify(token, process.env.JWT_SECRET);
+      } catch (err) {
+        return res.status(401).json({ message: 'Token inválido' });
+      }
+  
+      // Asegura que el ID del token coincida con el ID del usuario que se quiere actualizar
+      if (decoded.id !== req.params.id) {
+        return res.status(403).json({ message: 'No tienes permiso para modificar este usuario' });
+      }
+  
+      const { password, ...rest } = req.body;
+      const updateFields = { ...rest };
+  
+      if (password) {
+        const salt = await bcrypt.genSalt(10);
+        updateFields.password = await bcrypt.hash(password, salt);
+      }
+  
+      const usuarioActualizado = await Usuario.findByIdAndUpdate(
+        req.params.id,
+        updateFields,
+        { new: true }
+      );
+  
+      res.json(usuarioActualizado);
     } catch (err) {
-        res.status(400).json({ message: err.message })
+      console.error(err);
+      res.status(500).json({ message: 'Error en el servidor' });
     }
-})
+  });
+  
 
-// @desc   delete usuarios
-// @route DELETE /api/usuarios
+// @desc   Delete current user
+// @route  DELETE /api/usuarios/delete-account
 // @access Private
 const deleteUsuario = asyncHandler(async (req, res) => {
     try {
-        await Usuario.findByIdAndDelete(req.params.id)
-        res.json({ message: 'Usuario eliminado' })
+      await Usuario.findByIdAndDelete(req.params.id);  // <-- usar req.params.id
+      res.json({ message: "Usuario eliminado" });
     } catch (err) {
-        res.status(500).json({ message: err.message })
+      res.status(500).json({ message: err.message });
     }
-})
+  });
+    
+
 
 // @desc   Get usuario
 // @route GET /api/usuarios/:id

@@ -11,6 +11,82 @@ import { useEffect, useState } from "react";
 
 export const Perfil = ({ className, ...props }) => {
 
+  const handleDeleteAccount = async () => {
+    const confirmed = window.confirm(
+      "Are you sure you want to delete your account? This action cannot be undone."
+    );
+  
+    if (!confirmed) return;
+  
+    const user = JSON.parse(localStorage.getItem("user")); // Asegúrate de que user._id esté disponible
+  
+    try {
+      const response = await fetch(`http://localhost:5000/api/usuarios/delete-account/${user._id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+  
+      if (!response.ok) {
+        throw new Error("Failed to delete account");
+      }
+  
+      localStorage.removeItem("user");
+      window.location.href = "/";
+    } catch (error) {
+      console.error("Error deleting account:", error);
+      alert("There was a problem deleting your account. Please try again.");
+    }
+  };
+  
+
+  const [showPasswordForm, setShowPasswordForm] = useState(false);
+  const [newPassword, setNewPassword] = useState("");
+  const [repeatPassword, setRepeatPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleChangePassword = async () => {
+    if (newPassword !== repeatPassword) {
+      alert("Las contraseñas no coinciden");
+      return;
+    }
+
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (!user) {
+      alert("Usuario no autenticado");
+      return;
+    }
+
+    try {
+      setLoading(true);
+
+      const response = await fetch(`http://localhost:5000/api/usuarios/${user._id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}` // solo si usas JWT
+        },
+        body: JSON.stringify({ password: newPassword })
+      });
+
+      if (!response.ok) {
+        throw new Error("Error al actualizar la contraseña");
+      }
+
+      alert("Contraseña actualizada correctamente");
+      setShowPasswordForm(false);
+      setNewPassword("");
+      setRepeatPassword("");
+    } catch (error) {
+      console.error(error);
+      alert("Error al cambiar la contraseña");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 875);
 
@@ -178,10 +254,56 @@ export const Perfil = ({ className, ...props }) => {
         </div>
 
         <div className="dashboard-dcha">
-          <button className="button">Change password</button>
+          {!showPasswordForm && (
+            <button
+              className="button"
+              onClick={() => setShowPasswordForm(true)}
+            >
+              Change password
+            </button>
+          )}
+
+          {showPasswordForm && (
+            <div className="password-form">
+              <input
+                type="password"
+                placeholder="New Password"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+              />
+              <input
+                type="password"
+                placeholder="Repeat New Password"
+                value={repeatPassword}
+                onChange={(e) => setRepeatPassword(e.target.value)}
+              />
+              
+              <div className="form-buttons">
+                <button onClick={handleChangePassword} disabled={loading} className="button">
+                  {loading ? "Actualizando..." : "Confirm Change"}
+                </button>
+                <button
+                  className="button cancel-button"
+                  onClick={() => {
+                    setShowPasswordForm(false);
+                    setNewPassword("");
+                    setRepeatPassword("");
+                  }}
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          )}
           <button className="button">Add social networks</button>
-          <button className="button delete-account">Delete account</button>
+          <button
+            className="button delete-account"
+            onClick={handleDeleteAccount}
+          >
+            Delete account
+          </button>
         </div>
+
       </div>
 
       <footer>
