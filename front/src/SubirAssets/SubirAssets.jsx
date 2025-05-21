@@ -4,7 +4,28 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
+
+const subirArchivoDropbox = async (file) => {
+  const formData = new FormData();
+  formData.append("archivo", file);  // 'archivo' porque multer espera ese nombre
+
+  const response = await fetch("http://localhost:5000/api/assets/upload", {
+    method: "POST",
+    body: formData,
+  });
+
+  const data = await response.json();
+
+  // data tiene { url: publicUrl } desde el backend
+  // No tienes fileName en la respuesta, puedes obtenerlo del file.name
+  return { url: data.url, fileName: file.name };
+};
+
+
 export const SubirAssets = ({ className, ...props }) => {
+  const [titulo, setTitulo] = useState("");
+  const [descripcion, setDescripcion] = useState("");
+
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [tags, setTags] = useState([]); // Estado para almacenar las tags
@@ -15,15 +36,73 @@ export const SubirAssets = ({ className, ...props }) => {
   const [thumbnailFileName, setThumbnailFileName] = useState(""); // Estado para almacenar el nombre del thumbnail
   const [categories, setCategories] = useState([]); // Nuevo estado para categorías desde el backend
 
-  const handleThumbnailUpload = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const fileURL = URL.createObjectURL(file); // Crea una URL temporal para mostrar la imagen
-      setThumbnailFile(fileURL); // Actualiza el estado con la URL del archivo
-      setThumbnailFileName(file.name); // Actualiza el estado con el nombre del archivo
-      console.log("Thumbnail subido:", file.name);
-    }
+const handleUpload = async () => {
+  const userRaw = localStorage.getItem("user");
+  let user;
+  
+  try {
+    user = JSON.parse(userRaw); // asegúrate de que es un objeto
+  } catch (error) {
+    console.error("Error al parsear el usuario:", error);
+    alert("Error al obtener la sesión del usuario.");
+    return;
+  }
+
+  if (!user || !user._id || !uploadedFile || !thumbnailFile) {
+    alert("Debes subir archivo, thumbnail y estar logueado.");
+    return;
+  }
+
+  const assetData = {
+    titulo,
+    descripcion,
+    archivoUrl: uploadedFile,
+    thumbnailUrl: thumbnailFile,
+    tags,
+    usuarioId: user._id, // Aquí se incluye correctamente
   };
+
+  try {
+    const response = await fetch("http://localhost:5000/api/recursos", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(assetData),
+    });
+
+    const data = await response.json();
+    if (data.success) {
+      alert("¡Asset registrado correctamente!");
+      navigate("/");
+    } else {
+      console.error("Respuesta inesperada del backend:", data);
+      alert("Error al registrar asset.");
+    }
+  } catch (error) {
+    console.error("Error al enviar asset:", error);
+    alert("Error de red al registrar asset.");
+  }
+};
+
+
+const handleThumbnailUpload = async (e) => {
+  const file = e.target.files[0];
+  if (file) {
+    const result = await subirArchivoDropbox(file);
+    setThumbnailFile(result.url);
+    setThumbnailFileName(result.fileName);
+    console.log("Thumbnail subido:", result.url);
+  }
+};
+
+const handleFileUpload = async (e) => {
+  const file = e.target.files[0];
+  if (file) {
+    const result = await subirArchivoDropbox(file);
+    setUploadedFile(result.url);
+    setUploadedFileName(result.fileName);
+    console.log("Archivo subido a Dropbox:", result.url);
+  }
+};
 
   const availableCategories = categories.filter(
     (category) => !tags.includes(category)
@@ -44,23 +123,19 @@ export const SubirAssets = ({ className, ...props }) => {
     setNewTag(e.target.value); // Actualiza el estado del desplegable
   };
 
-  const handleFileUpload = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const fileURL = URL.createObjectURL(file); // Crea una URL temporal para mostrar la imagen
-      setUploadedFile(fileURL); // Actualiza el estado con la URL del archivo
-      setUploadedFileName(file.name); // Actualiza el estado con el nombre del archivo
-      console.log("Archivo subido:", file.name);
-    }
-  };
-
   useEffect(() => {
-    const user = localStorage.getItem("user"); // Obtiene el usuario del localStorage
-    console.log("Usuario en SubirAssets:", !!user);
+    const userRaw = localStorage.getItem("user"); // Obtiene el usuario del localStorage
+    let user;
+    try{
+      user = JSON.parse(userRaw);
+    }catch(e){
+      user=null;
+    }
     setIsLoggedIn(!!user); // Actualiza el estado
 
     if (!user) {
       navigate("/"); // Redirige al inicio si no está logueado
+      return;
     }
 
     fetch("http://localhost:5000/api/categorias")
@@ -110,6 +185,8 @@ export const SubirAssets = ({ className, ...props }) => {
                 type="text"
                 className="input-field"
                 placeholder="What is the name of your project?"
+                value={titulo}
+                onChange={(e) => setTitulo(e.target.value)}
               />
             </div>
             <div className="input-container">
@@ -118,17 +195,14 @@ export const SubirAssets = ({ className, ...props }) => {
                 type="text"
                 className="input-field"
                 placeholder="Describe your project"
+                value={descripcion}
+                onChange={(e) => setDescripcion(e.target.value)}
               />
             </div>
           </div>
           <div className="media-files">
             {uploadedFile ? (
               <>
-                <img
-                  src={uploadedFile}
-                  alt="Uploaded file preview"
-                  className="uploaded-file-preview"
-                />
                 <p className="uploaded-file-name">{uploadedFileName}</p>
               </>
             ) : (
@@ -137,7 +211,7 @@ export const SubirAssets = ({ className, ...props }) => {
                   type="file"
                   id="media-upload"
                   className="file-input"
-                  accept=".mp4, .png, .jpg, .jpeg, .obj, .fbx, .glb, .gltf"
+                  accept=".mp4, .png, .jpg, .jpeg, .obj, .fbx, .glb, .gltf, .blend"
                   onChange={(e) => handleFileUpload(e)}
                 />
                 <label htmlFor="media-upload" className="media-upload-label">
@@ -150,7 +224,7 @@ export const SubirAssets = ({ className, ...props }) => {
               </>
             )}
           </div>
-          <button className="button">
+          <button className="button" onClick={handleUpload}>
             <img
               src="https://www.dropbox.com/scl/fi/vvz488011glv9otp4gtxa/upload-icon-alt.png?rlkey=5kyfsnfje3jcymlneko1wxmue&st=qz61etu6&raw=1"
               alt="upload alternative icon"
@@ -176,6 +250,7 @@ export const SubirAssets = ({ className, ...props }) => {
                   className="file-input"
                   accept=".png, .jpg, .jpeg"
                   onChange={handleThumbnailUpload}
+                  style={{ display: "none" }}
                 />
                 <label
                   htmlFor="thumbnail-upload"
@@ -191,19 +266,21 @@ export const SubirAssets = ({ className, ...props }) => {
           </div>
           <button
             className="button"
-            onClick={() => document.getElementById("thumbnail-upload").click()}
+            onClick={() => document.getElementById("thumbnail-upload")?.click()}
+            aria-label="Upload a thumbnail image"
           >
             Upload photo
           </button>
 
           <h1>Tags</h1>
           <div className="tags-container">
-            {tags.map((tag, index) => (
-              <div key={index} className="tag">
+            {tags?.map((tag, index) => (
+              <div key={`${tag}-${index}`} className="tag">
                 {tag}
                 <button
                   className="remove-tag-button"
                   onClick={() => handleRemoveTag(index)}
+                  aria-label={`Remove tag ${tag}`}
                 >
                   ✖
                 </button>
@@ -216,15 +293,20 @@ export const SubirAssets = ({ className, ...props }) => {
               className="add-tag-select"
               value={newTag}
               onChange={handleInputChange}
+              aria-label="Select a category tag to add"
             >
               <option value="">Select a category...</option>
-              {availableCategories.map((category, index) => (
-                <option key={index} value={category}>
+              {availableCategories?.map((category) => (
+                <option key={category} value={category}>
                   {category}
                 </option>
               ))}
             </select>
-            <button className="add-tag-button" onClick={handleAddTag}>
+            <button
+              className="add-tag-button"
+              onClick={handleAddTag}
+              aria-label="Add selected tag"
+            >
               <img
                 src="https://www.dropbox.com/scl/fi/w9f8fad221ofvffhg9im6/add-tag-button.svg?rlkey=30vbxlaff4cnscrajjj8f0otk&st=wgrj2bef&raw=1"
                 alt="add tag button"

@@ -61,34 +61,47 @@ const addView = asyncHandler(async (req, res) => {
 // @route GET /api/recursos/random
 // @access Public
 const getRecursosRandom = asyncHandler(async (req, res) => {
-    try {
-        const recursosAleatorios = await Recurso.aggregate([{ $sample: { size: 3 } }]); // Selecciona 3 recursos aleatorios
-        res.json(recursosAleatorios);
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
+  try {
+    const total = await Recurso.countDocuments();
+    const size = Math.min(3, total);
+    const recursosAleatorios = await Recurso.aggregate([{ $sample: { size } }]);
+    res.json(recursosAleatorios);
+  } catch (err) {
+    console.error("Error en getRecursosRandom:", err);
+    res.status(500).json({ message: err.message });
+  }
 });
 
 // @desc   set recursos
 // @route POST /api/recursos
 // @access Private
 const setRecurso = asyncHandler(async (req, res) => {
-    try {
-        const { archivoUrl, previewUrl, ...resto } = req.body;
+    console.log("Body recibido:", req.body);
+  const { titulo, descripcion, archivoUrl, thumbnailUrl, tags, usuarioId } = req.body;
 
-        const nuevoRecurso = new Recurso({
-            ...resto,
-            archivoUrl,
-            previewUrl
-        });
+  if (!archivoUrl || !usuarioId) {
+    return res.status(400).json({ message: "archivoUrl y usuarioId son obligatorios." });
+  }
 
-        const recursoGuardado = await nuevoRecurso.save();
-        res.status(201).json(recursoGuardado);
-    } catch (err) {
-        console.error(err);
-        res.status(400).json({ message: err.message });
-    }
+  const nuevoRecurso = new Recurso({
+    titulo,
+    descripcion,
+    archivoUrl,
+    previewUrl: thumbnailUrl, // Aquí mapeas correctamente el nombre desde el frontend
+    tags,
+    usuarioId,
+  });
+
+  try {
+    const recursoGuardado = await nuevoRecurso.save();
+    console.log("Recurso guardado:", recursoGuardado);
+    res.status(201).json({ success: true, recurso: recursoGuardado });
+  } catch (err) {
+    console.error("Error al guardar el recurso:", err);
+    res.status(400).json({ message: err.message });
+  }
 });
+
 
 // @desc   update recursos
 // @route PUT /api/recursos/:id
