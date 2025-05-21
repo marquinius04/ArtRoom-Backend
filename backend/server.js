@@ -22,6 +22,7 @@ app.use('/api/categorias', require('./routes/categoriaRoutes'))
 app.use('/api/comentarios', require('./routes/comentarioRoutes'))
 app.use('/api/historialDescargas', require('./routes/historialDescargaRoutes'))
 app.use('/api/assets', require('./routes/dropbox'));
+app.use('/api/tipos', require('./routes/tipoArchivoRoutes'));
 
 
 

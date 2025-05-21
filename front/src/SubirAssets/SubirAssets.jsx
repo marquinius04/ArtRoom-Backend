@@ -1,13 +1,11 @@
 import "./SubirAssets.css";
 import { LogoArtRoomDefinitivo2 } from "../LogoArtRoomDefinitivo2/LogoArtRoomDefinitivo2.jsx";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-
 
 const subirArchivoDropbox = async (file) => {
   const formData = new FormData();
-  formData.append("archivo", file);  // 'archivo' porque multer espera ese nombre
+  formData.append("archivo", file); // 'archivo' porque multer espera ese nombre
 
   const response = await fetch("http://localhost:5000/api/assets/upload", {
     method: "POST",
@@ -15,12 +13,8 @@ const subirArchivoDropbox = async (file) => {
   });
 
   const data = await response.json();
-
-  // data tiene { url: publicUrl } desde el backend
-  // No tienes fileName en la respuesta, puedes obtenerlo del file.name
   return { url: data.url, fileName: file.name };
 };
-
 
 export const SubirAssets = ({ className, ...props }) => {
   const [titulo, setTitulo] = useState("");
@@ -28,108 +22,128 @@ export const SubirAssets = ({ className, ...props }) => {
 
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [tags, setTags] = useState([]); // Estado para almacenar las tags
-  const [newTag, setNewTag] = useState(""); // Estado para la nueva tag que se va a agregar
+
+  // Estados para categorías
+  const [categories, setCategories] = useState([]); // Categorías desde el backend
+  const [selectedCategory, setSelectedCategory] = useState(""); // Categoría seleccionada
+
+  // Estados para tipos
+  const [tipos, setTipos] = useState([]); // Tipos desde el backend
+  const [selectedTipo, setSelectedTipo] = useState(""); // Tipo seleccionado
+
+  // Estados para tags
+  const [tags, setTags] = useState([]); // Tags seleccionadas
+  const [newTag, setNewTag] = useState(""); // Nueva tag a agregar
+
   const [uploadedFile, setUploadedFile] = useState(null); // Estado para almacenar la URL del archivo subido
   const [uploadedFileName, setUploadedFileName] = useState(""); // Estado para almacenar el nombre del archivo subido
   const [thumbnailFile, setThumbnailFile] = useState(null); // Estado para almacenar la URL del thumbnail
   const [thumbnailFileName, setThumbnailFileName] = useState(""); // Estado para almacenar el nombre del thumbnail
-  const [categories, setCategories] = useState([]); // Nuevo estado para categorías desde el backend
 
-const handleUpload = async () => {
-  const userRaw = localStorage.getItem("user");
-  let user;
-  
-  try {
-    user = JSON.parse(userRaw); // asegúrate de que es un objeto
-  } catch (error) {
-    console.error("Error al parsear el usuario:", error);
-    alert("Error al obtener la sesión del usuario.");
-    return;
-  }
-
-  if (!user || !user._id || !uploadedFile || !thumbnailFile) {
-    alert("Debes subir archivo, thumbnail y estar logueado.");
-    return;
-  }
-
-  const assetData = {
-    titulo,
-    descripcion,
-    archivoUrl: uploadedFile,
-    thumbnailUrl: thumbnailFile,
-    tags,
-    usuarioId: user._id, // Aquí se incluye correctamente
+  const handleCategoryChange = (e) => {
+    setSelectedCategory(e.target.value); // Actualiza la categoría seleccionada
   };
 
-  try {
-    const response = await fetch("http://localhost:5000/api/recursos", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(assetData),
-    });
-
-    const data = await response.json();
-    if (data.success) {
-      alert("¡Asset registrado correctamente!");
-      navigate("/");
-    } else {
-      console.error("Respuesta inesperada del backend:", data);
-      alert("Error al registrar asset.");
-    }
-  } catch (error) {
-    console.error("Error al enviar asset:", error);
-    alert("Error de red al registrar asset.");
-  }
-};
-
-
-const handleThumbnailUpload = async (e) => {
-  const file = e.target.files[0];
-  if (file) {
-    const result = await subirArchivoDropbox(file);
-    setThumbnailFile(result.url);
-    setThumbnailFileName(result.fileName);
-    console.log("Thumbnail subido:", result.url);
-  }
-};
-
-const handleFileUpload = async (e) => {
-  const file = e.target.files[0];
-  if (file) {
-    const result = await subirArchivoDropbox(file);
-    setUploadedFile(result.url);
-    setUploadedFileName(result.fileName);
-    console.log("Archivo subido a Dropbox:", result.url);
-  }
-};
-
-  const availableCategories = categories.filter(
-    (category) => !tags.includes(category)
-  ); // Filtra las categorías que no están en las tags
-
-  const handleRemoveTag = (indexToRemove) => {
-    setTags(tags.filter((_, index) => index !== indexToRemove));
+  const handleTipoChange = (e) => {
+    setSelectedTipo(e.target.value); // Actualiza el tipo seleccionado
   };
 
   const handleAddTag = () => {
     if (newTag.trim() !== "" && !tags.includes(newTag)) {
       setTags([...tags, newTag.trim()]); // Agrega la nueva tag al estado
-      setNewTag(""); // Limpia el desplegable
+      setNewTag(""); // Limpia el campo de entrada
     }
   };
 
+  // Método para manejar el cambio en el select
   const handleInputChange = (e) => {
-    setNewTag(e.target.value); // Actualiza el estado del desplegable
+    setNewTag(e.target.value); // Actualiza el estado con la nueva tag seleccionada
+  };
+
+  const handleRemoveTag = (indexToRemove) => {
+    setTags(tags.filter((_, index) => index !== indexToRemove)); // Elimina la tag seleccionada
+  };
+
+  const handleUpload = async () => {
+    const userRaw = localStorage.getItem("user");
+    let user;
+
+    try {
+      user = JSON.parse(userRaw); // asegúrate de que es un objeto
+    } catch (error) {
+      console.error("Error al parsear el usuario:", error);
+      alert("Error al obtener la sesión del usuario.");
+      return;
+    }
+
+    if (!user || !user._id || !uploadedFile || !thumbnailFile) {
+      alert("Debes subir archivo, thumbnail y estar logueado.");
+      return;
+    }
+
+    const assetData = {
+      titulo,
+      descripcion,
+      archivoUrl: uploadedFile,
+      thumbnailUrl: thumbnailFile,
+      tags,
+      tipo: selectedTipo,
+      usuarioId: user._id, // Aquí se incluye correctamente
+    };
+
+    try {
+      const response = await fetch("http://localhost:5000/api/recursos", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(assetData),
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        alert("¡Asset registrado correctamente!");
+        navigate("/");
+      } else {
+        console.error("Respuesta inesperada del backend:", data);
+        alert("Error al registrar asset.");
+      }
+    } catch (error) {
+      console.error("Error al enviar asset:", error);
+      alert("Error de red al registrar asset.");
+    }
+  };
+
+  const handleThumbnailUpload = async (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const result = await subirArchivoDropbox(file);
+      setThumbnailFile(result.url);
+      setThumbnailFileName(result.fileName);
+      console.log("Thumbnail subido:", result.url);
+    }
+  };
+
+  const handleFileUpload = async (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const result = await subirArchivoDropbox(file);
+      setUploadedFile(result.url);
+      setUploadedFileName(result.fileName);
+      console.log("Archivo subido a Dropbox:", result.url);
+    }
+  };
+
+  const handleCancelUpload = () => {
+    setUploadedFile(null); // Elimina la URL del archivo subido
+    setUploadedFileName(""); // Elimina el nombre del archivo subido
   };
 
   useEffect(() => {
     const userRaw = localStorage.getItem("user"); // Obtiene el usuario del localStorage
     let user;
-    try{
+    try {
       user = JSON.parse(userRaw);
-    }catch(e){
-      user=null;
+    } catch (e) {
+      user = null;
     }
     setIsLoggedIn(!!user); // Actualiza el estado
 
@@ -138,19 +152,26 @@ const handleFileUpload = async (e) => {
       return;
     }
 
+    // Cargar categorías desde el backend
     fetch("http://localhost:5000/api/categorias")
-      .then((res) => {
-        console.log("Status:", res.status);
-        return res.text(); // primero como texto
-      })
-      .then((text) => {
-        console.log("Texto recibido:", text); // Verás si es HTML
-        const json = JSON.parse(text); // intentar parsear si es JSON válido
-        const nombres = json.map((cat) => cat.nombre_categoria);
+      .then((res) => res.json())
+      .then((data) => {
+        const nombres = data.map((cat) => cat.nombre);
         setCategories(nombres);
       })
       .catch((error) => {
         console.error("Error al cargar las categorías:", error);
+      });
+
+    // Cargar tipos desde el backend
+    fetch("http://localhost:5000/api/tipos")
+      .then((res) => res.json())
+      .then((data) => {
+        const nombres = data.map((tipo) => tipo.nombre);
+        setTipos(nombres);
+      })
+      .catch((error) => {
+        console.error("Error al cargar los tipos:", error);
       });
   }, [navigate]); // Solo depende de navigate
 
@@ -202,16 +223,23 @@ const handleFileUpload = async (e) => {
           </div>
           <div className="media-files">
             {uploadedFile ? (
-              <>
+              <div className="uploaded-file-container">
                 <p className="uploaded-file-name">{uploadedFileName}</p>
-              </>
+                <button
+                  className="cancel-upload-button"
+                  onClick={handleCancelUpload}
+                  aria-label="Cancel file upload"
+                >
+                  ✖
+                </button>
+              </div>
             ) : (
               <>
                 <input
                   type="file"
                   id="media-upload"
                   className="file-input"
-                  accept=".mp4, .png, .jpg, .jpeg, .obj, .fbx, .glb, .gltf, .blend"
+                  accept=".mp4, .png, .jpg, .jpeg, .obj, .fbx, .glb, .gltf, .blend, .mp3, .wav, .flac, .js, .jsx, .ts, .tsx, .py, .java, .c, .cpp"
                   onChange={(e) => handleFileUpload(e)}
                 />
                 <label htmlFor="media-upload" className="media-upload-label">
@@ -223,16 +251,30 @@ const handleFileUpload = async (e) => {
                 <p>Add or drag any type of media file here</p>
               </>
             )}
+            {/* Select para tipos */}
+            <div className="tipo-select-container">
+              <select
+                id="tipo-select"
+                className="tipo-select"
+                value={selectedTipo}
+                onChange={handleTipoChange}
+              >
+                <option value="">Select a type...</option>
+                {tipos.map((tipo) => (
+                  <option key={tipo} value={tipo}>
+                    {tipo}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
+
           <button className="button" onClick={handleUpload}>
-            <img
-              src="https://www.dropbox.com/scl/fi/vvz488011glv9otp4gtxa/upload-icon-alt.png?rlkey=5kyfsnfje3jcymlneko1wxmue&st=qz61etu6&raw=1"
-              alt="upload alternative icon"
-              className="upload-icon"
-            />
             Upload
           </button>
         </div>
+
+        {/* Div derecha restaurado */}
         <div className="div-derecha">
           <h1>Thumbnail</h1>
           <div className="media-rectangle">
@@ -296,7 +338,7 @@ const handleFileUpload = async (e) => {
               aria-label="Select a category tag to add"
             >
               <option value="">Select a category...</option>
-              {availableCategories?.map((category) => (
+              {categories?.map((category) => (
                 <option key={category} value={category}>
                   {category}
                 </option>

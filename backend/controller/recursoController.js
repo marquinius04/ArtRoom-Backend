@@ -14,6 +14,27 @@ const getRecursos = asyncHandler(async (req, res) => {
     }
 })
 
+// @desc   Get recursos por usuario
+// @route  GET /api/recursos/usuario/:usuarioId
+// @access Private
+const getRecursosPorUsuario = asyncHandler(async (req, res) => {
+  try {
+    const { usuarioId } = req.params;
+
+    // Busca los recursos que coincidan con el usuarioId
+    const recursos = await Recurso.find({ usuarioId }).populate('usuarioId');
+
+    if (!recursos || recursos.length === 0) {
+      return res.status(404).json({ message: "No se encontraron recursos para este usuario." });
+    }
+
+    res.json(recursos);
+  } catch (err) {
+    console.error("Error al obtener recursos por usuario:", err);
+    res.status(500).json({ message: err.message });
+  }
+});
+
 // Registrar vista (solo si no existe ya)
 const addView = asyncHandler(async (req, res) => {
     const recurso = await Recurso.findById(req.params.id);
@@ -141,12 +162,13 @@ const getRecurso = asyncHandler(async (req, res) => {
 })
 
 module.exports = {
-    getRecursos,
-    getRecursosRandom,
-    setRecurso,
-    updateRecurso,
-    deleteRecurso,
-    getRecurso,
-    addView,
-    toggleLike
-}
+  getRecursos,
+  getRecursosRandom,
+  setRecurso,
+  updateRecurso,
+  deleteRecurso,
+  getRecurso,
+  addView,
+  toggleLike,
+  getRecursosPorUsuario, // Exporta la nueva función
+};
