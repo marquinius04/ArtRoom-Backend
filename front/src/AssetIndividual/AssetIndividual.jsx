@@ -165,7 +165,7 @@ export const AssetIndividual = ({ className = "", ...props }) => {
         <div className="asset-row">
           <div className="asset-info">
             <img
-              src={asset.archivoUrl}
+              src={asset.previewUrl}
               alt={asset.titulo}
               className="asset-image"
             />

@@ -8,19 +8,24 @@ const fetch = require('isomorphic-fetch');
 const path = require('path');
 
 // Función auxiliar
-function convertirLinkADirecto(sharedUrl) {
+function convertirLinkADirecto(sharedUrl, fileName) {
   let url = sharedUrl
     .replace("www.dropbox.com", "dl.dropboxusercontent.com")
     .replace("dropbox.com", "dl.dropboxusercontent.com");
 
+  const ext = path.extname(fileName).toLowerCase();
+  const esImagen = ['.png', '.jpg', '.jpeg', '.gif', '.webp'].includes(ext);
+
   if (url.includes('?')) {
-    if (!url.includes('raw=1')) url += '&raw=1';
+    if (esImagen && !url.includes('raw=1')) url += '&raw=1';
+    else if (!esImagen && !url.includes('dl=1')) url += '&dl=1';
   } else {
-    url += '?raw=1';
+    url += esImagen ? '?raw=1' : '?dl=1';
   }
 
   return url;
 }
+
 
 // POST /api/dropbox/upload
 router.post('/upload', upload.single('archivo'), async (req, res) => {
@@ -75,7 +80,8 @@ router.post('/upload', upload.single('archivo'), async (req, res) => {
       sharedUrl = sharedLink.result.url;
     }
 
-    const publicUrl = convertirLinkADirecto(sharedUrl);
+    const publicUrl = convertirLinkADirecto(sharedUrl, fileName);
+
 
     // Devuelve la URL final usable por el frontend
     res.status(200).json({ url: publicUrl, name: fileName });
