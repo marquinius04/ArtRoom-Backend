@@ -4,13 +4,13 @@ import { useParams } from "react-router-dom";
 import { LogoArtRoomDefinitivo2 } from "../LogoArtRoomDefinitivo2/LogoArtRoomDefinitivo2.jsx";
 
 export const ModeloIndividualSuperior = ({ className = "", ...props }) => {
-  const { titulo } = useParams();
+  const { id } = useParams();
   const [asset, setAsset] = useState(null);
 
   useEffect(() => {
     const fetchAsset = async () => {
       try {
-        const response = await fetch(`/api/assets/${encodeURIComponent(titulo)}`);
+        const response = await fetch(`/api/recurso/${id}`);
         const data = await response.json();
         setAsset(data);
       } catch (error) {
@@ -19,7 +19,7 @@ export const ModeloIndividualSuperior = ({ className = "", ...props }) => {
     };
 
     fetchAsset();
-  }, [titulo]);
+  }, [id]);
 
   if (!asset) return <div>Cargando modelo...</div>;
 

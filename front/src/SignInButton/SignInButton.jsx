@@ -34,7 +34,8 @@ export const SignInButton = ({ className, email, password, onLoginSuccess, ...pr
       console.log("Usuario logueado:", data);
       
       // Guarda el usuario en localStorage
-      localStorage.setItem("user", JSON.stringify(data.username || data));
+      localStorage.setItem("user", JSON.stringify(data));
+
 
       // Ejecuta función de éxito si está definida
       if (onLoginSuccess) {

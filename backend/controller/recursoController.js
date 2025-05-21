@@ -18,58 +18,32 @@ const getRecursos = asyncHandler(async (req, res) => {
 // @route POST /api/recursos
 // @access Private
 const setRecurso = asyncHandler(async (req, res) => {
-    const { Dropbox } = require('dropbox');
-    const fetch = require('isomorphic-fetch'); // requerido por el SDK de Dropbox
-    
-    const dbx = new Dropbox({ accessToken: process.env.DROPBOX_ACCESS_TOKEN, fetch });
-    
-    try {
-        const { archivo, preview, ...resto } = req.body;
-    
-        // Simulamos que los archivos vienen como base64 o buffer
-        const archivoBuffer = Buffer.from(archivo.data, 'base64');
-        const previewBuffer = preview ? Buffer.from(preview.data, 'base64') : null;
-    
-        const dropboxArchivo = await dbx.filesUpload({
-            path: `/archivos/${archivo.nombre}`,
-            contents: archivoBuffer,
-            mode: 'add',
-            autorename: true
-        });
-    
-        let dropboxPreview;
-        if (previewBuffer) {
-            dropboxPreview = await dbx.filesUpload({
-                path: `/previews/${preview.nombre}`,
-                contents: previewBuffer,
-                mode: 'add',
-                autorename: true
-            });
-        }
-    
-        // Obtener URLs públicas
-        const sharedArchivo = await dbx.sharingCreateSharedLinkWithSettings({ path: dropboxArchivo.result.path_lower });
-        const archivoUrl = sharedArchivo.result.url.replace('?dl=0', '?raw=1');
-    
-        let previewUrl;
-        if (dropboxPreview) {
-            const sharedPreview = await dbx.sharingCreateSharedLinkWithSettings({ path: dropboxPreview.result.path_lower });
-            previewUrl = sharedPreview.result.url.replace('?dl=0', '?raw=1');
-        }
-    
-        const nuevoRecurso = new Recurso({
-            ...resto,
-            archivoUrl,
-            previewUrl
-        });
-    
-        const recursoGuardado = await nuevoRecurso.save();
-        res.status(201).json(recursoGuardado);
-    } catch (err) {
-        console.error(err);
-        res.status(400).json({ message: err.message });
-    }
-})
+    console.log("Body recibido:", req.body);
+  const { titulo, descripcion, archivoUrl, thumbnailUrl, tags, usuarioId } = req.body;
+
+  if (!archivoUrl || !usuarioId) {
+    return res.status(400).json({ message: "archivoUrl y usuarioId son obligatorios." });
+  }
+
+  const nuevoRecurso = new Recurso({
+    titulo,
+    descripcion,
+    archivoUrl,
+    previewUrl: thumbnailUrl, // Aquí mapeas correctamente el nombre desde el frontend
+    tags,
+    usuarioId,
+  });
+
+  try {
+    const recursoGuardado = await nuevoRecurso.save();
+    console.log("Recurso guardado:", recursoGuardado);
+    res.status(201).json({ success: true, recurso: recursoGuardado });
+  } catch (err) {
+    console.error("Error al guardar el recurso:", err);
+    res.status(400).json({ message: err.message });
+  }
+});
+
 
 // @desc   update recursos
 // @route PUT /api/recursos/:id
