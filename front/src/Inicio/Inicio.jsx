@@ -12,6 +12,8 @@ export const Inicio = ({ className, ...props }) => {
   const location = useLocation();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [recursos, setRecursos] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+
 
   useEffect(() => {
     const user = localStorage.getItem("user"); // O usa auth context, JWT, etc.
@@ -46,17 +48,23 @@ export const Inicio = ({ className, ...props }) => {
   };
 
   const categories = ["3D", "Scripts", "Add-ons", "Sounds", "Music", "Templates", "Tools", "2D"];
+  const recursosFiltrados = recursos.filter((r) =>
+    r.titulo.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
 
   return (
     <div className={`p-gina-de-inicio-no-logueado ${className}`}>
-      <Cabecera
-        isLoggedIn={isLoggedIn}
-        handleUploadClick={handleUploadClick}
-        handleProfileClick={handleProfileClick}
-        handleSignUpClick={handleSignUpClick}
-        handleSignInClick={handleSignInClick}
-        handleLogoutClick={handleLogoutClick}
-      />
+    <Cabecera
+      isLoggedIn={isLoggedIn}
+      handleUploadClick={handleUploadClick}
+      handleProfileClick={handleProfileClick}
+      handleSignUpClick={handleSignUpClick}
+      handleSignInClick={handleSignInClick}
+      handleLogoutClick={handleLogoutClick}
+      onSearchChange={setSearchTerm}
+    />
+
 
       <div className="filters-grid">
         {categories.map((category, index) => (
@@ -67,7 +75,7 @@ export const Inicio = ({ className, ...props }) => {
       <div className="recommended-assets">
         <h2>Proyectos destacados</h2>
         <div className="assets-grid">
-          {recursos.map((asset) => (
+          {recursosFiltrados.map((asset) => (
             <div
               key={asset._id}
               className="asset-item"
