@@ -46,8 +46,26 @@ export const AssetIndividual = ({ className = "", ...props }) => {
       }
     };
 
+    const fetchComentarios = async () => {
+      try {
+        const response = await fetch(`http://localhost:5000/api/comentarios/recurso/${id}`);
+        if (!response.ok) throw new Error("Error al obtener comentarios");
+        const data = await response.json();
+        // Mapear para extraer lo necesario directamente
+        const parsed = data.map((c) => ({
+          user: c.usuarioId?.username || "Usuario",
+          text: c.texto,
+        }));
+        setComments(parsed);
+      } catch (error) {
+        console.error("Error al obtener comentarios:", error);
+      }
+    };
+    
+
     fetchAsset();
     fetchRandomAssets();
+    fetchComentarios();
   }, [id]); // Ejecuta el efecto cuando cambia el id
 
   if (loading) return <div>Cargando modelo...</div>; // Muestra un mensaje mientras se cargan los datos
@@ -180,14 +198,44 @@ export const AssetIndividual = ({ className = "", ...props }) => {
           {isLoggedIn ? (
             <form
               className="comment-form"
-              onSubmit={(e) => {
+              onSubmit={async (e) => {
                 e.preventDefault();
-                const newComment = e.target.comment.value;
-                if (newComment.trim()) {
+                const newComment = e.target.comment.value.trim();
+                if (!newComment) return;
+
+                try {
                   const user = JSON.parse(localStorage.getItem("user"));
-                  const username = user?.username || "Usuario Anónimo"; // Extrae solo el username
-                  setComments([...comments, { text: newComment, user: username }]); // Guarda solo el username
+                  if (!user || !user._id) {
+                    throw new Error("Usuario no válido o no autenticado");
+                  }
+
+                  const response = await fetch("http://localhost:5000/api/comentarios", {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                      texto: newComment,
+                      recursoId: id,
+                      usuarioId: user._id,
+                    }),
+                  });
+
+                  if (!response.ok) throw new Error("Error al enviar el comentario");
+
+                  const comentarioGuardado = await response.json();
+
+                  setComments((prevComments) => [
+                    ...prevComments,
+                    {
+                      text: comentarioGuardado.texto,
+                      user: comentarioGuardado.usuarioId?.username || user.username || "Usuario",
+                    },
+                  ]);
+
                   e.target.reset();
+                } catch (error) {
+                  console.error("Error al enviar comentario:", error);
                 }
               }}
             >
@@ -203,7 +251,11 @@ export const AssetIndividual = ({ className = "", ...props }) => {
             </form>
           ) : (
             <p className="login-message">
-              Debes <span onClick={() => navigate("/login")} className="login-link">iniciar sesión</span> para comentar.
+              Debes{" "}
+              <span onClick={() => navigate("/login")} className="login-link">
+                iniciar sesión
+              </span>{" "}
+              para comentar.
             </p>
           )}
           <div className="comments-list">

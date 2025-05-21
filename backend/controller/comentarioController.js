@@ -7,25 +7,61 @@ const Comentario = require('../models/comentarioModel')
 // @access Private
 const getComentarios = asyncHandler(async (req, res) => {
     try {
-        const comentarios = await Comentario.find().populate('usuarioId').populate('recursoId')
-        res.json(comentarios)
+      const comentarios = await Comentario.find({ recursoId: { $ne: null } }) // solo comentarios válidos
+        .populate('usuarioId', 'username')  // solo username del usuario
+        .populate('recursoId', 'titulo');   // solo título del recurso
+  
+      res.json(comentarios);
     } catch (err) {
-        res.status(500).json({ message: err.message })
+      res.status(500).json({ message: err.message });
     }
-})
+  });
+
+// Nueva ruta: GET /api/comentarios/recurso/:id
+const getComentariosPorRecurso = asyncHandler(async (req, res) => {
+    try {
+      const comentarios = await Comentario.find({ recursoId: req.params.id })
+        .populate('usuarioId', 'username')
+        .populate('recursoId', 'titulo');
+      res.json(comentarios);
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  });
+  
+  
 
 // @desc   set comentarios
 // @route POST /api/comentarios
 // @access Private
 const setComentario = asyncHandler(async (req, res) => {
-    try {
-        const nuevoComentario = new Comentario(req.body)
-        const comentarioGuardado = await nuevoComentario.save()
-        res.status(201).json(comentarioGuardado)
-    } catch (err) {
-        res.status(400).json({ message: err.message })
+    const { texto, recursoId, usuarioId } = req.body;
+  
+    if (!texto || !recursoId || !usuarioId) {
+      return res.status(400).json({ message: "Faltan campos obligatorios" });
     }
-})
+  
+    try {
+      const nuevoComentario = new Comentario({
+        texto,
+        recursoId,
+        usuarioId,
+      });
+  
+      const comentarioGuardado = await nuevoComentario.save();
+  
+      // Corrección: volver a buscar y poblar correctamente
+      const comentarioCompleto = await Comentario.findById(comentarioGuardado._id)
+        .populate("usuarioId", "username")
+        .populate("recursoId", "titulo");
+  
+      res.status(201).json(comentarioCompleto);
+    } catch (err) {
+      res.status(400).json({ message: err.message });
+    }
+  });
+  
+  
 
 // @desc   update comentarios
 // @route PUT /api/comentarios/:id
@@ -69,5 +105,6 @@ module.exports = {
     setComentario,
     updateComentario,
     deleteComentario,
-    getComentario
+    getComentario,
+    getComentariosPorRecurso
 }
