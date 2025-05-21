@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./Inicio.css";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { SkillIconsInstagram } from "../SkillIconsInstagram/SkillIconsInstagram.jsx";
 import { LogosYoutubeIcon } from "../LogosYoutubeIcon/LogosYoutubeIcon.jsx";
 import { DeviconTwitter } from "../DeviconTwitter/DeviconTwitter.jsx";
@@ -8,6 +9,7 @@ import { Cabecera } from "../Componentes/Cabecera.jsx";
 
 export const Inicio = ({ className, ...props }) => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [recursos, setRecursos] = useState([]);
 
@@ -25,7 +27,7 @@ export const Inicio = ({ className, ...props }) => {
       })
       .then((data) => setRecursos(data))
       .catch((err) => console.error("Error al cargar recursos:", err));
-  }, []);
+  }, [location.pathname]);
 
   const handleSignInClick = () => navigate("/login");
   const handleSignUpClick = () => navigate("/signUp");
@@ -77,11 +79,11 @@ export const Inicio = ({ className, ...props }) => {
               <div className="asset-stats">
                 <div className="asset-likes">
                   <img src="https://www.dropbox.com/scl/fi/q33jkrd672q4d25su0x05/like-icon.png?rlkey=sp7h5t1wobga7jb2ctkk0tbcf&raw=1" alt="Likes" className="stat-icon" />
-                  {asset.likes || 0}
+                  {asset.numLikes || 0}
                 </div>
                 <div className="asset-views">
                   <img src="https://www.dropbox.com/scl/fi/voana9ty7p7zl13it9os8/view-icon.png?rlkey=ma0u1ziyxl1zb0fgilffd3jjx&raw=1" alt="Views" className="stat-icon" />
-                  {asset.views || 0}
+                  {asset.numVistas || 0}
                 </div>
               </div>
             </div>

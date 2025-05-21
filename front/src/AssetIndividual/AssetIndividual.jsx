@@ -11,25 +11,48 @@ export const AssetIndividual = ({ className = "", ...props }) => {
   const [error, setError] = useState(null); // Estado para manejar errores
   const [comments, setComments] = useState([]); // Estado para almacenar los comentarios
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [liked, setLiked] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const user = localStorage.getItem("user"); // O usa auth context, JWT, etc.
-    console.log("Usuario en Inicio:", user);
+    const userStr = localStorage.getItem("user");
+    const user = userStr ? JSON.parse(userStr) : null;
     setIsLoggedIn(!!user);
-
+  
     const fetchAsset = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/recursos/${id}`); // Realiza la solicitud a la API con el id
+        const response = await fetch(`http://localhost:5000/api/recursos/${id}`);
         if (!response.ok) {
           throw new Error("Error al obtener el asset");
         }
         const data = await response.json();
-        setAsset(data); // Actualiza el estado con los datos del asset
+        setAsset(data);
+  
+        // Revisar si el usuario ya dio like (con user parseado)
+        if (user && data.usuariosLikes && data.usuariosLikes.includes(user._id)) {
+          setLiked(true);
+        } else {
+          setLiked(false);
+        }
+  
+        // Contar vista
+        if (user) {
+          await fetch(`http://localhost:5000/api/recursos/${id}/view`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ userId: user._id }),
+          });
+  
+          setAsset((prev) => ({
+            ...prev,
+            numVistas: (prev.numVistas || 0) + 1,
+            usuariosVistos: [...(prev.usuariosVistos || []), user._id],
+          }));
+        }
       } catch (error) {
-        setError(error.message); // Maneja errores
+        setError(error.message);
       } finally {
-        setLoading(false); // Finaliza el estado de carga
+        setLoading(false);
       }
     };
 
@@ -68,9 +91,13 @@ export const AssetIndividual = ({ className = "", ...props }) => {
     fetchComentarios();
   }, [id]); // Ejecuta el efecto cuando cambia el id
 
+  
+
   if (loading) return <div>Cargando modelo...</div>; // Muestra un mensaje mientras se cargan los datos
   if (error) return <div>Error: {error}</div>; // Muestra un mensaje de error si ocurre un problema
 
+  
+  
   const handleAssetClick = (id) => {
     navigate(`/asset/${id}`);
   };
@@ -85,6 +112,43 @@ export const AssetIndividual = ({ className = "", ...props }) => {
     setIsLoggedIn(false);
     navigate("/");
   };
+
+  const handleToggleLike = async () => {
+    if (!isLoggedIn) {
+      alert("Debes iniciar sesión para dar like");
+      return;
+    }
+    const userStr = localStorage.getItem("user");
+    const user = userStr ? JSON.parse(userStr) : null;
+    if (!user?._id) {
+      alert("Usuario inválido");
+      return;
+    }
+
+    try {
+      const response = await fetch(`http://localhost:5000/api/recursos/${id}/like`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userId: user._id }),
+      });
+      if (!response.ok) throw new Error("Error al actualizar like");
+      const data = await response.json();
+
+      setAsset((prev) => ({
+        ...prev,
+        numLikes: data.numLikes,
+        usuariosLikes: data.liked
+          ? [...(prev.usuariosLikes || []), user._id]
+          : prev.usuariosLikes.filter((u) => u !== user._id),
+      }));
+      setLiked(data.liked);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+
+  
 
   return (
     <div className={`asset-individual ${className}`} {...props}>
@@ -107,13 +171,17 @@ export const AssetIndividual = ({ className = "", ...props }) => {
             />
             <div className="asset-stats">
               <h1>{asset.titulo}</h1>
-              <h1>
+              <h1 onClick={handleToggleLike} style={{ cursor: "pointer" }}>
                 <img
                   alt="Likes"
                   className="stat-icon"
-                  src="https://www.dropbox.com/scl/fi/q33jkrd672q4d25su0x05/like-icon.png?rlkey=sp7h5t1wobga7jb2ctkk0tbcf&raw=1"
+                  src={
+                    liked
+                      ? "https://www.dropbox.com/scl/fi/r075gjigukkyehedeidkh/like-icon3.png?rlkey=742vizuaztclbj6x1f7px29el&st=75krns60&dl&raw=1"
+                      : "https://www.dropbox.com/scl/fi/q33jkrd672q4d25su0x05/like-icon.png?rlkey=sp7h5t1wobga7jb2ctkk0tbcf&st=waxwiqoe&dl&raw=1"
+                  }
                 />
-                {asset.numDescargas}
+                {asset?.numLikes}
               </h1>
               <h1>
                 <img

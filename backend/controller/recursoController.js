@@ -14,6 +14,49 @@ const getRecursos = asyncHandler(async (req, res) => {
     }
 })
 
+// Registrar vista (solo si no existe ya)
+const addView = asyncHandler(async (req, res) => {
+    const recurso = await Recurso.findById(req.params.id);
+    if (!recurso) return res.status(404).json({ message: "Recurso no encontrado" });
+  
+    const userId = req.body.userId; // Recibimos el id del usuario que ve
+  
+    if (!userId) return res.status(400).json({ message: "UserId requerido" });
+  
+    // Si usuario no está en usuariosVistos, añadimos
+    if (!recurso.usuariosVistos.includes(userId)) {
+      recurso.usuariosVistos.push(userId);
+      recurso.numVistas = recurso.usuariosVistos.length;
+      await recurso.save();
+    }
+  
+    res.json({ numVistas: recurso.numVistas });
+  });
+  
+  // Toggle like
+  const toggleLike = asyncHandler(async (req, res) => {
+    const recurso = await Recurso.findById(req.params.id);
+    if (!recurso) return res.status(404).json({ message: "Recurso no encontrado" });
+  
+    const userId = req.body.userId; // Id del usuario que da like
+  
+    if (!userId) return res.status(400).json({ message: "UserId requerido" });
+  
+    const index = recurso.usuariosLikes.indexOf(userId);
+    if (index === -1) {
+      // Usuario no ha dado like, añadirlo
+      recurso.usuariosLikes.push(userId);
+    } else {
+      // Usuario ya dio like, quitarlo (toggle)
+      recurso.usuariosLikes.splice(index, 1);
+    }
+    recurso.numLikes = recurso.usuariosLikes.length;
+    await recurso.save();
+  
+    res.json({ numLikes: recurso.numLikes, liked: index === -1 });
+  });
+  
+
 // @desc   Get recursos aleatorios
 // @route GET /api/recursos/random
 // @access Public
@@ -90,5 +133,7 @@ module.exports = {
     setRecurso,
     updateRecurso,
     deleteRecurso,
-    getRecurso
+    getRecurso,
+    addView,
+    toggleLike
 }

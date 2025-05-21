@@ -10,7 +10,9 @@ const recursoSchema = new mongoose.Schema({
   descripcion: { type: String },
   numLikes: { type: Number, default: 0 },
   numVistas: { type: Number, default: 0 },
-  nombreUsuario: { type: String } // Puedes obtenerlo automáticamente del usuario referenciado si lo prefieres
+  nombreUsuario: { type: String }, // Puedes obtenerlo automáticamente del usuario referenciado si lo prefieres
+  usuariosVistos: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Usuario' }],  // IDs de usuarios que vieron
+  usuariosLikes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Usuario' }]   // IDs de usuarios que dieron like
 });
 
 module.exports = mongoose.model('Recurso', recursoSchema);
