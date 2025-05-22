@@ -5,6 +5,7 @@ const recursoSchema = new mongoose.Schema({
   archivoUrl: { type: String, required: true },
   previewUrl: { type: String },
   tags: { type: [String] },
+  tipo: { type: String },
   usuarioId: { type: mongoose.Schema.Types.ObjectId, ref: 'Usuario', required: true },
   numDescargas: { type: Number, default: 0 },
   descripcion: { type: String },

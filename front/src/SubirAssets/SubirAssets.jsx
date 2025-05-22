@@ -49,15 +49,19 @@ export const SubirAssets = ({ className, ...props }) => {
   };
 
   const handleAddTag = () => {
-    if (newTag.trim() !== "" && !tags.includes(newTag)) {
-      setTags([...tags, newTag.trim()]); // Agrega la nueva tag al estado
+    const trimmedTag = newTag.trim(); // Elimina espacios en blanco al inicio y al final
+    if (trimmedTag !== "" && !tags.includes(trimmedTag)) {
+      setTags([...tags, trimmedTag]); // Agrega la nueva tag al estado
       setNewTag(""); // Limpia el campo de entrada
     }
   };
 
   // Método para manejar el cambio en el select
   const handleInputChange = (e) => {
-    setNewTag(e.target.value); // Actualiza el estado con la nueva tag seleccionada
+    const value = e.target.value.trim(); // Elimina espacios en blanco
+    if (value !== "") {
+      setNewTag(value); // Actualiza el estado solo si el valor no está vacío
+    }
   };
 
   const handleRemoveTag = (indexToRemove) => {
@@ -86,7 +90,7 @@ export const SubirAssets = ({ className, ...props }) => {
       descripcion,
       archivoUrl: uploadedFile,
       thumbnailUrl: thumbnailFile,
-      tags,
+      tags: [...tags.filter(tag => tag.trim() !== ""), selectedCategory].filter(tag => tag.trim() !== ""), // Filtra cadenas vacías
       tipo: selectedTipo,
       usuarioId: user._id, // Aquí se incluye correctamente
     };

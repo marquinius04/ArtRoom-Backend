@@ -109,11 +109,12 @@ const getRecursosRandom = asyncHandler(async (req, res) => {
 // @route POST /api/recursos
 // @access Private
 const setRecurso = asyncHandler(async (req, res) => {
-    console.log("Body recibido:", req.body);
-  const { titulo, descripcion, archivoUrl, thumbnailUrl, tags, usuarioId } = req.body;
+  console.log("Body recibido:", req.body);
+  const { titulo, descripcion, archivoUrl, thumbnailUrl, tags, usuarioId, tipo } = req.body;
 
-  if (!archivoUrl || !usuarioId) {
-    return res.status(400).json({ message: "archivoUrl y usuarioId son obligatorios." });
+  // Validar campos obligatorios
+  if (!archivoUrl || !usuarioId || !tipo) {
+    return res.status(400).json({ message: "archivoUrl, usuarioId y tipo son obligatorios." });
   }
 
   const nuevoRecurso = new Recurso({
@@ -123,6 +124,7 @@ const setRecurso = asyncHandler(async (req, res) => {
     previewUrl: thumbnailUrl, // Aquí mapeas correctamente el nombre desde el frontend
     tags,
     usuarioId,
+    tipo, // Incluye el tipo en el nuevo recurso
   });
 
   try {
