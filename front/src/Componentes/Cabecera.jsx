@@ -41,7 +41,7 @@ export const Cabecera = ({
         />
         <input
           type="text"
-          placeholder="Buscar recursos..."
+          placeholder="Search resources..."
           className="search-text"
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
