@@ -13,6 +13,9 @@ export const Perfil = ({ className, ...props }) => {
   const [socialLinks, setSocialLinks] = useState([]);
   const [newSocialLink, setNewSocialLink] = useState("");
   const [pendingLinks, setPendingLinks] = useState([]);
+  const [userAssets, setUserAssets] = useState([]); // Estado para los assets del usuario
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
 
   const detectSocialType = (url) => {
@@ -70,6 +73,40 @@ export const Perfil = ({ className, ...props }) => {
   
     fetchUserSocialLinks();
   }, []);
+
+  useEffect(() => {
+    const fetchUserAssets = async () => {
+      const userStr = localStorage.getItem("user");
+      const user = userStr ? JSON.parse(userStr) : null;
+
+      if (!user || !user._id) {
+        navigate("/login"); // Redirige al login si el usuario no está autenticado
+        return;
+      }
+
+      try {
+        const response = await fetch(`http://localhost:5000/api/recursos/usuario/${user._id}`, {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error("Error al obtener los assets del usuario");
+        }
+
+        const data = await response.json();
+        setUserAssets(data); // Actualiza el estado con los assets del usuario
+      } catch (error) {
+        console.error("Error al obtener los assets:", error);
+        setError(true); // Cambia el estado de error a true
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUserAssets();
+  }, [navigate]);
   
   const handleSaveSocialLinks = async () => {
     const user = JSON.parse(localStorage.getItem("user"));
@@ -206,9 +243,6 @@ export const Perfil = ({ className, ...props }) => {
   }, []);
   
   const handleProfileClick = () => navigate("/profile");
-  
-
-  const navigate = useNavigate();
 
   const handleSignInClick = () => {
     navigate("/login"); // Redirige a la página de Login
@@ -219,27 +253,6 @@ export const Perfil = ({ className, ...props }) => {
   };
 
   const handleUploadClick = () => navigate("/uploadAssets");
-
-  const userAssets = [
-    {
-      title: "Medieval Kingdom",
-      image: "https://www.dropbox.com/scl/fi/m0voxyg52vh3trimmeit9/medieval.png?rlkey=1g36ma5gepk0e6jt0kwrrfsrz&st=2j7cqm18&dl&raw=1",
-      likes: 120,
-      views: 450,
-    },
-    {
-      title: "Time Ghost",
-      image: "https://www.dropbox.com/scl/fi/nicjjn2or114xfc8wc8tk/time-character.png?rlkey=i5ms5f8yemin4yidanwqyo890&st=knbujtvz&raw=1",
-      likes: 98,
-      views: 320,
-    },
-    {
-      title: "Time Environment",
-      image: "https://www.dropbox.com/scl/fi/f93eic51n1gu8v1hrc6w6/time-env.png?rlkey=nhp7ciowh11ztad74amhlzxgn&st=ud7v91m2&dl&raw=1",
-      likes: 150,
-      views: 500,
-    },
-  ];
 
   return (
     <div className={`background`}>
@@ -271,32 +284,60 @@ export const Perfil = ({ className, ...props }) => {
 
             </div>
             <a href="/my-assets">My Assets</a>
-              <div className="assets-grid">
-                {userAssets.map((asset, index) => (
-                  <div key={index} className="asset-item">
-                    <img src={asset.image} alt={asset.title} className="asset-image" />
-                    <div className="asset-title">{asset.title}</div>
-                    <div className="asset-stats">
-                      <div className="asset-likes">
-                        <img
-                          src="https://www.dropbox.com/scl/fi/q33jkrd672q4d25su0x05/like-icon.png?rlkey=sp7h5t1wobga7jb2ctkk0tbcf&st=fnredprb&raw=1"
-                          alt="Likes"
-                          className="stat-icon"
-                        />
-                        {asset.likes}
-                      </div>
-                      <div className="asset-views">
-                        <img
-                          src="https://www.dropbox.com/scl/fi/voana9ty7p7zl13it9os8/view-icon.png?rlkey=ma0u1ziyxl1zb0fgilffd3jjx&st=mt18cmdg&raw=1"
-                          alt="Views"
-                          className="stat-icon"
-                        />
-                        {asset.views}
+            <div className="assets-grid">
+              {loading ? (
+                <div className="loading">Cargando tus assets...</div>
+              ) : error || userAssets.length === 0 ? (
+                <div className="no-assets-container">
+                  <p className="no-assets-message">¡Aún no has subido nada! Sube algo aquí:</p>
+                  <button className="upload-button" onClick={handleUploadClick}>
+                    Subir Asset
+                  </button>
+                </div>
+              ) : (
+                userAssets.map((asset) => (
+                  <div key={asset._id} className="asset-item">
+                    <img
+                      src={asset.previewUrl || asset.archivoUrl}
+                      alt={asset.titulo}
+                      className="asset-image"
+                    />
+                    <div className="asset-info">
+                      <h2 className="asset-title">{asset.titulo}</h2>
+                      <p className="asset-description">
+                        {asset.descripcion || "Sin descripción"}
+                      </p>
+                      <div className="asset-stats">
+                        <div className="asset-likes">
+                          <img
+                            src="https://www.dropbox.com/scl/fi/q33jkrd672q4d25su0x05/like-icon.png?rlkey=sp7h5t1wobga7jb2ctkk0tbcf&raw=1"
+                            alt="Likes"
+                            className="stat-icon"
+                          />
+                          {asset.numLikes || 0}
+                        </div>
+                        <div className="asset-views">
+                          <img
+                            src="https://www.dropbox.com/scl/fi/voana9ty7p7zl13it9os8/view-icon.png?rlkey=ma0u1ziyxl1zb0fgilffd3jjx&raw=1"
+                            alt="Views"
+                            className="stat-icon"
+                          />
+                          {asset.numVistas || 0}
+                        </div>
+                        <div className="asset-downloads">
+                          <img
+                            src="https://www.dropbox.com/scl/fi/voana9ty7p7zl13it9os8/download-icon.png?rlkey=ma0u1ziyxl1zb0fgilffd3jjx&raw=1"
+                            alt="Downloads"
+                            className="stat-icon"
+                          />
+                          {asset.numDescargas || 0}
+                        </div>
                       </div>
                     </div>
                   </div>
-                ))}
-              </div>
+                ))
+              )}
+            </div>
           </div>
           <div className="dashboard-historial">
             {isMobile ? (

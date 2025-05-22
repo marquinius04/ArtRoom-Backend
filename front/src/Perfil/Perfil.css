@@ -100,21 +100,6 @@
   grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); /* Tres columnas */
   gap: 1rem; /* Espaciado entre los elementos */
 }
-.dashboard-usuario .asset-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: #414c3e;
-  border-radius: 10px;
-  padding: 10px;
-  text-align: center;
-  color: #ffffff;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  cursor: pointer;
-}
-.dashboard-usuario .asset-item:hover {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Agrega una sombra */
-}
 .dashboard-usuario .asset-image {
   width: 100%;
   height: 150px;
@@ -141,6 +126,7 @@
 .dashboard-usuario .stat-icon {
   width: 20px;
   height: 20px;
+  margin: 0px;
 }
 
 .password-form {
@@ -268,6 +254,73 @@
   margin-top: 15px;
 }
 
+.no-assets-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  background-color: #f5f5f5; /* Fondo claro */
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+  max-width: 600px; /* Ancho máximo */
+}
+
+.no-assets-message {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.upload-button {
+  background-color: #57c882;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.upload-button:hover {
+  background-color: #4a6e58;
+  transform: scale(1.05);
+}
+
+/* Media Queries para Responsividad */
+@media (max-width: 768px) {
+  .no-assets-container {
+    padding: 15px;
+    max-width: 90%; /* Ajusta el ancho en pantallas más pequeñas */
+  }
+
+  .no-assets-message {
+    font-size: 16px; /* Reduce el tamaño del texto */
+  }
+
+  .upload-button {
+    font-size: 14px; /* Reduce el tamaño del botón */
+    padding: 8px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .no-assets-container {
+    padding: 10px;
+  }
+
+  .no-assets-message {
+    font-size: 14px;
+  }
+
+  .upload-button {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+}
 
 @media (max-width: 1302px) {
   .dashboard-usuario .assets-grid .asset-item:nth-child(3) {
@@ -363,5 +416,9 @@
   .social-cancel-button {
     font-size: 12px;
     width: 100%; /* Botones ocupan todo el ancho */
+  }
+
+  .dashboard-usuario .no-assets-container {
+    display: none;
   }
 }

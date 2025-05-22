@@ -91,7 +91,14 @@ const getRecursosRandom = asyncHandler(async (req, res) => {
     const total = await Recurso.countDocuments();
     const size = Math.min(3, total);
     const recursosAleatorios = await Recurso.aggregate([{ $sample: { size } }]);
-    res.json(recursosAleatorios);
+
+    // Populate usuarioId to include username
+    const populatedRecursos = await Recurso.populate(recursosAleatorios, {
+      path: 'usuarioId',
+      select: 'username', // Only include the username field
+    });
+
+    res.json(populatedRecursos);
   } catch (err) {
     console.error("Error en getRecursosRandom:", err);
     res.status(500).json({ message: err.message });

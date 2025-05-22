@@ -64,6 +64,7 @@ export const AssetIndividual = ({ className = "", ...props }) => {
         }
         const data = await response.json();
         setRandomAssets(data); // Actualiza el estado con los assets aleatorios
+        console.log(data);
       } catch (error) {
         console.error("Error al obtener assets aleatorios:", error);
       }
@@ -238,7 +239,7 @@ export const AssetIndividual = ({ className = "", ...props }) => {
                   <div className="related-asset-info">
                     <div className="related-asset-title">{relatedAsset.titulo}</div>
                     <div className="related-asset-user">
-                      Publicado por: {relatedAsset.usuario?.nombre || "Desconocido"}
+                      Publicado por: {relatedAsset.usuarioId.username}
                     </div>
                   </div>
                   <div className="related-asset-stats">
