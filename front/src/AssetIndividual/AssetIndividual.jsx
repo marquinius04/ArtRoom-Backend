@@ -45,7 +45,7 @@ export const AssetIndividual = ({ className = "", ...props }) => {
   
           setAsset((prev) => ({
             ...prev,
-            numVistas: (prev.numVistas || 0) + 1,
+            numVistas: (prev.numVistas) + 1,
             usuariosVistos: [...(prev.usuariosVistos || []), user._id],
           }));
         }
@@ -243,7 +243,7 @@ export const AssetIndividual = ({ className = "", ...props }) => {
                         alt="Likes"
                         className="stat-icon"
                       />
-                      {relatedAsset.likes || 0}
+                      {relatedAsset.numLikes || 0}
                     </div>
                     <div className="related-asset-views">
                       <img
@@ -251,7 +251,7 @@ export const AssetIndividual = ({ className = "", ...props }) => {
                         alt="Views"
                         className="stat-icon"
                       />
-                      {relatedAsset.views || 0}
+                      {relatedAsset.numVistas || 0}
                     </div>
                   </div>
                 </div>
