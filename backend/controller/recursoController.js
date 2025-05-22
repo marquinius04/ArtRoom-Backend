@@ -74,7 +74,12 @@ const addView = asyncHandler(async (req, res) => {
     recurso.numLikes = recurso.usuariosLikes.length;
     await recurso.save();
   
-    res.json({ numLikes: recurso.numLikes, liked: index === -1 });
+    resres.json({
+        numLikes: recurso.numLikes,
+        liked: index === -1,
+        usuariosLikes: recurso.usuariosLikes
+      });
+      
   });
   
 

@@ -124,7 +124,7 @@ export const AssetIndividual = ({ className = "", ...props }) => {
       alert("Usuario inválido");
       return;
     }
-
+  
     try {
       const response = await fetch(`http://localhost:5000/api/recursos/${id}/like`, {
         method: "POST",
@@ -132,23 +132,28 @@ export const AssetIndividual = ({ className = "", ...props }) => {
         body: JSON.stringify({ userId: user._id }),
       });
       if (!response.ok) throw new Error("Error al actualizar like");
+  
       const data = await response.json();
-
-      setAsset((prev) => ({
-        ...prev,
-        numLikes: data.numLikes,
-        usuariosLikes: data.liked
-          ? [...(prev.usuariosLikes || []), user._id]
-          : prev.usuariosLikes.filter((u) => u !== user._id),
-      }));
-      setLiked(data.liked);
+  
+      setAsset((prev) => {
+        const wasLiked = prev.usuariosLikes?.includes(user._id);
+      
+        const updatedUsuariosLikes = wasLiked
+          ? prev.usuariosLikes.filter((u) => u !== user._id)
+          : [...(prev.usuariosLikes || []), user._id];
+      
+        return {
+          ...prev,
+          numLikes: updatedUsuariosLikes.length,
+          usuariosLikes: updatedUsuariosLikes,
+        };
+      });
+      setLiked((prev) => !prev);
+      
     } catch (error) {
-      console.error(error);
+      console.error("Error al hacer toggle de like:", error);
     }
   };
-
-
-  
 
   return (
     <div className={`asset-individual ${className}`} {...props}>
@@ -189,7 +194,7 @@ export const AssetIndividual = ({ className = "", ...props }) => {
                   className="stat-icon"
                   src="https://www.dropbox.com/scl/fi/voana9ty7p7zl13it9os8/view-icon.png?rlkey=ma0u1ziyxl1zb0fgilffd3jjx&raw=1"
                 />
-                {asset?.numVistas || "Falta BD"}
+                {asset?.numVistas -1 || "Falta BD"}
               </h1>
             </div>
             <p className="asset-usuario">Subido por: {asset.usuarioId.username}</p>
@@ -243,7 +248,7 @@ export const AssetIndividual = ({ className = "", ...props }) => {
                         alt="Likes"
                         className="stat-icon"
                       />
-                      {relatedAsset.numLikes || 0}
+                      {relatedAsset.numLikes}
                     </div>
                     <div className="related-asset-views">
                       <img
@@ -251,7 +256,7 @@ export const AssetIndividual = ({ className = "", ...props }) => {
                         alt="Views"
                         className="stat-icon"
                       />
-                      {relatedAsset.numVistas || 0}
+                      {relatedAsset.numVistas}
                     </div>
                   </div>
                 </div>
