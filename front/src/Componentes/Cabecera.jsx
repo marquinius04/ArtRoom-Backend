@@ -11,7 +11,7 @@ export const Cabecera = ({
   handleSignUpClick,
   handleSignInClick,
   handleLogoutClick,
-  onSearchChange, 
+  handleSearchChange, 
 }) => {
   return (
     <div className="header">
@@ -26,7 +26,7 @@ export const Cabecera = ({
             type="text"
             placeholder="Buscar recursos..."
             className="search-text"
-            onChange={(e) => onSearchChange(e.target.value)}
+            onChange={(e) => handleSearchChange(e.target.value)}
             />
 
         </div>

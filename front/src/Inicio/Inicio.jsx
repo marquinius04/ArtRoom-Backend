@@ -12,6 +12,7 @@ export const Inicio = ({ className, ...props }) => {
   const location = useLocation();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [recursos, setRecursos] = useState([]);
+  const [filteredRecursos, setFilteredRecursos] = useState([]);
 
   useEffect(() => {
     const user = localStorage.getItem("user"); // O usa auth context, JWT, etc.
@@ -34,11 +35,20 @@ export const Inicio = ({ className, ...props }) => {
   const handleCategoriesClick = () => navigate("/categories");
   const handleProfileClick = () => navigate("/profile");
   const handleUploadClick = () => navigate("/uploadAssets");
+  
   const handleLogoutClick = () => {
     localStorage.removeItem("user");
     console.log("Usuario eliminado del localStorage");
     setIsLoggedIn(false);
     navigate("/");
+  };
+
+  const onSearchChange = (searchText) => {
+    const lowercasedText = searchText.toLowerCase();
+    const filtered = recursos.filter((recurso) =>
+      recurso.nombre && recurso.nombre.toLowerCase().includes(lowercasedText)
+    );
+    setFilteredRecursos(filtered);
   };
 
   const handleAssetClick = (id) => {
@@ -56,6 +66,7 @@ export const Inicio = ({ className, ...props }) => {
         handleSignUpClick={handleSignUpClick}
         handleSignInClick={handleSignInClick}
         handleLogoutClick={handleLogoutClick}
+        handleSearchChange={onSearchChange}
       />
 
       <div className="filters-grid">
