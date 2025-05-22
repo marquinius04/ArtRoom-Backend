@@ -9,6 +9,7 @@ import { Perfil } from "./Perfil/Perfil";
 import { SubirAssets } from "./SubirAssets/SubirAssets"; // Importa correctamente el componente SubirAssets
 import { AssetIndividual } from "./AssetIndividual/AssetIndividual"; // Página que usará AssetIndividual
 import { MisAssets } from "./MisAssets/MisAssets";
+import { Busqueda } from "./Busqueda/Busqueda";
 
 
 export default function App() {
@@ -24,6 +25,7 @@ export default function App() {
         <Route path="/uploadAssets" element={<SubirAssets />}></Route>
         <Route path="/asset/:id" element={<AssetIndividual />} />
         <Route path="/my-assets" element={<MisAssets />} />
+        <Route path="/search" element={<Busqueda />} />
       </Routes>
     </Router>
   );
