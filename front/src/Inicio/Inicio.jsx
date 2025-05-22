@@ -45,7 +45,7 @@ export const Inicio = ({ className, ...props }) => {
     navigate(`/asset/${id}`);
   };
 
-  const categories = ["3D", "Scripts", "Add-ons", "Sounds", "Music", "Templates", "Tools", "2D"];
+  const categories = ["3D", "Scripts", "Add-ons", "Sounds", "Music", "2D"];
 
   return (
     <div className={`p-gina-de-inicio-no-logueado ${className}`}>
@@ -65,7 +65,7 @@ export const Inicio = ({ className, ...props }) => {
       </div>
 
       <div className="recommended-assets">
-        <h2>Proyectos destacados</h2>
+        <h2>Recommended assets</h2>
         <div className="assets-grid">
           {recursos.map((asset) => (
             <div

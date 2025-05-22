@@ -165,7 +165,7 @@ export const AssetIndividual = ({ className = "", ...props }) => {
         <div className="asset-row">
           <div className="asset-info">
             <img
-              src={asset.archivoUrl}
+              src={asset.previewUrl}
               alt={asset.titulo}
               className="asset-image"
             />
@@ -193,7 +193,7 @@ export const AssetIndividual = ({ className = "", ...props }) => {
               </h1>
             </div>
             <p className="asset-usuario">Subido por: {asset.usuarioId.username}</p>
-            <p>{asset?.descripcion || "Falta BD"}</p>
+            <p>{asset?.descripcion || "No tiene descripción"}</p>
 
             {/* Nueva sección para las tags */}
             {Array.isArray(asset.tags) && asset.tags.length > 0 && (
@@ -210,7 +210,7 @@ export const AssetIndividual = ({ className = "", ...props }) => {
             )}
 
             <a href={asset.archivoUrl} download className="download-button">
-              Descargar modelo
+              Descargar
             </a>
           </div>
 

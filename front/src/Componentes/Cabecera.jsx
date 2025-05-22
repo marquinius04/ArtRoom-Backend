@@ -11,6 +11,7 @@ export const Cabecera = ({
   handleSignUpClick,
   handleSignInClick,
   handleLogoutClick,
+  onSearchChange, 
 }) => {
   return (
     <div className="header">
@@ -21,7 +22,13 @@ export const Cabecera = ({
             alt="Search Icon"
             className="search-icon"
             />
-            <input type="text" className="search-text" placeholder="Search..." />
+            <input
+            type="text"
+            placeholder="Buscar recursos..."
+            className="search-text"
+            onChange={(e) => onSearchChange(e.target.value)}
+            />
+
         </div>
         <div className="auth-buttons">
             {isLoggedIn ? (
