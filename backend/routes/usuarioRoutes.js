@@ -7,16 +7,21 @@ const {
     deleteUsuario,
     getUsuario,
     registerUsuario,
-    loginUsuario
+    loginUsuario,
+    registrarDescarga,
+    borrarDescarga
 } = require('../controller/usuarioController');  // Asegúrate de que esta línea sea correcta
 
 // Rutas
+router.get('/', getUsuarios);
+router.get('/:id', getUsuario);
 router.post('/register', registerUsuario);
 router.post('/login', loginUsuario);
-router.get('/', getUsuarios);
 router.post('/', setUsuario);
+router.post('/:id/descargar/:assetId', registrarDescarga);
 router.put('/:id', updateUsuario);
 router.delete("/delete-account/:id", deleteUsuario);
-router.get('/:id', getUsuario);
+router.delete('/:id/descargar/:assetId', borrarDescarga);
+
 
 module.exports = router;

@@ -98,6 +98,26 @@ const setUsuario = asyncHandler(async (req, res) => {
     }
 })
 
+// @desc   Registrar una descarga en el historial del usuario
+// @route  POST /api/usuarios/:id/descargar/:assetId
+// @access Private
+const registrarDescarga = asyncHandler(async (req, res) => {
+  const { id, assetId } = req.params;
+
+  const usuario = await Usuario.findById(id);
+  if (!usuario) {
+      res.status(404);
+      throw new Error('Usuario no encontrado');
+  }
+
+  if (!usuario.downloadHistory.includes(assetId)) {
+      usuario.downloadHistory.push(assetId);
+      await usuario.save();
+  }
+
+  res.status(200).json({ message: 'Descarga registrada', downloadHistory: usuario.downloadHistory });
+});
+
 // @desc   update usuarios
 // @route PUT /api/usuarios/:id
 // @access Private
@@ -157,7 +177,24 @@ const deleteUsuario = asyncHandler(async (req, res) => {
     }
   });
     
+// @desc   Borrar una descarga del historial del usuario
+// @route  DELETE /api/usuarios/:id/descargar/:assetId
+// @access Private
+const borrarDescarga = asyncHandler(async (req, res) => {
+  const { id, assetId } = req.params;
 
+  const usuario = await Usuario.findById(id);
+  if (!usuario) {
+      res.status(404);
+      throw new Error('Usuario no encontrado');
+  }
+
+  // Filtrar para eliminar el assetId
+  usuario.downloadHistory = usuario.downloadHistory.filter(item => item !== assetId);
+  await usuario.save();
+
+  res.status(200).json({ message: 'Descarga eliminada', downloadHistory: usuario.downloadHistory });
+});
 
 // @desc   Get usuario
 // @route GET /api/usuarios/:id
@@ -173,11 +210,13 @@ const getUsuario = asyncHandler(async (req, res) => {
 })
 
 module.exports = {
-    getUsuarios,
-    setUsuario,
-    updateUsuario,
-    deleteUsuario,
-    getUsuario,
-    registerUsuario,
-    loginUsuario
-}
+  getUsuarios,
+  setUsuario,
+  updateUsuario,
+  deleteUsuario,
+  getUsuario,
+  registerUsuario,
+  loginUsuario,
+  registrarDescarga,
+  borrarDescarga
+};

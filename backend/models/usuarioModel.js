@@ -34,10 +34,13 @@ const usuarioSchema = mongoose.Schema({
             }
         ],
         default: []
-    }
-         
+    },
+    downloadHistory: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Asset' // Asegúrate de que el modelo de tus recursos se llame 'Asset'
+    }]
 }, {
     timestamps: true
-})
+});
 
-module.exports = mongoose.model('Usuario', usuarioSchema)
+module.exports = mongoose.model('Usuario', usuarioSchema);
